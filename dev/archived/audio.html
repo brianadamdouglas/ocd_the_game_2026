@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<script src="js/OSC.js"></script>
+	</head>
+<body>
+	<audio id='myAudio'>
+		<source src="../audio/Clock.wav">
+	</audio>
+	
+	<audio id='myAudio2'>
+		<source src="../audio/Clock.wav">
+	</audio>
+	<script>
+		var myInterval;
+		var stopInterval;
+	
+		function playAudio(){
+			currentTime = 0;
+			O('myAudio').play();
+			myInterval = setInterval(checkAudioPoint, 10);
+			stop2();
+			//stopInterval = setInterval(stop2, 20);
+		}
+		
+		function checkAudioPoint(){
+			
+			if(currentTime >= 1.5){
+				console.log(currentTime, O('myAudio').duration);
+				clearInterval(myInterval);
+				playAudio2();
+			}
+			currentTime = O('myAudio').currentTime;
+		}
+		
+		function playAudio2(){
+			currentTime = 0;
+			O('myAudio2').play();	
+			myInterval = setInterval(checkAudioPoint2, 10);
+			stop1();
+			//stopInterval = setInterval(stop1, 20);
+		}
+		
+		
+		function checkAudioPoint2(){
+			
+			if(currentTime >= 1.5){
+				console.log(currentTime, O('myAudio2').duration);
+				clearInterval(myInterval);
+				playAudio();
+			}
+			currentTime = O('myAudio2').currentTime;
+		}
+		
+		function stop1(){
+			O('myAudio').pause();
+			O('myAudio').currentTime = 0;
+			clearInterval(stopInterval);
+		}
+		
+		function stop2(){
+			O('myAudio2').pause();
+			O('myAudio2').currentTime = 0;
+			clearInterval(stopInterval);
+		}
+		var currentTime;
+		playAudio();
+		
+		
+	
+	</script>
+</body>
+
+</html>

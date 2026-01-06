@@ -1,0 +1,105 @@
+Last login: Fri Mar 11 18:23:09 on ttys000
+Brians-MacBook-Pro:~ ELBOWTOE_Studio$ ssh -L 3306:internal-db.s209591.gridserver.com:3306 endgamesinteractive.com@s209591.gridserver.com
+Password: 
+bind: Address already in use
+channel_setup_fwd_listener: cannot listen to port: 3306
+Could not request local forwarding.
+Linux n15 4.1.4mtv20 #1 SMP Tue Jan 19 15:01:09 PST 2016 x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+endgamesinteractive.com@n15:~$ mysql -h internal-db.s209591.gridserver.com -u db209591 -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 341977
+Server version: 5.1.55-rel12.6 (Percona Server (GPL), 12.6 , Revision 200)
+
+Copyright (c) 2000, 2013, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use db209591_betatesterspwds;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++------------------------------------+
+| Tables_in_db209591_betatesterspwds |
++------------------------------------+
+| classics                           |
+| users                              |
++------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> describe users;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| forename | varchar(32) | NO   | MUL | NULL    |       |
+| surname  | varchar(32) | NO   | MUL | NULL    |       |
+| username | varchar(32) | NO   | MUL | NULL    |       |
+| password | varchar(32) | NO   | MUL | NULL    |       |
+| pin      | char(4)     | NO   | PRI | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> Write failed: Broken pipe
+Brians-MacBook-Pro:~ ELBOWTOE_Studio$ ssh -L 3306:internal-db.s209591.gridserver.com:3306 endgamesinteractive.com@s209591.gridserver.com
+Password: 
+bind: Address already in use
+channel_setup_fwd_listener: cannot listen to port: 3306
+Could not request local forwarding.
+Linux n15 4.1.4mtv20 #1 SMP Tue Jan 19 15:01:09 PST 2016 x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+endgamesinteractive.com@n15:~$ mysql -h internal-db.s209591.gridserver.com -u db209591 -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 356063
+Server version: 5.1.55-rel12.6 (Percona Server (GPL), 12.6 , Revision 200)
+
+Copyright (c) 2000, 2013, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use db209591_betatesterspwds;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> CREATE TABLE endgameRegisteredUsers(
+    -> username VARCHAR(32),
+    -> password VARCHAR(32),
+    -> pin VARCHAR(32),
+    -> PRIMARY KEY (pin)) ENGINE MyISAM;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> describe endgameRegisteredUsers;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| username | varchar(32) | YES  |     | NULL    |       |
+| password | varchar(32) | YES  |     | NULL    |       |
+| pin      | varchar(32) | NO   | PRI |         |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> 

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>stage inside a rotator v2</title>
+		<script src="js/jQuery_v2_1_3.js"></script>
+		<script src="js/jquery.easing.1.3.js"></script>
+		<script src="js/OSC.js"></script>
+	</head>
+	
+	<body>
+		<div id="mask"><div id='rotater'></div></div>
+		<div id='character'></div>
+		<script>
+		
+		/*
+			// Define a plain object
+var foo = { foo: "bar", hello: "world", test:function(){console.log('yes')} };
+ 
+// Pass it to the jQuery function
+var $foo = $( foo );
+ $foo.prop( "test")();
+// Test accessing property values
+var test1 = $foo.prop( "foo" ); // bar
+ 
+// Test setting property values
+$foo.prop( "foo", "foobar" );
+var test2 = $foo.prop( "foo" ); // foobar
+ 
+// Test using .data() as summarized above
+$foo.data( "keyName", "someValue" );
+console.log( $foo ); // will now contain a jQuery{randomNumber} property
+ 
+// Test binding an event name and triggering
+$foo.on( "eventName", function (e) {
+  this.prop("test")();
+});
+ 
+$foo.trigger( "eventName" );
+
+//jQuery(document).trigger( "eventName", [ "Custom", "Event" ] );
+*/
+
+
+// Define a new event.
+var SpecialEvent = new CustomEvent(
+  "SpecialMessage",
+  {
+   detail:
+   {
+     message: "Hello There",
+     time: new Date()
+   },
+   bubbles: true,
+   cancelable: true
+  });
+ 
+  
+  function AssignEvent()
+{
+  // Obtain the object reference.
+  var Label = O('rotater');
+ 
+  // Assign an event to the object.
+  Label.addEventListener(
+   "SpecialMessage", HandleEvent, false);
+}
+	AssignEvent();	
+		
+		function FireEvent()
+{
+  // Obtain the object reference.
+  var Label = O('character');
+ 
+  // Fire the event.
+  Label.dispatchEvent(SpecialEvent);
+}
+
+
+function HandleEvent(event)
+{
+  console.log("Control: " + event.currentTarget.id +
+   "<br />Message: " + event.detail.message +
+   "<br />Time sent: " +
+   event.detail.time.toTimeString());
+}
+
+FireEvent();
+		
+		</script>
+	
+	</body>
+
+</html>

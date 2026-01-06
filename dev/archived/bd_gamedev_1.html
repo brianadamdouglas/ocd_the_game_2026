@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Container inside a rotator v2</title>
+		<script src="js/jQuery_v2_1_3.js"></script>
+		<script src="js/jquery.easing.1.3.js"></script>
+		<script src="js/e-smart-hittest-jquery.js"></script>
+		<script src="js/OSC.js"></script>
+		<style>
+			
+			.redBox { 	  position:absolute; 
+					 	  width:50px;
+						  height:50px;
+						  background-image: url("../img/gameDev/floor.gif");
+			}
+			
+			.greenBox {	  position:absolute; 
+					 	  width:50px;
+						  height:50px;
+						  background-image: url("../img/gameDev/floor.gif");
+			}
+			
+			.blueBox {	  position:absolute; 
+					 	  width:50px;
+						  height:50px;
+						  background-image: url("../img/gameDev/floor.gif");
+			}
+			
+			.pinkBox {	  position:absolute; 
+					 	  width:10px;
+						  height:10px;
+						  background:pink;
+			}
+			
+			#container{	  position:absolute;
+						  width:600px;
+						  height:600px;
+						  left:0px;
+						  top:0px;	
+						  background:#ef0;				  
+			}
+			
+			#rotater{	  position:absolute;
+						  width:600px;
+						  height:600px;
+						  left:0px;
+						  top:0px;
+						  transform-origin: 300px 300px;
+						   -webkit-transform-origin: 300px 300px; /* Chrome, Safari, Opera */
+						  
+			}
+			
+			#character{	  position:absolute;
+						  width:48px;
+						  height:48px;
+						  background:orange;
+						  left:276px;
+						  top:276px;
+			
+			}
+			
+			#debug{		  position:absolute;
+						  width:200px;
+						  height:50px;
+						  background:orange;
+						  left:700px;
+						  top:0px;
+				
+				
+			}
+			#mask{		  
+						  position:absolute;
+						  width:500px;
+						  height:500px;
+						  left:0px;
+						  top:0px;
+          				  clip: rect(100px,400px,400px,100px);
+			}
+			
+
+			
+			
+			
+		
+		</style>
+	</head>
+	
+	<body>
+		<div id="mask"><div id='rotater'></div></div>
+		<div id='character'></div>
+		<div id='debug'>a</div>
+		<script>
+		
+			var row 	= 	0;
+			var column 	= 	0;
+			var colMax	= 	10;
+			var rowMax	=	10;
+			var classes = ['redBox', 'greenBox', 'blueBox'];
+			var angle = 0;
+			var containerRotation = 0;
+			var direction = 'horizontal';
+			var divMDArray = Array();
+			buildArray();
+			addContainer();
+			buildFloor();
+			$(document).keypress(alertKey);
+			
+			
+			function checkForHit(){
+				$('#debug').html(catchHit());
+			}
+			
+			function catchHit(){
+				for(var i = 0; i<rowMax; i++){
+					for(var j = 0; j<colMax; j++){
+						var k = '#' + divMDArray[i][j]._name;
+						var hit = $('#character').objectHitTest({"object":$(k)});
+						if(hit){
+							return (divMDArray[i][j]._name);
+						}
+					}
+				}
+			}
+			
+			function buildArray(){
+
+				for(var i=0; i<colMax ; i++){
+					divMDArray.push(Array());
+				}
+			}
+			
+			function buildFloor(){
+				var max = colMax * rowMax;
+				for(var i = 0; i<max; i++){
+					addSprite();
+				}
+			}
+			
+			
+			function addContainer(){
+				var newDiv = document.createElement('div');
+				var id = "container";
+				newDiv.id = id;
+				O('rotater').appendChild(newDiv); 
+			}
+			
+			
+			function addSprite(){
+				
+				if(row<rowMax){
+					if(column < colMax){
+						//createNewSprite
+						divMDArray[row].push(createSprite(row,column));
+						column++;
+					}else{
+						row++;
+						column = 0;
+						addSprite();
+					}
+				}else{
+				}
+			}
+			
+			function createSprite(row,col){
+				var newDiv = document.createElement('div');
+				var id = 'sprite'+"_"+row+"_"+col;
+				newDiv.id = id;
+				classes.unshift(classes.pop());
+				var _className = classes[0];
+				newDiv.className = _className;
+				O('container').appendChild(newDiv); 
+				$('#'+id).css('left',(col * 50)+25);
+				$('#'+id).css('top',(row * 50)+25);
+				
+				$('#'+id).click(showName);
+				
+				return {_name:id, _class:_className};
+				
+				
+			}
+			
+			function showName(){
+				
+		        var id = $(this).attr("id");
+		
+			}
+			
+			function alertKey(event){
+				key = (event.which)
+				if(String.fromCharCode(key) == "x"){
+					$('#rotater').finish();
+					var position = $('#container').position();	
+					rotateSpriteSheet(angle -= 180);
+				}
+				if(String.fromCharCode(key) == "w"){
+					$('#rotater').finish();
+					correctMoveForward();
+				}
+				if(String.fromCharCode(key) == "a"){
+					$('#rotater').finish();
+					var position = $('#container').position();	
+					rotateSpriteSheet(angle += 90);
+				}
+				if(String.fromCharCode(key) == "d"){
+					$('#rotater').finish();
+					var position = $('#container').position();	
+					rotateSpriteSheet(angle -= 90);
+				}
+			}
+			
+			function rotateSpriteSheet(degrees){
+				var remainder = (degrees/360)%1;
+				if(remainder < 0){
+					var percent = 1 + remainder;	
+				}else{
+					var percent = remainder;
+				}
+				containerRotation = 360 * percent;
+				
+				$('#rotater').animate(
+										{target: degrees}, 
+											{step: function(now,fx) {
+														$(this).css('-webkit-transform','rotate('+now+'deg)'); 
+														$(this).css('-moz-transform','rotate('+now+'deg)');
+														$(this).css('transform','rotate('+now+'deg)');
+												   }
+													,duration:500,
+													easing:'easeOutCirc',
+													complete:rotateSprite
+											});
+				
+			}
+			
+			function correctMoveForward(position){
+				
+				switch(containerRotation){
+					case 0:
+						$('#container').animate( {left:"+=0", top:"+=50" }, 100, 'swing',checkForHit);
+						break;
+					case 90:
+						$('#container').animate( {left:"+=50", top:"+=0" }, 100, 'swing',checkForHit);
+						break;
+					case 180:
+						$('#container').animate( {left:"+=0", top:"-=50" }, 100, 'swing',checkForHit);
+						break;
+					case 270:
+						$('#container').animate( {left:"-=50", top:"+=0" }, 100, 'swing',checkForHit);
+						break;
+				}
+				
+			}
+			
+			function rotateSprite(){
+				
+			}
+			
+
+			
+			function getRotationDegrees(obj) {
+ 			   var matrix = obj.css("-webkit-transform") ||
+			    obj.css("-moz-transform")    ||
+			    obj.css("-ms-transform")     ||
+			    obj.css("-o-transform")      ||
+			    obj.css("transform");
+			    if(matrix !== 'none') {
+			        var values = matrix.split('(')[1].split(')')[0].split(',');
+			        var a = values[0];
+			        var b = values[1];
+			        var angle = Math.round(Math.atan2(b, a) * (180/Math.PI));
+			    } else { var angle = 0; }
+			    return angle;
+			}
+			
+			
+			
+			
+		
+		</script>
+	
+	</body>
+
+</html>

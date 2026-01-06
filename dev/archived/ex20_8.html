@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Adding Elements</title>
+		<script type="text/javascript" src="js/OSC.js"></script>
+	</head>
+	
+	<body>
+		This is a document with only text in it.<br><br>
+		
+		<script>
+			alert('Click OK to add new element');
+			
+			var newDiv = document.createElement('div');
+			newDiv.id = 'NewDiv';
+			document.body.appendChild(newDiv);
+			O(newDiv).onclick = _onClick;
+			
+			S(newDiv).position = 'absolute';
+			S(newDiv).border = 'solid 1px red';
+			S(newDiv).width = '100px';
+			S(newDiv).height = '100px';
+			S(newDiv).top = '2px';
+			S(newDiv).left = '100px';
+			putContentInto(O(newDiv), "I'm a new object inserted in the DOM");
+			tmp = newDiv.offsetTop;
+			
+			
+			
+			
+			
+			function _onClick() {
+				var pnode;
+				pnode  = newDiv.parentNode;
+				pnode.removeChild(newDiv);
+				tmp = pnode.offsetTop;
+			}
+			
+			function putContentInto(element,text){
+				element.innerHTML = text;
+			}
+			
+		
+		
+		</script>
+	</body>
+
+</html>

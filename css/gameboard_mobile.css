@@ -1,0 +1,305 @@
+
+			
+			html, body {
+			  overflow-x: hidden;
+			  overflow-y: hidden;
+			  
+			  background-color: white;
+			  
+			}
+			
+			body{
+				background-color: white;
+				position: relative;
+				margin:0px;
+				padding:0px;
+				border: 0;
+    			left: 0px;
+    			top: 0px; 
+			}	
+			
+			.tile{
+				 position:absolute; 
+				 margin:0px;
+				 padding:0px;
+				 border: 0;
+			}
+			
+			.obstacle{
+				 position:absolute; 
+				 margin:0px;
+				 padding:0px;
+				 border: 0;
+			}
+			
+			.overMobileButton{
+				 position:absolute; 
+				 margin:0px;
+				 padding:0px;
+				 border: 0;
+				 pointer-events:none /*This is the code to make divs not catch mobile events*/
+				 
+			}
+			
+			.interactive{
+				position:absolute; 
+				margin:0px;
+				padding:0px;
+				border: 0;
+			}
+			
+			.hingedActive{
+				position:absolute; 
+				margin:0px;
+				padding:0px;
+				border: 0;
+			}
+			
+			.hingedInactive{
+				position:absolute; 
+				margin:0px;
+				padding:0px;
+				border: 0;
+			}
+			
+			.OnOffTile{
+				position:absolute; 
+				margin:0px;
+				padding:0px;
+				border: 0;
+			}
+			
+			.sticky{
+				position:absolute; 
+				margin:0px;
+				padding:0px;
+				border: 0;
+			}
+			
+			.onOff{
+				position:absolute; 
+				margin:0px;
+				padding:0px;
+				border: 0;
+			}
+			
+			.tile{
+				position:absolute; 
+				margin:0px;
+				padding:0px;
+				border: 0;
+			}
+			
+			img{
+				position:absolute; 
+				margin:0px;
+				padding:0px;
+				border: 0;
+			}
+			
+			#stage{	  
+				position:absolute;
+				background-color: white;
+				  
+			}
+			
+			.grass {
+			  position:absolute;
+			  background-image: url("../img/gameDev/grass.gif");
+			  background-repeat: repeat;
+              background-position: center ;	
+			}
+			
+			.dirt {
+			  position:absolute;
+			  background-image: url("../img/gameDev/dirt.gif");
+			  background-repeat: repeat;
+              background-position: center ;	
+			}
+			
+			.shrubbery {
+			  position:absolute;
+			  background-image: url("../img/gameDev/shrubbery.gif");
+			  background-repeat: repeat;
+              background-position: center ;	
+			}
+			
+			.sidewalk {
+			  position:absolute;
+			  background-image: url("../img/gameDev/sidewalk.gif");
+			  background-repeat: repeat;
+              background-position: center ;	
+			}
+			
+			#stageBackground{	  
+				position:absolute;
+				background-image: url("../img/gameDev/floorTile.gif");
+				background-repeat: repeat;
+                background-position: center ;				  
+			}
+			
+			
+			#rotater{	  
+				position:absolute;
+				transform-origin: 0px 0px;
+				-ms-transform-origin: 0% 0%; /* IE 9 */
+    			-webkit-transform-origin: 0% 0%; /* Chrome, Safari, Opera */
+				transform-origin: 0% 0%;
+						  
+			}
+
+			.bathWater{
+				position:absolute; 
+				pointer-events: none;
+			}
+			
+			.player{	  
+				position:absolute; 
+				pointer-events: none;
+			}
+			
+			.mask{	  
+				position:absolute; 
+   				-ms-transform-origin: 0% 0%; /* IE 9 */
+    			-webkit-transform-origin: 0% 0%; /* Chrome, Safari, Opera */
+				transform-origin: 0% 0%;
+				pointer-events: none;
+				
+			}
+			
+			#playerHead{
+				position:absolute;
+				width:38px;
+				height:27px;
+				left:18px;
+				top:2px; 
+				margin:0px;
+				padding:0px;
+				border: 0;
+			}
+			
+			#playerTorso{
+				position:absolute;
+				width:58px;
+				height:60px;
+				left:8px;
+				top:30px; 
+				margin:0px;
+				padding:0px;
+				border: 0;	
+			}
+			
+			#mask{		  
+				position:absolute;
+				width:500px;
+				height:800px;
+				left:0px;
+				top:0px;
+          		clip: rect(0px,375px,559px,0px);
+			}
+			
+			#swipeInterface{
+				opacity: 0;
+				background:red;  
+			}
+			
+			.dropTarget{
+				position:absolute; 
+				opacity: 0;
+				background:red;
+				position:absolute;
+			}
+			
+			
+			
+			
+			#thoughtBubble{	  
+				position:absolute; 
+				margin:0px;
+				padding:0px;
+				border: 0;	
+				pointer-events: none;		
+			}
+			
+			.animationSequence{	  
+				position:absolute; 
+				margin:0px;
+				padding:0px;
+				border: 0;			
+			}
+			
+			.door{	  
+				position:absolute; 
+				margin:0px;
+				padding:0px;
+				border: 0;			
+			}
+			
+			.button{	  
+				position:absolute; 
+				margin:0px;
+				padding:0px;
+				border: 0;			
+			}
+			
+			#startScreen{	  
+				position:absolute; 
+				margin:0px;
+				padding:0px;
+				border: 0;			
+			}
+			
+			#rotateScreen{	  
+				position:absolute; 
+				margin:0px;
+				padding:0px;
+				border: 0;			
+			}
+			
+			#informationDisplay{
+				position:absolute; 
+				margin:0px;
+				padding:0px;
+				border: 0;	
+			}
+			
+			#disclaimerDisplay{
+				position:absolute; 
+				margin:0px;
+				padding:0px;
+				border: 0;	
+			}
+			
+			#timer{
+				position:absolute; 
+				margin:0px;
+				padding:0px;
+				border: 0;
+				width:60;
+				text-align: center;
+				font-family: "Arial Black", sans-serif;
+				font-size: 22px;
+				font-weight: bold;
+				color: #ef2f48;
+				/* color: transparent; */
+				
+   			   -webkit-text-fill-color: #ef2f48; /* Will override color (regardless of order) */
+			   -webkit-text-stroke-width: 1px;
+			   -webkit-text-stroke-color: white;
+  				 text-shadow: 0 0 10px rgba(255,255,255,1); 
+			}
+			
+			#volumeControl{
+				position:absolute; 
+				margin:0px;
+				padding:0px;
+				border: 0;	
+			}
+
+			#joystick{
+				position:absolute; 
+				margin: auto;
+			}
+			
+			
+			

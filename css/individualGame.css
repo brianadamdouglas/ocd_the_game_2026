@@ -1,0 +1,15 @@
+#_errorCopy{
+	height: 80%;
+	width: 80%;
+	background: #c1c1c1;
+	font-size: 11pt;
+	font-family: Helvetica, sans-serif;
+	text-align: left;
+
+  	margin: auto;
+  	padding: 15px;
+
+}
+.title{
+	font-weight: bold;	
+}

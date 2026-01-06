@@ -1,0 +1,1 @@
+var DropTargetRevealed_Controller=InteractiveTile_Controller.extend({construct:function(){this.SC.construct();this._className="DropTargetRevealed";},interact:function(){this.getViewDIV().show();}});

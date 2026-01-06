@@ -1,0 +1,102 @@
+const Audio_Controller = Tile_Controller.extend({
+
+construct() { 
+	this.SC.construct();
+	this._trackLength;
+	this._playhead;
+	this._checkPlayheadPositionInterval;
+	this._duration;
+	this._activeAudioClip;
+	this._className = "Timer";
+},
+
+
+ 	
+init() {
+	this._activeAudioClip = false;
+	this.addListners();	
+},
+
+/**
+* @description Add Listeners to the Global Event Handler
+* @return null
+*/
+addListners(){
+	g_eventHandler.addAListener("startAudio", this);
+	g_eventHandler.addAListener("pauseAudio", this);
+	g_eventHandler.addAListener("seekAudio", this);
+	g_eventHandler.addAListener("resumeAudio", this);
+	g_eventHandler.addAListener("toggleAudio", this);
+	g_eventHandler.addAListener("restartAudio", this);
+	g_eventHandler.addAListener("kill", this);
+},
+
+startAudio(){
+	this._activeAudioClip = true;
+	this.startCheckingPlayhead();
+	this._view.getTrack().play();
+	this.getDuration();
+},
+
+pauseAudio(){
+	this._view.getTrack().pause();
+	clearInterval(this._checkPlayheadPositionInterval);
+},
+
+resumeAudio(){
+	if(this._activeAudioClip){
+		this._view.getTrack().play();
+		this.startCheckingPlayhead();
+	}
+	
+},
+
+toggleAudio(){
+	if(this._view.getTrack().paused){
+		this._activeAudioClip = true;
+		this.resumeAudio();
+	}else{
+		this._activeAudioClip = false;
+		this.pauseAudio();
+	}
+},
+
+seekAudio(position){
+	
+},
+
+setAudioVolume(volume){
+	const normalizedVolume = volume/100;
+	this._view.getTrack().volume = normalizedVolume;
+},
+
+getDuration(){
+	this._duration = this._view.getTrack().duration;
+},
+
+startCheckingPlayhead(){
+	this._checkPlayheadPositionInterval = setInterval(this.checkPlayheadPosition.bind(this), 10); // use .bind to correct scope
+},
+
+checkPlayheadPosition(){
+	const currentTime = this._view.getTrack().currentTime;
+	//console.log(currentTime);
+	if(currentTime > 35.2){//this._duration - currentTime < .25
+		this._view.setCurrentTime(.01);
+	}
+	
+},
+
+restartAudio(){
+	this._view.setCurrentTime(.36);
+	this.resumeAudio();
+},
+
+kill(){
+	
+}
+
+
+
+
+});

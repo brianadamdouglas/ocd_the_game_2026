@@ -1,0 +1,1 @@
+var Images_Controller=Controller.extend({construct:function(){this.SC.construct();this._className="Images";},showFrameNum:function(frameNum){this._view.showFrameNum(frameNum);},hideFrameNum:function(frameNum){this._view.hideFrameNum(frameNum);},getImageCount:function(){return(this._view.getImageCount());},getViewDIV:function(){return this._view.getDiv();}});

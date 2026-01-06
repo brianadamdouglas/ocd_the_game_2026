@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Testing OCD Class</title>
+		<script src="js/CLASS.js"></script>
+		<script src="js/OCD.js"></script>
+		<script src="js/Thought.js"></script>
+		<script src="js/Thoughts.js"></script>
+		<script src="js/animationFrame.js"></script>
+
+	</head>
+	
+	<body>
+		<script>
+			var OCD_object = new OCD();
+			OCD_object.init();
+			OCD_object.addInstance(OCD_object);
+			var d = new Date();
+			var timeStamp = d.getTime();
+			OCD_object.addThought("range",timeStamp, 1);
+			OCD_object.fireLatestThought(); 
+			
+		
+		</script>
+		
+	
+	</body>
+
+</html>

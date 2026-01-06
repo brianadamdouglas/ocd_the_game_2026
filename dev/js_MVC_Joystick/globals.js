@@ -1,0 +1,16 @@
+var g_screenWidth = window.innerWidth;
+var g_screenHeight = window.innerHeight;
+var g_screenRotateHeight;
+
+if(window.innerHeight > window.innerWidth ){
+	g_screenWidth = window.innerWidth;
+	g_screenHeight = window.innerHeight;
+	g_screenRotateHeight = screen.height;
+}else{
+	g_screenWidth = window.innerHeight;
+	g_screenHeight = window.innerWidth;	
+	g_screenRotateHeight = screen.width;
+}
+var g_centerY = Math.round(g_screenHeight * 0.53667262969589);
+
+//alert([g_screenWidth, g_screenHeight]);

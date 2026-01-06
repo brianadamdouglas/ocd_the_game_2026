@@ -1,0 +1,1 @@
+var ThoughtAnimationSequence_Controller=AnimationSequence_Controller.extend({construct:function(){this.SC.construct();},addListners:function(){g_eventHandler.addAListener("resetFrames",this);g_eventHandler.addAListener("kill",this);g_eventHandler.addAListener("pauseThought",this);},pauseThought:function(){this.pauseAnimation();}});

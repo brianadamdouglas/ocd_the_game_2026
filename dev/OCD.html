@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Endgames</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" href="../css/normalize.css">
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="stylesheet" href="../css/gamepage.css">
+	<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script>
+		$(function() {
+			var pull 		= $('#pull');
+				menu 		= $('nav ul');
+				menuHeight	= menu.height();
+
+			$(pull).on('click', function(e) {
+				e.preventDefault();
+				menu.slideToggle();
+			});
+
+			$(window).resize(function(){
+        		var w = $(window).width();
+        		if(w > 320 && menu.is(':hidden')) {
+        			menu.removeAttr('style');
+        		}
+    		});
+		});
+	</script>
+</head>
+<body>
+	<nav class="clearfix">
+		<ul class="clearfix">
+			<li><a href="artworks.html" class="activePage">Artworks</a></li>
+			<li><a href="about.html">About</a></li>
+			<li><a href="registerLogin.php">Login/Register</a></li>
+			<li><a href="contact.html">Contact</a></li>
+		</ul>
+		<a href="#" id="pull">Menu</a>
+	</nav>
+	<img src="../img/menuDev/logo.gif" id="logo" height="293" width="688">
+	<div id="_body">
+		<div id="_bodyCopy">
+			<div class="screenImageContainer"><img src="../img/menuDev/game1Landing.gif" height="300" width="300" class="screenImage"></div><br>
+
+			<span class="objective">You are running late for work. You have 3 minutes to get out the front door to make it on time. Are you sure you have not left a dangerous situation behind?</span><br><br><br><br>
+			
+			<span class="title">How to play</span><br><br>
+			<div class="screenImageContainer"><img src="../img/menuDev/OCDInstructions1.gif" height="300" width="300" class="screenImage"></div><br>
+			
+			Press and hold the <span class="buttonType">UP</span> arrow to walk forward.<br>
+			Press the <span class="buttonType">LEFT</span> arrow to turn left.<br>
+			Press the <span class="buttonType">RIGHT</span> arrow to turn right.<br>
+			Press the <span class="buttonType">DOWN</span> arrow to turn around.<br><br>
+			Press the <span class="buttonType">A</span> button to interact with objects. This includes both stationary and movable objects. Not everything in the space is interactive.<br><br>
+			Press the <span class="buttonType">B</span> button to pick up objects. Not everything in the space can be lifted.<br><br><br>
+			<a href="gameEngineMVC_Joystick.php" class="submitButton">Play</a>
+		</div>
+			<img src="../img/menuDev/shim.gif" id="filler" height="1" width="1">
+	</div>
+</body>
+</html>

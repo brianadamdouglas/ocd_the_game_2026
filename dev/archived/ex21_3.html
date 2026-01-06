@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>jQuery Events</title>
+		<script src="js/jQuery_v2_1_3.js"></script>
+	</head>
+	
+	<body>
+		<button id='clickme'>Click Me</button>
+		<p id='result'>I am a paragraph</p>
+		<script>
+			$('#clickme').click(updateText);
+			
+			function updateText(){
+				$('#result').html('You clicked a button');	
+			}
+		</script>
+	
+	</body>
+
+</html>
