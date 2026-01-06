@@ -1,1 +1,0 @@
-var Controller=Class.extend({construct:function(){this._view;},init:function(){this.addListners();},bindView:function(view,data){this.init();this._view=view;this._view.init(this,data);},addListners:function(){},handleAnEvent:function(event,data){this[event](data);}});

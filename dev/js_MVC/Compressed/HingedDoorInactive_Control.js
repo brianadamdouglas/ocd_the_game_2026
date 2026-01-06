@@ -1,1 +1,0 @@
-var HingedDoorInactive_Controller=HingedDoor_Controller.extend({construct:function(){this.SC.construct();this._className="HingedDoorInactive";},actedUpon:function(){}});

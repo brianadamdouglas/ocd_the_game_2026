@@ -1,1 +1,0 @@
-var StageBuilder=Class.extend({construct:function(){;},addElement:function(data,myArray,type){var position=myArray.length;window[type+position]=data;myArray.push(window[type+position]);return(position);}});
