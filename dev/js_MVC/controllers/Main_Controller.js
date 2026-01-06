@@ -1829,26 +1829,45 @@ class Main_Controller extends Controller {
 }
 
 	restartGame(){
+	// Reset game over flag
+	this._gameOver = false;
+	
+	// Reset rotation
 	$('#rotater').css('-webkit-transform','rotate('+0+'deg)'); 
 	$('#rotater').css('-moz-transform','rotate('+0+'deg)');
 	$('#rotater').css('transform','rotate('+0+'deg)');
+	
+	// Reset stage position
 	this._stage.setViewLoc(this._mainModel.getStageStartX(),this._mainModel.getStageStartY());
+	
+	// Reset positions of movable and sticky objects
 	g_eventHandler.dispatchAnEvent("resetPosition",{});
+	
+	// Reset timer
 	this._timer.setTotalTime(3);
-	g_eventHandler.dispatchAnEvent("startClock",{});
-	g_eventHandler.dispatchAnEvent("restartAudio",{});
+	
+	// Show all game elements that were hidden in gameOver()
+	this._mask.show();
+	this._rotater.show();
+	this._player.show();
+	this._stage.show();
 	this._timer.show();
 	this._volumeControl.getView().show();
-	g_eventHandler.dispatchAnEvent("resetState",{});
-	this.populatePretriggeredControls(this._potentialThoughtArray);
+	this._swipeInterface.show();
+	
+	// Hide end screens
 	this._endScreenGood.hide();
 	this._endScreenBad.hide();
+	
+	// Start game systems
+	g_eventHandler.dispatchAnEvent("startClock",{});
+	g_eventHandler.dispatchAnEvent("restartAudio",{});
+	g_eventHandler.dispatchAnEvent("resetState",{});
+	
+	// Reset game state
+	this.populatePretriggeredControls(this._potentialThoughtArray);
 	this.turnOnRandomizedItems();
-	this._swipeInterface.show();
-	/* there will be a reset dispatch that:
-	repositions movables and sticky objects to their default positions
-	rotates the screen back to 0
-	moves the screen back to the start position */
+	
 	console.log('game restarted');	
 }
 

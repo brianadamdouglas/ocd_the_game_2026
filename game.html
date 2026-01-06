@@ -12,92 +12,83 @@
 	 <link rel="stylesheet" type="text/css" href="css/gameboard_mobile.css">
 	
 	
-	<script src="dev/js_MVC/jQuery_v2_1_3.js"></script> 
+	<!-- VENDOR LIBRARIES -->
+	<script src="dev/js_MVC/vendors/jQuery_v2_1_3.js"></script> 
+	<script src="dev/js_MVC/vendors/jquery.mobile-1.4.5.js"></script>
+	<script src="dev/js_MVC/vendors/jquerymobile-swipeupdown.js"></script>  
+	<script src="dev/js_MVC/vendors/jquery.easing.1.3.js"></script>
+	<script src="dev/js_MVC/vendors/e-smart-hittest-jquery.js"></script>
 	
-	<!-- Include the jQuery Mobile library -->
-	<script src="dev/js_MVC/jquery.mobile-1.4.5.js"></script>
-	<script src="dev/js_MVC/jquerymobile-swipeupdown.js"></script>  
-	<script src="dev/js_MVC/jquery.easing.1.3.js"></script>
-	<script src="dev/js_MVC/e-smart-hittest-jquery.js"></script>
 	<!-- CORE CLASSES -->
-	<script src="dev/js_MVC/globals.js"></script>
-	<script src="dev/js_MVC/ImageLoading.js"></script>
-	<script src="dev/js_MVC/OSC.js"></script>
-	<script src="dev/js_MVC/EventHandler.js"></script>
-	<script src="dev/js_MVC/Controller.js"></script>
-	<script src="dev/js_MVC/View.js"></script>
+	<script src="dev/js_MVC/core/globals.js"></script>
+	<script src="dev/js_MVC/core/ImageLoading.js"></script>
+	<script src="dev/js_MVC/core/OSC.js"></script>
+	<script src="dev/js_MVC/core/EventHandler.js"></script>
+	<script src="dev/js_MVC/core/Controller.js"></script>
+	<script src="dev/js_MVC/core/View.js"></script>
 	
 	
-	<!-- CHILD CLASSES -->
-	<script src="dev/js_MVC/Images_Controller.js"></script>
-	<script src="dev/js_MVC/Images_View.js"></script>
-	<script src="dev/js_MVC/AnimationFrame_View.js"></script>
-	<script src="dev/js_MVC/Tile_Controller.js"></script>
-	<script src="dev/js_MVC/Tile_View.js"></script>
-	<script src="dev/js_MVC/InteractiveTile_Controller.js"></script>
-	<script src="dev/js_MVC/OnOffTile_Controller.js"></script>
-	<script src="dev/js_MVC/OnOffTileControl_Controller.js"></script>
-	<script src="dev/js_MVC/Button_Controller.js"></script>
-	<script src="dev/js_MVC/ButtonOnOff_Controller.js"></script>
-	<script src="dev/js_MVC/Button_View.js"></script>
-	<script src="dev/js_MVC/StickyTile_Controller.js"></script>
-	<script src="dev/js_MVC/Door_Controller.js"></script>
-	<script src="dev/js_MVC/HingedDoor_Controller.js"></script>
-	<script src="dev/js_MVC/HingedDoorInactive_Control.js"></script>
-	<script src="dev/js_MVC/MovableTile_Controller.js"></script>
-	<script src="dev/js_MVC/DropTarget_Controller.js"></script>
-	<script src="dev/js_MVC/DropTargetRevealed_Controller.js"></script>
-	<script src="dev/js_MVC/Mobile_View.js"></script>
-	<script src="dev/js_MVC/NonGraphic_View.js"></script>
-	<script src="dev/js_MVC/DispatchingNonGraphic_View.js"></script>
-	<script src="dev/js_MVC/IDOverride_View.js"></script>
-	<script src="dev/js_MVC/Player_Controller.js"></script>
-	<script src="dev/js_MVC/Player_View.js"></script>
-	<script src="dev/js_MVC/Player_OCD_Controller.js"></script>
-	<script src="dev/js_MVC/SlideShow_Controller.js"></script>
+	<!-- VIEWS -->
+	<script src="dev/js_MVC/views/Images_View.js"></script>
+	<script src="dev/js_MVC/views/AnimationFrame_View.js"></script>
+	<script src="dev/js_MVC/views/Tile_View.js"></script>
+	<script src="dev/js_MVC/views/Button_View.js"></script>
+	<script src="dev/js_MVC/views/Mobile_View.js"></script>
+	<script src="dev/js_MVC/views/NonGraphic_View.js"></script>
+	<script src="dev/js_MVC/views/DispatchingNonGraphic_View.js"></script>
+	<script src="dev/js_MVC/views/IDOverride_View.js"></script>
+	<script src="dev/js_MVC/views/Player_View.js"></script>
+	<script src="dev/js_MVC/views/StageMask_View.js"></script>
+	<script src="dev/js_MVC/views/ThoughtBubble_View.js"></script>
+	<script src="dev/js_MVC/views/StackedAnimations_View.js"></script>
+	<script src="dev/js_MVC/views/Combination_View.js"></script>
+	<script src="dev/js_MVC/views/MultiPaneMenu_View.js"></script>
+	<script src="dev/js_MVC/views/Timer_View.js"></script>
+	<script src="dev/js_MVC/views/Audio_View.js"></script>
 	
-	<script src="dev/js_MVC/StageMask_View.js"></script>
+	<!-- CONTROLLERS -->
+	<script src="dev/js_MVC/controllers/Images_Controller.js"></script>
+	<script src="dev/js_MVC/controllers/Tile_Controller.js"></script>
+	<script src="dev/js_MVC/controllers/InteractiveTile_Controller.js"></script>
+	<script src="dev/js_MVC/controllers/OnOffTile_Controller.js"></script>
+	<script src="dev/js_MVC/controllers/OnOffTileControl_Controller.js"></script>
+	<script src="dev/js_MVC/controllers/Button_Controller.js"></script>
+	<script src="dev/js_MVC/controllers/ButtonOnOff_Controller.js"></script>
+	<script src="dev/js_MVC/controllers/StickyTile_Controller.js"></script>
+	<script src="dev/js_MVC/controllers/Door_Controller.js"></script>
+	<script src="dev/js_MVC/controllers/HingedDoor_Controller.js"></script>
+	<script src="dev/js_MVC/controllers/HingedDoorInactive_Control.js"></script>
+	<script src="dev/js_MVC/controllers/MovableTile_Controller.js"></script>
+	<script src="dev/js_MVC/controllers/DropTarget_Controller.js"></script>
+	<script src="dev/js_MVC/controllers/DropTargetRevealed_Controller.js"></script>
+	<script src="dev/js_MVC/controllers/Player_Controller.js"></script>
+	<script src="dev/js_MVC/controllers/Player_OCD_Controller.js"></script>
+	<script src="dev/js_MVC/controllers/SlideShow_Controller.js"></script>
+	<script src="dev/js_MVC/controllers/ThoughtBubble_Controller.js"></script>
+	<script src="dev/js_MVC/controllers/AnimationSequence_Controller.js"></script>
+	<script src="dev/js_MVC/controllers/ThoughtAnimationSequence_Controller.js"></script>
+	<script src="dev/js_MVC/controllers/StackedAnimations_Controller.js"></script>
+	<script src="dev/js_MVC/controllers/Combination_Controller.js"></script>
+	<script src="dev/js_MVC/controllers/MultiPaneMenu_Controller.js"></script>
+	<script src="dev/js_MVC/controllers/StartMenu_Controller.js"></script>
+	<script src="dev/js_MVC/controllers/Stage_Controller.js"></script>
+	<script src="dev/js_MVC/controllers/Thought_Controller.js"></script>
+	<script src="dev/js_MVC/controllers/Mind.js"></script>
+	<script src="dev/js_MVC/controllers/Timer_Controller.js"></script>
+	<script src="dev/js_MVC/controllers/Audio_Controller.js"></script>
+	<script src="dev/js_MVC/controllers/Touch_Controller.js"></script>
+	<script src="dev/js_MVC/controllers/Main_Controller.js"></script>
+	<script src="dev/js_MVC/controllers/StartScreen_Controller.js"></script>
+	<script src="dev/js_MVC/controllers/RotateScreen_Controller.js"></script>
 	
-	<script src="dev/js_MVC/ThoughtBubble_View.js"></script>
-	<script src="dev/js_MVC/ThoughtBubble_Controller.js"></script>
-	<script src="dev/js_MVC/AnimationSequence_Controller.js"></script>
-	<script src="dev/js_MVC/ThoughtAnimationSequence_Controller.js"></script>
-	<script src="dev/js_MVC/StackedAnimations_Controller.js"></script>
-	<script src="dev/js_MVC/StackedAnimations_View.js"></script>
+	<!-- MODELS -->
+	<script src="dev/js_MVC/models/Gameboard_Model.js"></script>
 	
-	<script src="dev/js_MVC/Combination_View.js"></script>
-	<script src="dev/js_MVC/Combination_Controller.js"></script>
-	
-	<script src="dev/js_MVC/MultiPaneMenu_View.js"></script>
-	<script src="dev/js_MVC/MultiPaneMenu_Controller.js"></script>
-	<script src="dev/js_MVC/StartMenu_Controller.js"></script>
-	
-	
-	
-	
-	<script src="dev/js_MVC/Stage_Controller.js"></script>
-	
-	<script src="dev/js_MVC/StageBuilder.js"></script>
-	
-	
-	<script src="dev/js_MVC/Thought_Controller.js"></script>
-	<script src="dev/js_MVC/Mind.js"></script>
-	
-	<script src="dev/js_MVC/Timer_View.js"></script>
-	<script src="dev/js_MVC/Timer_Controller.js"></script>
-	
-	<script src="dev/js_MVC/Audio_View.js"></script>
-	<script src="dev/js_MVC/Audio_Controller.js"></script>
-	
-	<!-- MAIN CONTROL CLASSES -->
-	<script src="dev/js_MVC/Gameboard_Model.js"></script>
-	<script src="dev/js_MVC/Touch_Controller.js"></script>
-	<script src="dev/js_MVC/Main_Controller.js"></script>
-	<script src="dev/js_MVC/StartScreen_Controller.js"></script>
-	<script src="dev/js_MVC/RotateScreen_Controller.js"></script>
+	<!-- UTILITIES -->
+	<script src="dev/js_MVC/utils/StageBuilder.js"></script>
 	
 	<!-- Global Configuration -->
-	<script src="dev/js_MVC/config.js"></script>
+	<script src="dev/js_MVC/core/config.js"></script>
 	
 
 </head>
@@ -105,10 +96,10 @@
 <body>
 	<audio id='myAudio' loop><source src='dev/audio/OCD.mp3'></audio> 
 	<div id="mask"></div>
-	<!-- <script src="dev/js_MVC/gameBoard.js"></script> -->
-	<!-- <script src="dev/js_MVC/startMatrix.js"></script> -->
-	<script src="dev/js_MVC/main.js"></script>
-	<script src="dev/js_MVC/mobileResize.js"></script>
+	<!-- <script src="dev/js_MVC/utils/gameBoard.js"></script> -->
+	<!-- <script src="dev/js_MVC/utils/startMatrix.js"></script> -->
+	<script src="dev/js_MVC/utils/main.js"></script>
+	<script src="dev/js_MVC/utils/mobileResize.js"></script>
 		
 
 </body>
