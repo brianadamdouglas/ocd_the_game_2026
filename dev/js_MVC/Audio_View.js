@@ -1,25 +1,25 @@
-const Audio_View = View.extend({
+class Audio_View extends View {
 
-construct() { 
-	this.SC.construct();
+	constructor() { 
+	super();
 	this._playing;
 	this._track;
 	this._className = "Audio_View";
-},
+}
 
 
  	
-init(controller, data) {
+	init(controller, data) {
 	this._controller = controller;
 	this._track = document.getElementById(data.trackName);
 	this._playing = false;
-},
+}
 
-getTrack(){
+	getTrack(){
 	return this._track;
-},
+}
 
-setCurrentTime(position){
+	setCurrentTime(position){
 	this._track.currentTime = position;
 }
 
@@ -27,4 +27,4 @@ setCurrentTime(position){
 
 
 
-});
+}

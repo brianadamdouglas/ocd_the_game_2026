@@ -2,9 +2,9 @@
 * @class Player_Controller
 * @description The Parent Controller class for the player
 */
-const Player_Controller = Tile_Controller.extend({
-construct() { 
-	this.SC.construct();
+class Player_Controller extends Tile_Controller {
+	constructor() { 
+	super();
 	this._walkFrames = [];
 	this._walkInterval;
 	this._stopFrame;
@@ -12,14 +12,14 @@ construct() {
 	this._className = "Player";
 
 
-},
+}
 
 
-/**
+	/**
 * @description Initializes the instance
 * @return 
-*/
-init(){
+	*/
+	init(){
 	this._rect = {
 			top:0,
 			right:0,
@@ -29,81 +29,81 @@ init(){
 	this.setIsHoldingObject(false);
 	var imagesLength = imgs.length - 1; // How do I set this up to be dynamic?
 	this.set_walkFrames(imagesLength)
-},
+}
 
 
 
-/**
+	/**
 * @description Sets this._holdingObject to true of false
 * @return null
-*/     
-setIsHoldingObject(b) {
+	*/     
+	setIsHoldingObject(b) {
   	this._holdingObject = b;
-},
+}
 
 
-/**
+	/**
 * @description Returns this._holdingObject
 * @return {Boolean}
-*/     
-getIsHoldingObject() {
+	*/     
+	getIsHoldingObject() {
   	return this._holdingObject;
-},
+}
 
 
-/**
+	/**
 * @description Populate the _walkFrames array
 * @param {Interger} len // the number of walk frames
-*/   
-setWalkFrames(len) {
+	*/   
+	setWalkFrames(len) {
   	for(var i = 1; i<=len;i++){
 		this._walkFrames.push(i);
 	}
-},
+}
 
 
-/**
+	/**
 * @description Instructs the View to turn off the current frame and start the walking animation
 * @return null
-*/  
-startWalk(){
+	*/  
+	startWalk(){
   this._view.getImageController().hideFrameNum(this._stopFrame);
   this.walk();
-}, 
+}
 
 
-/**
+	/**
 * @description Instructs the View to turn off the current frame and display the frame associated with standing
 * @return null
-*/  
-stopWalk(){
+	*/  
+	stopWalk(){
   this._walkFrames.unshift(this._walkFrames.pop());
   for(var i = 0; i<this._walkFrames.length; i++){
       this._view.getImageController().hideFrameNum(this._walkFrames[i]);
   }
   this._view.getImageController().showFrameNum(this._stopFrame);
-}, 
+}
 
-/**
+	/**
 * @description Walk animation that cycles through this._walkFrames and displays position 0 in the View 
 * @return null
-*/   
-walk(){
+	*/   
+	walk(){
   this._view.getImageController().hideFrameNum(this._walkFrames[0]);
   this._walkFrames.push(this._walkFrames.shift());
   this._view.getImageController().showFrameNum(this._walkFrames[0]);
-},
+}
 
 
-/**
+	/**
 * @description Calculates the position of the Player View(which is satically placed) to the stage which is constantly rotating
 * @param {Object} position // a jQuery styled position object
 * @param {Interger} stageRotation // the rotation of the Rotator View
 * @param {Interger} stageWidth // the width of the Stage View
 * @param {Interger} stageHeight // the height of the Stage View
 * @return {Object} data //contains x,y,w,h
-*/				
-transformPlayerToStage(position, stageRotation, stageWidth, stageHeight){
+	*/				
+	transformPlayerToStage(position, stageRotation, stageWidth, stageHeight){
   var loc = {x:position.left, y:position.top}; //send in the position of the stage
   //console.log(loc);
   var playerW = this.getViewWidth();
@@ -139,13 +139,13 @@ transformPlayerToStage(position, stageRotation, stageWidth, stageHeight){
   //console.log(data);	
   return data;
 
-},
+}
 		
-/**
+	/**
 * @description Returns a rect(t,r,b,l) of the Player View as it relates to the Stage View
 * @return {Object} rect 
-*/
-getTransformedRect(data, stageRotation){
+	*/
+	getTransformedRect(data, stageRotation){
   var topRounded = Math.floor(data.y);
   var rightRounded = Math.floor(data.x+data.w);
   var bottomRounded = Math.floor(data.y+data.h);
@@ -158,5 +158,4 @@ getTransformedRect(data, stageRotation){
   
   
   
-});
-
+}

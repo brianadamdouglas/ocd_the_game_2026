@@ -1,14 +1,14 @@
-const MultiPaneMenu_Controller = Tile_Controller.extend({
-construct() { 
-	this.SC.construct();
+class MultiPaneMenu_Controller extends Tile_Controller {
+	constructor() { 
+	super();
 	this._interfaceReferences;
 	this._slideShow;
 	this._currentPage;
 	this._maxPages;
 	this._className = "MultiPaneMenu";
-},
+}
 
-/**
+	/**
 * @description Initializes the instance
 * @param {Selection} container // the selection on the stage that houses the player tile
 * @param {String} id // unique name of the new DIV
@@ -18,9 +18,9 @@ construct() {
 * @param {Interger} width // Max width .
 * @param {Interger} height // Max height .
 * @return 
-*/
+	*/
 
-init(){
+	init(){
 	this._rect = {
 			top:0,
 			right:0,
@@ -30,38 +30,38 @@ init(){
 	this._interfaceReferences = {};
 	this._currentPage = 0;
 	this.addListners();	
-},
+}
 
-/**
+	/**
 * @description Add Listeners to the Global Event Handler
 * @return null
-*/
-addListners:function(){
+	*/
+	addListners(){
 	g_eventHandler.addAListener("open", this);
 	g_eventHandler.addAListener("close", this);	
 	g_eventHandler.addAListener("nextPanel", this);	
 	g_eventHandler.addAListener("previousPanel", this);
-},
+}
 
 
-setInterfaceElement(name, reference){
+	setInterfaceElement(name, reference){
   this._interfaceReferences[name] = reference;
-},
+}
 
-getInterfaceElement(name){
+	getInterfaceElement(name){
   return this._interfaceReferences[name];
-},
+}
 
 
-/**
+	/**
 * @description Return the dimensions of the PLayer tile;
 * @return {Object} the dimensions Object(width, height); 
-*/    
-getDimensions() {
+	*/    
+	getDimensions() {
   	return {width:this._width,height:this._height};
-},
+}
 
-addTile(data) {
+	addTile(data) {
   	if(data.className.match(/button/gi) !== null){
   	    
 		/* var newButton = new Button_Controller();
@@ -90,9 +90,9 @@ addTile(data) {
 		
 	}
 		
-},
+}
 
-nextPanel(data){
+	nextPanel(data){
   if(this._slideShow.nextFrame()){
       this.getInterfaceElement("forward").hide();
       this.getInterfaceElement("back").show();
@@ -100,9 +100,9 @@ nextPanel(data){
   	this.getInterfaceElement("forward").show();  
   	this.getInterfaceElement("back").show();
   }
-},
+}
 
-previousPanel(data){
+	previousPanel(data){
   if(this._slideShow.previousFrame()){
   	  this.getInterfaceElement("back").hide();
       this.getInterfaceElement("forward").show();
@@ -111,19 +111,19 @@ previousPanel(data){
       this.getInterfaceElement("forward").show();  
   	
   }
-},
+}
 
-close(){
+	close(){
   this._slideShow.hideSequence(0);
   this.hide();
-},
+}
 
-open(){
+	open(){
   this.reset_slideShow();
   this.show();
-},
+}
 
-reset_slideShow(){
+	reset_slideShow(){
   if(this.getInterfaceElement("back") !== undefined){
   	this.getInterfaceElement("back").hide();
     this.getInterfaceElement("forward").show();
@@ -135,5 +135,4 @@ reset_slideShow(){
   
   
   
-});
-
+}

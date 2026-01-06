@@ -1,35 +1,35 @@
-const RotateScreen_Controller = Controller.extend({
+class RotateScreen_Controller extends Controller {
 
-construct() { 
-	this.SC.construct();
+	constructor() { 
+	super();
 	this._mainController;
 	this._startScreenController;
 	this._mainModel;
 	this._rotateScreen;
 	
 		
-},
+}
 
-init(mainModel){
+	init(mainModel){
 	//this._mainController = mainController;
 	//this._startScreenController = startScreenController
 	this._mainModel = mainModel;
 	this.addListners();
 	
-},
+}
 
 
-/**
+	/**
 * @description Add Listeners to the Global Event Handler
 * @return null
-*/
-addListners:function(){
+	*/
+	addListners(){
 	g_eventHandler.addAListener("screenRotatedLandscape", this);
 	g_eventHandler.addAListener("screenRotatedPortrait", this);
 	g_eventHandler.addAListener("changeZIndex", this);
-},
+}
 
-initializeRotateScreen:function(){
+	initializeRotateScreen(){
 	var rotateScreenInfo = this._mainModel.getRotateScreenInfo();
 	var classAcronym = rotateScreenInfo.type;
 	var data = {
@@ -49,23 +49,23 @@ initializeRotateScreen:function(){
 	this._rotateScreen.bindView(newView,data);
 	this._rotateScreen.setViewVisibility(false);
 	this._rotateScreen.hide();	
-},
+}
 
-screenRotatedLandscape:function(){
+	screenRotatedLandscape(){
 	this._rotateScreen.setViewVisibility(true);
 	this._rotateScreen.show();	
-},
+}
 
-screenRotatedPortrait:function(){
+	screenRotatedPortrait(){
 	this._rotateScreen.setViewVisibility(false);
 	this._rotateScreen.hide();	
-},
+}
 
-changeZIndex:function(){
+	changeZIndex(){
 	this._rotateScreen.getViewDIV().css( "zIndex", 1000 );
-},
+}
 
 
 
 
-});
+}

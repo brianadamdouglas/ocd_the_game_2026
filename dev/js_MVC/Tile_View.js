@@ -2,20 +2,20 @@
 * @class Tile_View
 * @description The parent View class for all Tiles
 */
-const Tile_View = View.extend({
+class Tile_View extends View {
 
-construct() { 
-	this.SC.construct();
+	constructor() { 
+	super();
 	this._className = "Tile";
-},
+}
 
-/**
+	/**
 * @description Initializes the instance
 * @param {Controller} controller // the controller associated with the view
 * @param {Object} data // package of data that include positioning and size 
 * @return 
-*/
-init(controller,data) {
+	*/
+	init(controller,data) {
 	
 	this._controller = controller;
 	
@@ -65,7 +65,7 @@ init(controller,data) {
 	this.setDefaultLoc(x,y);
 	this.setLoc(x,y);
 	this._visible = true;
-},
+}
 
   
   
@@ -73,4 +73,4 @@ init(controller,data) {
   
   
   
-});
+}

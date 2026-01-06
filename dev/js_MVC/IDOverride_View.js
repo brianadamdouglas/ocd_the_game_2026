@@ -1,11 +1,11 @@
-const IDOverride_View = Tile_View.extend({
-construct() { 
-	this.SC.construct();
+class IDOverride_View extends Tile_View {
+	constructor() { 
+	super();
 	
-},
+}
 
 
-init(controller,data) {
+	init(controller,data) {
   	this._controller = controller;
   	
   	var container = data.container;
@@ -43,4 +43,4 @@ init(controller,data) {
 	this.hide();
 }
 
-});
+}

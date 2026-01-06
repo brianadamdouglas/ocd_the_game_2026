@@ -1,15 +1,15 @@
-const MultiPaneMenu_View = View.extend({
-/**
-* Constructor
-* This class calls on at present one other Class, animationFrame.js
-*	As I continue to refine the code, I will delegate a subclass that deals strictly with the images
-*/
-construct() { 
-	this.SC.construct();
+class MultiPaneMenu_View extends View {
+	/**
+	* Constructor
+	* This class calls on at present one other Class, animationFrame.js
+	*	As I continue to refine the code, I will delegate a subclass that deals strictly with the images
+	*/
+	constructor() { 
+	super();
 	this._className = "Tile";
-},
+}
 
-init(controller,data) {
+	init(controller,data) {
 	this._controller = controller;
 	
 	const classContainer = data.classContainer
@@ -57,4 +57,4 @@ init(controller,data) {
   
   
   
-});
+}

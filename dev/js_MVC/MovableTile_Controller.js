@@ -1,14 +1,14 @@
-const MovableTile_Controller = InteractiveTile_Controller.extend({
-construct() { 
-	this.SC.construct();
+class MovableTile_Controller extends InteractiveTile_Controller {
+	constructor() { 
+	super();
 	this._moveObject;
 	this._canMove;
 	this._x_moveCount;
 	this._y_moveCount;
 	this._className = "MovableTile";
-},
+}
 
-init(){
+	init(){
 	this._rect = {
 			top:0,
 			right:0,
@@ -20,23 +20,23 @@ init(){
 	this._y_moveCount = 0;
 	
 	this.addListners();
-},
+}
 
-/**
+	/**
 * @description Add Listeners to the Global Event Handler
 * @return null
-*/
-addListners:function(){
+	*/
+	addListners(){
 	g_eventHandler.addAListener("resetPosition", this);
-},
+}
 
 
 
-/**
+	/**
 * @description Creates this._moveObject which contains four directions(Up, Right, Down, Left) as well as the rate of movement as well as the x and y maximum distances  
 * @param {Object} obj // passed in from the gameBoard.js
-*/ 
-setMoveObject(obj){
+	*/ 
+	setMoveObject(obj){
   	
   			var x = obj.x;
   			var y = obj.y;
@@ -48,12 +48,12 @@ setMoveObject(obj){
   			var down = obj.down;
   			var left = obj.left;
   			var right = obj.right;
-			this._moveObject = 		{
-										UP:{x:0, y:0, xMax:xMax, yMax:yMax, xMin:xMin, yMin:yMin, active:false},
-										RIGHT:{x:0, y:0, xMax:xMax, yMax:yMax, xMin:xMin, yMin:yMin, active:false},
-										DOWN:{x:0, y:0, xMax:xMax, yMax:yMax, xMin:xMin, yMin:yMin, active:false},
-										LEFT:{x:0, y:0, xMax:xMax, yMax:yMax, xMin:xMin, yMin:yMin, active:false},
-									};
+		this._moveObject = {
+			UP:{x:0, y:0, xMax:xMax, yMax:yMax, xMin:xMin, yMin:yMin, active:false},
+			RIGHT:{x:0, y:0, xMax:xMax, yMax:yMax, xMin:xMin, yMin:yMin, active:false},
+			DOWN:{x:0, y:0, xMax:xMax, yMax:yMax, xMin:xMin, yMin:yMin, active:false},
+			LEFT:{x:0, y:0, xMax:xMax, yMax:yMax, xMin:xMin, yMin:yMin, active:false}
+		};
 			if(up){
 				this._moveObject.UP.active = true;
 				this._moveObject.UP.y = -y;
@@ -78,23 +78,23 @@ setMoveObject(obj){
 			
 										
 	
-},
+}
 
 
-/**
+	/**
 * @description Public function that calls the private function this.interact
 * @param {String} direction
-*/    
-actedUpon(direction) {
+	*/    
+	actedUpon(direction) {
   this.interact(direction);
-},
+}
 
 
-/**
+	/**
 * @description removes the references from the quadtree, moves the MovableTile instance in the direction specified up to it's max and then registers the instance again in the quadtree
 * @param {String} direction
-*/ 
-interact(direction){
+	*/ 
+	interact(direction){
   	
   	//get direction they are moving
 	var moveInfo = this._moveObject[String(direction)];
@@ -135,13 +135,13 @@ interact(direction){
 		}
 	}
 
-},
+}
 
-resetPosition:function(){
+	resetPosition(){
 	this.removeQuads();
 	this.getView().resetPosition();
 	this.createQuads();
 }
 
   
-});
+}

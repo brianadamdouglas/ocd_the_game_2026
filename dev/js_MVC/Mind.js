@@ -1,9 +1,10 @@
-const MIND = Controller.extend({
+class MIND extends Controller {
 
-// there will be certain compulsions that are related so if the player reacts to one, 
-//then it will set teh intensity for the others.
+	// there will be certain compulsions that are related so if the player reacts to one, 
+	//then it will set teh intensity for the others.
 
-construct() { 
+	constructor() { 
+		super();
 		this._player;
 		this._thoughtBubble;
 		this._thoughtsQueue;
@@ -16,17 +17,17 @@ construct() {
 		this._triggeredThought;
 		this._exitRadii;
 		this._waitingToFire;
-},
+}
 
 
-/**
-* Initializes the instance
+	/**
+	* Initializes the instance
 * @param {Selection} player // refrence to the Player Class Instance
 * @param {Selection} thoughtBubble // refrence to the Thought Bubble Class Instance
 * @param {Function} getPlayerLoc // returns the player's location, seems like it should be a method of the player instance and not a method of the game engine
 * @return 
-*/ 
-init(player, thoughtBubble, mainController) {
+	*/ 
+	init(player, thoughtBubble, mainController) {
 	this._player = player;
 	this._thoughtBubble = thoughtBubble;
 	this._mainController = mainController;
@@ -43,26 +44,26 @@ init(player, thoughtBubble, mainController) {
 	this._waitingToFire = false;
 	this.addListners();
 	
-},
+}
 
-/**
+	/**
 * @description Add Listeners to the Global Event Handler
 * @return null
-*/
-addListners:function(){
+	*/
+	addListners(){
 	g_eventHandler.addAListener("respondedOCDTrigger", this);
 	g_eventHandler.addAListener("thoughtFired", this);
 	g_eventHandler.addAListener("pauseThought", this);
 	g_eventHandler.addAListener("resumeThought", this);
 	g_eventHandler.addAListener("kill", this);
 	
-},
+}
 
 
-/**
-* Add a thought to the thought queue
-*/
-addThought(callerID, thoughtType, objectType, intensity, loc){
+	/**
+	* Add a thought to the thought queue
+	*/
+	addThought(callerID, thoughtType, objectType, intensity, loc){
 	var exists = false;
 	var existingThought;
 	for(var i = 0; i< this._thoughtsQueue.length; i++){
@@ -107,50 +108,50 @@ addThought(callerID, thoughtType, objectType, intensity, loc){
 	}
   
   
-},
+}
 
 
-/**
-* Fire the latest thought in the thought queue
-*/  
-fireLatestThought(){
+	/**
+	* Fire the latest thought in the thought queue
+	*/  
+	fireLatestThought(){
 	//this._triggeredThought = undefined;
 	this._active = true;
 	this._thoughtsQueue[0].active = true;
 	this._thoughtsQueue[0].thought.startObsessing();
 	this._waitingToFire = true;
-},
+}
 
 
-/**
-* Triggered from the individual thought
-*/ 
-thoughtFired(data){ // fired from thought back to thought bubble
+	/**
+	* Triggered from the individual thought
+	*/ 
+	thoughtFired(data){ // fired from thought back to thought bubble
 	this._thoughtBubble.fireLatestThought(data.type); 
 	this._waitingToFire = false;
-},
+}
 
-pauseThought:function(){
+	pauseThought(){
 	if(this._waitingToFire){
 		this._thoughtsQueue[0].thought.pauseObsessing();
 	}	
-},
+}
 
-resumeThought:function(){
+	resumeThought(){
 	if(this._waitingToFire){
 		this._thoughtsQueue[0].thought.resumeObsessing();
 	}
-},
+}
 
-startCheckingRadius(){
+	startCheckingRadius(){
 	clearInterval(this._checkRadiusInterval);
 	this._checkRadiusInterval = setInterval(this.didPlayerExitRadius.bind(this), (500)); // use .bind to correct scope
-},
+}
 
-/**
-* if the player has gone back to check on the object, it clears the thought and then waits to see if the player has left
-*/   
-didPlayerExitRadius(){
+	/**
+	* if the player has gone back to check on the object, it clears the thought and then waits to see if the player has left
+	*/   
+	didPlayerExitRadius(){
 	var currentLoc = this._mainController.getPlayerLocation();
 	var thought = this._triggeredThought.thought;
 	this._thoughtStartPosition = thought.getLocation();
@@ -166,13 +167,13 @@ didPlayerExitRadius(){
 		
 		this.fireLatestThought();
 	}
-},
+}
 
 
-/**
-* if the player has gone back to check on the object, it clears the thought and then waits to see if the player has left
-*/   
-isOCDWorking(){
+	/**
+	* if the player has gone back to check on the object, it clears the thought and then waits to see if the player has left
+	*/   
+	isOCDWorking(){
 	var currentLoc = this._mainController.getPlayerLocation();
 	var thought = this._thoughtsQueue[0].thought;
 	this._thoughtStartPosition = thought.getLocation();
@@ -183,11 +184,9 @@ isOCDWorking(){
 	}else{
 		this._OCDIsWorking = false;
 	}
-},
-
-
+}
 /* Fired when the thought bubble closes */
-respondedOCDTrigger(){
+	respondedOCDTrigger(){
 	if(this._triggeredThought.thought !== undefined){
 		console.log(this._triggeredThought);
 		g_eventHandler.dispatchAnEvent("addAssociatedThought",{type:this._triggeredThought.thought.getType()});
@@ -221,13 +220,12 @@ respondedOCDTrigger(){
 	    console.log("thought queue is empty");
 	    this._triggeredThought = undefined;
 	    g_eventHandler.dispatchAnEvent("checkPositionForFinish",{type:thought.getType()});
-	  	
 	  }
 	}
   
-},
+}
 
-kill:function(){
+	kill(){
 	this._triggeredThought = undefined;
 	clearInterval(this._checkRadiusInterval);
 	if(this._thoughtsQueue.length > 0){
@@ -241,4 +239,4 @@ kill:function(){
 	this._waitingToFire = false;
 }
 
-});
+}

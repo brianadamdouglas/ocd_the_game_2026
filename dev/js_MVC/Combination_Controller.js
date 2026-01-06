@@ -1,15 +1,15 @@
-const Combination_Controller = Tile_Controller.extend({
-construct() { 
-	this.SC.construct();
+class Combination_Controller extends Tile_Controller {
+	constructor() { 
+	super();
 	this._interfaceReferences;
 	this._slideShow;
 	this._currentPage;
 	this._maxPages;
 	this._active;
 	this._className = "MultiPaneMenu";
-},
+}
 
-/**
+	/**
 * @description Initializes the instance
 * @param {Selection} container // the selection on the stage that houses the player tile
 * @param {String} id // unique name of the new DIV
@@ -19,9 +19,9 @@ construct() {
 * @param {Interger} width // Max width .
 * @param {Interger} height // Max height .
 * @return 
-*/
+	*/
 
-init(){
+	init(){
 	this._rect = {
 			top:0,
 			right:0,
@@ -32,36 +32,36 @@ init(){
 	this._currentPage = 0;
 	this._active = false;
 	this.addListners();	
-},
+}
 
-/**
+	/**
 * @description Add Listeners to the Global Event Handler
 * @return null
-*/
-addListners:function(){
+	*/
+	addListners(){
 	g_eventHandler.addAListener("buttonEvent", this);
 	g_eventHandler.addAListener("resetState", this);
-},
+}
 
 
-setInterfaceElement(name, reference){
+	setInterfaceElement(name, reference){
   this._interfaceReferences[name] = reference;
-},
+}
 
-getInterfaceElement(name){
+	getInterfaceElement(name){
   return this._interfaceReferences[name];
-},
+}
 
 
-/**
+	/**
 * @description Return the dimensions of the PLayer tile;
 * @return {Object} the dimensions Object(width, height); 
-*/    
-getDimensions() {
+	*/    
+	getDimensions() {
   	return {width:this._width,height:this._height};
-},
+}
 
-addTile(data) {
+	addTile(data) {
   	if(data.className.match(/button/gi) !== null){
   	    
 		/* var newButton = new Button_Controller();
@@ -86,22 +86,30 @@ addTile(data) {
 		
 	}
 		
-},
+}
 
-makeActive:function(){
+	makeActive(){
 	this._active = true;
 	this.show();
-},
+	// Show all child elements (tiles) within this combination
+	var viewDiv = this.getView().getDiv();
+	if(viewDiv){
+		// Show all descendants, especially tiles and images
+		viewDiv.find('*').show();
+		// Also ensure the container itself is visible
+		viewDiv.show();
+	}
+}
 
-getActive:function(){
+	getActive(){
 	return this._active;
-},
+}
 
-buttonEvent(){
+	buttonEvent(){
   g_eventHandler.dispatchAnEvent("restartGame",{});
-},
+}
 
-resetState:function(){
+	resetState(){
 	this._active = false;
 	this.hide();
 }
@@ -110,5 +118,4 @@ resetState:function(){
   
   
   
-});
-
+}

@@ -14,7 +14,7 @@ Image.prototype.load = function( url, callback ) {
         const mimeType = m[ 1 ] || 'image/png';
             // Remove your progress bar or whatever here. Load is done.
 
-        const blob = new Blob( [ xmlHTTP.response ], { type: mimeType } );
+        const blob = new Blob( [ xmlHTTP.response ], { type: mimeType });
         thisImg.src = window.URL.createObjectURL( blob );
         if ( callback ) callback( thisImg );
     };

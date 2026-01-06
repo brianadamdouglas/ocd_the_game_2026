@@ -2,20 +2,20 @@
 * @class Tile_View
 * @description The parent View class for all Tiles
 */
-const StageMask_View = Tile_View.extend({
+class StageMask_View extends Tile_View {
 
-construct() { 
-	this.SC.construct();
+	constructor() { 
+	super();
 	this._className = "Tile";
-},
+}
 
-/**
+	/**
 * @description Initializes the instance
 * @param {Controller} controller // the controller associated with the view
 * @param {Object} data // package of data that include positioning and size 
 * @return 
-*/
-init(controller,data) {
+	*/
+	init(controller,data) {
 	
 	this._controller = controller;
 	
@@ -59,13 +59,13 @@ init(controller,data) {
 	this.setDefaultLoc(x,y);
 	this.setLoc(x,y);
 	this._visible = true;
-},
+}
 
-/**
+	/**
 * @description Return the dimensions of the PLayer tile;
 * @return {Object} the dimensions Object(width, height); 
-*/    
-getDimensions() {
+	*/    
+	getDimensions() {
   	return {width:this._width,height:this._height};
 }
   
@@ -74,4 +74,4 @@ getDimensions() {
   
   
   
-});
+}

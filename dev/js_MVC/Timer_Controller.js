@@ -1,28 +1,28 @@
-const Timer_Controller = Tile_Controller.extend({
+class Timer_Controller extends Tile_Controller {
 
-construct() { 
-	this.SC.construct();
+	constructor() { 
+	super();
 	this._timerInterval;
 	this._endTime;
 	this._totalTime;
 	this._timeObj;
 	this._pausedRemainingTime;
 	this._className = "Timer";
-},
+}
 
   /**
 * @description Bind a View class instance to the Controller
 * @param {Controller} controller // the controller associated with the view
 * @param {Object} data // package of data that include positioning and size 
 * @return null
-*/
-bindView(view, data){
+	*/
+	bindView(view, data){
   this.init(data);
   this._view = view;
   this._view.init(this,data); 
-},
+}
  	
-init(data) {
+	init(data) {
 	this._rect = {
 			top:0,
 			right:0,
@@ -34,20 +34,20 @@ init(data) {
 	
 	this._totalTime = data.duration;
 	
-},
+}
 
-/**
+	/**
 * @description Add Listeners to the Global Event Handler
 * @return null
-*/
-addListners:function(){
+	*/
+	addListners(){
 	g_eventHandler.addAListener("pauseClock", this);
 	g_eventHandler.addAListener("resumeClock", this);
 	g_eventHandler.addAListener("startClock", this);
 	g_eventHandler.addAListener("kill", this);
-},
+}
 
-getTimeRemaining: function (endtime){
+	getTimeRemaining(endtime){
   var t = Date.parse(endtime) - Date.parse(new Date());
   var seconds = Math.floor( (t/1000) % 60 );
   var minutes = Math.floor( (t/1000/60) % 60 );
@@ -59,17 +59,17 @@ getTimeRemaining: function (endtime){
 	    hours: hours,
 	    minutes: minutes,
 	    seconds: seconds
-  		});
-},
+  	});
+}
 
-getEndTime(){
+	getEndTime(){
 	var timeInMinutes = this._totalTime;
     var currentTime = Date.parse(new Date());
 	var deadline = new Date(currentTime + timeInMinutes*60*1000);
 	return (deadline);	
-},
+}
 
-updateClock(){
+	updateClock(){
 	this._timeObj = this.getTimeRemaining(this._endTime);
 	var minutes = "0" + this._timeObj.minutes;
 	var seconds = this._timeObj.seconds;
@@ -78,24 +78,24 @@ updateClock(){
 	}
 	if(minutes === "00" &&  seconds === "00"){
 		clearInterval(this._timerInterval);
-		g_eventHandler.dispatchAnEvent("gameOver",{})
+		g_eventHandler.dispatchAnEvent("gameOver",{});
 	}
 	this.getView().updateDisplay(minutes + ":" + seconds);
-},
+}
 
-startClock: function (){
+	startClock(){
 	//this._div.text("3:00");
 	this._endTime = this.getEndTime();
 	this._timerInterval = setInterval(this.updateClock.bind(this), 1000); // use .bind to correct scope
 	
-},
+}
 
-pauseClock:function(){
+	pauseClock(){
 	clearInterval(this._timerInterval);
 	this._pausedRemainingTime = this.getTimeRemaining(this._endTime);
-},
+}
 
-resumeClock:function(){
+	resumeClock(){
 	
 	var remainingMinutes = this._pausedRemainingTime.minutes;
 	var remainingSeconds = (this._pausedRemainingTime.seconds/60);
@@ -103,16 +103,16 @@ resumeClock:function(){
 	this._totalTime = remainingTime;
 	this._endTime = this.getEndTime();
 	this._timerInterval = setInterval(this.updateClock.bind(this), 1000);
-},
+}
 
-setTotalTime:function(minutes){
+	setTotalTime(minutes){
 	this._totalTime = minutes;
-},
+}
 
-kill:function(){
+	kill(){
 	
 }
 
 
 
-});
+}

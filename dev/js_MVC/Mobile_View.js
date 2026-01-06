@@ -1,15 +1,15 @@
-const Mobile_View = Tile_View.extend({
-/**
-* Constructor
-* This class calls on at present one other Class, animationFrame.js
-*	As I continue to refine the code, I will delegate a subclass that deals strictly with the images
-*/
-construct() { 
-		this.SC.construct();
+class Mobile_View extends Tile_View {
+	/**
+	* Constructor
+	* This class calls on at present one other Class, animationFrame.js
+	*	As I continue to refine the code, I will delegate a subclass that deals strictly with the images
+	*/
+	constructor() { 
+		super();
 		this._className = "Mobile";
-},
+}
 
-/**
+	/**
 * @description Initializes the instance
 * @param {Selection} container // the selection on the stage that houses the tile
 * @param {String} id // unique name of the new DIV
@@ -21,8 +21,8 @@ construct() {
 * @param {Array} imgs // Array of image paths for the animations or various frame states
 * @param {Interger} startFrame // frame that the animation is set on
 * @return 
-*/	
-init(controller, data) {
+	*/	
+	init(controller, data) {
 	this._controller = controller;
 	
   	var container = data.container;
@@ -54,4 +54,4 @@ init(controller, data) {
   
   
   
-});
+}

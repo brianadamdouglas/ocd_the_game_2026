@@ -2,20 +2,20 @@
 * @class Stage_Controller
 * @description The Controller for the Stage Instance
 */
-const Stage_Controller = Tile_Controller.extend({
-construct() { 
-	this.SC.construct();
+class Stage_Controller extends Tile_Controller {
+	constructor() { 
+	super();
 	this._className = "Stage";
 	
-},
+}
 
 
-/**
+	/**
 * @description Creates a Controller with associated View and populates the stage with the View
 * @param {Object} data // object containing properties to populate various Controller/View
 * @return null
-*/
-addTile(data) {
+	*/
+	addTile(data) {
 		var className = data.className;
 
 		
@@ -166,43 +166,42 @@ addTile(data) {
 		
 		/* newTile.createQuadRegistry();
 		return (newTile); */
-},
+}
 
 
-/**
+	/**
 * @description Dispatches an Event as the Stage Instance moves 
 * @return null 
-*/
-movementProgress:function(){
-  g_eventHandler.dispatchAnEvent("movementProgress",{});
-  
-},
+	*/
+	movementProgress(){
+		g_eventHandler.dispatchAnEvent("movementProgress",{});
+	}
 
-/**
-* @description Dispatches an Event when the Stage Instance movement completes 
-* @return null 
-*/
-movementComplete:function(){
-  g_eventHandler.dispatchAnEvent("checkForHit",{});
-},
+	/**
+	* @description Dispatches an Event when the Stage Instance movement completes 
+	* @return null 
+	*/
+	movementComplete(){
+		g_eventHandler.dispatchAnEvent("checkForHit",{});
+	}
 
-/**
-* @description Dispatches an Event relating to possibility of the Stage instance being able to move forward 
-* @param {Boolean} bool 
-* @return null 
-*/
-movementPossible:function(bool){
-  g_eventHandler.dispatchAnEvent("setCanMoveForward", {bool:bool});
-},
+	/**
+	* @description Dispatches an Event relating to possibility of the Stage instance being able to move forward 
+	* @param {Boolean} bool 
+	* @return null 
+	*/
+	movementPossible(bool){
+		g_eventHandler.dispatchAnEvent("setCanMoveForward", {bool:bool});
+	}
 
 
-/**
+	/**
 * @description Moves the Stage instance down the screen by a specified number of pixels
 * @param {Number} distance 
 * @param {Number} stageRotation 
 * @param {Boolean} canMoveForward 
-*/			
-moveStage(distance, stageRotation, canMoveForward){
+	*/			
+	moveStage(distance, stageRotation, canMoveForward){
   var options = {
   	duration: 50,
   	easing: 'swing',
@@ -228,29 +227,29 @@ moveStage(distance, stageRotation, canMoveForward){
 				}
 			}
 			
-},
+}
 
 
-/**
+	/**
 * @description Moves the Stage instance by a specified number of pixels after the repositionStage is complete. There is no callback. **I should probably have it at least fire a callback to move an item if held
 * @param {Number} horizontal 
 * @param {Number} vertical 
-*/ 
-moveStageSansCallback(horizontal, vertical){
+	*/ 
+	moveStageSansCallback(horizontal, vertical){
  var myViewDiv = this._view.getDiv();
  myViewDiv.animate( {left:"+="+horizontal, top:"+="+vertical }, .5, "easeInOutCirc");
-},
+}
 
 
-/**
+	/**
 * @description Reposition the stage after the Player has collided with an obstacle
 * @param {Object} targetRect // the rect that the player may be pushing against
 * @param {Object} playerRect // the rect of the player on the stage
 * @param {Number} stageRotation // rotation of the Rotater instance
 * @param {Array} previousMoves // an array of moves that may have already happened
 * @return {Interger} // 1-4 for the direction that the Player instance has pushed against
-*/ 
-repositionStage:function(targetRect, playerRect, stageRotation, previousMoves){ 
+	*/ 
+	repositionStage(targetRect, playerRect, stageRotation, previousMoves){ 
  var maximumOverlay = 15;
  var padding = 5;
  switch(stageRotation){
@@ -431,18 +430,18 @@ repositionStage:function(targetRect, playerRect, stageRotation, previousMoves){
 					default:
 						console.log("defult");	
 			}
-},
+}
 
 
-/**
+	/**
 * @description During the hit test, there may be multiple items in the quadrant and the Player may also bump into more than one item in the same direction. This checks to
-* see if the player has already had resistance against the previous direction
+	* see if the player has already had resistance against the previous direction
 
 * @param {Array} previousMoves // an array of moves that may have already happened
 * @param {Number} currentMove // 1-4 value based on direction
 * @return {Boolean}
-*/ 
-checkPreviousMoves:function(previousMoves, currentMove){
+	*/ 
+	checkPreviousMoves(previousMoves, currentMove){
  for(var i = 0; i<previousMoves.length;i++){
      if(previousMoves[i] === currentMove){
          return false;
@@ -457,4 +456,4 @@ checkPreviousMoves:function(previousMoves, currentMove){
 
 
 
-});
+}

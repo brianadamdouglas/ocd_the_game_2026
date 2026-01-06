@@ -21,7 +21,3 @@ try {
 }
 
 document.body.addEventListener('touchstart', (e) => { e.preventDefault(); });
-
-
-
-

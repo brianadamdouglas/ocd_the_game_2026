@@ -1,7 +1,7 @@
-const StartScreen_Controller = Controller.extend({
+class StartScreen_Controller extends Controller {
 
-construct() { 
-	this.SC.construct();
+	constructor() { 
+	super();
 	this._mainController;
 	this._startScreen;
 	this._informationScreen;
@@ -15,9 +15,9 @@ construct() {
 	this._closed;
 	
 		
-},
+}
 
-init(mainModel){
+	init(mainModel){
 	//this._mainController = mainController;
 	this._mainModel = mainModel;
 	this.addListners();
@@ -28,22 +28,22 @@ init(mainModel){
 	this._closed = false;
 	this._startScreenRefreshCalled = false;
 	
-},
+}
 
 
-/**
+	/**
 * @description Add Listeners to the Global Event Handler
 * @return null
-*/
-addListners:function(){
+	*/
+	addListners(){
 	g_eventHandler.addAListener("playGame", this);
 	g_eventHandler.addAListener("displayProgress", this);
 	g_eventHandler.addAListener("screenRotatedPortrait", this);
 	g_eventHandler.addAListener("screenRotatedLandscape", this);
 	
-},
+}
 
-initializeStartScreen(){
+	initializeStartScreen(){
 	const screenInfo = g_gameboardModel.getStartScreenElements();
 	const data = {
 		className:"startScreen",	
@@ -106,13 +106,13 @@ initializeStartScreen(){
 	}
 	/* g_startScreen.setGameEngineStartCallback(e_startGame); */
 		
-},
+}
 /*Stagger load of buttons*/
-initializeStartButton(){
+	initializeStartButton(){
 	this._startScreen.addTile(this._delayedStartScreenData);
-},
+}
 
-initializeInformationDisplay(screenInfo){
+	initializeInformationDisplay(screenInfo){
 	/* console.log("initializeInformationDisplay"); */
 	const data = {
 		className:"informationDisplay",	
@@ -153,9 +153,9 @@ initializeInformationDisplay(screenInfo){
 	this._informationScreen.getInterfaceElement("close").getView().show();
 	this._informationScreen.close();
 
-},
+}
 
-initializeDisclaimerDisplay(screenInfo){
+	initializeDisclaimerDisplay(screenInfo){
 	/* console.log("initializeDisclaimerDisplay"); */
 	const data = {
 		className:"disclaimerDisplay",	
@@ -192,39 +192,39 @@ initializeDisclaimerDisplay(screenInfo){
 	}
 	this._disclaimerScreen.getInterfaceElement("close").getView().show();
 	
-},
+}
 
 
-playGame(){
+	playGame(){
 		this._startScreen.hide();
 		this._closed = true;
 		g_eventHandler.dispatchAnEvent("showGameDisplay",{});
 		/* this._mainController.showGameDisplay(); */
-},
+}
 
-screenRotatedPortrait(){
+	screenRotatedPortrait(){
 		if(!this._closed){
 			this._startScreen.show();
 		}
-},
+}
 
-screenRotatedLandscape(){
+	screenRotatedLandscape(){
 		if(!this._closed){
 			this._startScreen.hide();
 		}
-},
+}
 
 
 
-displayStartButton(){
+	displayStartButton(){
 	this._startScreen.getInterfaceElement("loading").hide();
 	this._startScreen.getInterfaceElement("start").show();
-},
+}
 
 
 		
 		
-displayProgress(data){
+	displayProgress(data){
 	this._loadedTotal += data.bytes;
 	
 	if(this.startScreenLoaded){
@@ -259,4 +259,4 @@ displayProgress(data){
 
 
 
-});
+}

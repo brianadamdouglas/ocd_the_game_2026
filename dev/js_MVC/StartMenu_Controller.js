@@ -1,12 +1,12 @@
-const StartMenu_Controller = MultiPaneMenu_Controller.extend({
-construct() { 
-	this.SC.construct();
+class StartMenu_Controller extends MultiPaneMenu_Controller {
+	constructor() { 
+	super();
 	this.interfaceReferences;
 	this.externalControlls;
 	this._className = "StartScreen";
-},
+}
 
-init(){
+	init(){
 	this._rect = {
 			top:0,
 			right:0,
@@ -17,21 +17,21 @@ init(){
 	this.externalControlls = {}
 	this._currentPage = 0;	
 	this.addListners();
-},
+}
 
-/**
+	/**
 * @description Add Listeners to the Global Event Handler
 * @return null
-*/
-addListners:function(){
+	*/
+	addListners(){
 	g_eventHandler.addAListener("startGame", this);
 	g_eventHandler.addAListener("openInstructions", this);
 	g_eventHandler.addAListener("openDisclaimer", this);
-},
+}
 
 
 
-addTile(data) {
+	addTile(data) {
   
   
   	if(data.className.match(/button/gi) !== null){
@@ -57,27 +57,27 @@ addTile(data) {
 		/* StickyTile*/
 			
 		}
-},
+}
 
-setExternalControlls(name, reference){
+	setExternalControlls(name, reference){
   this.externalControlls[name] = reference;
-},
+}
 
-startGame(){
+	startGame(){
   /* document.getElementById("myAudio").play();
   document.getElementById("myAudio").volume = 0.1; */
   /* g_eventHandler.dispatchAnEvent("startAudio",{}); */
   g_eventHandler.dispatchAnEvent("playGame",{});
-},
-openInstructions(){
+}
+	openInstructions(){
   g_eventHandler.dispatchAnEventOneTarget("open",{target:this.externalControlls["informationSlideshow"]});
-},
+}
 
-openDisclaimer:function(){
+	openDisclaimer(){
   g_eventHandler.dispatchAnEventOneTarget("open",{target:this.externalControlls["disclaimerSlideshow"]});
 }
 
 
 
 
-});
+}

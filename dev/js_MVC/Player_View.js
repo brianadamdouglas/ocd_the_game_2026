@@ -2,20 +2,20 @@
 * @class Player_View
 * @description The parent Player View class
 */
-const Player_View = View.extend({
-construct() { 
-	this.SC.construct();
+class Player_View extends View {
+	constructor() { 
+	super();
 	this._className = "Tile";
-},
+}
 
 
-/**
+	/**
 * @description Initializes the instance
 * @param {Controller} controller // the controller associated with the view
 * @param {Object} data // package of data that include positioning and size 
 * @return 
-*/
-init(controller,data) {
+	*/
+	init(controller,data) {
 	
 	this._controller = controller;
 	
@@ -64,4 +64,4 @@ init(controller,data) {
   
   
   
-});
+}

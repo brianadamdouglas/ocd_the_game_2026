@@ -1,10 +1,10 @@
-const StageBuilder = Class.extend({
+class StageBuilder {
 	
 	// there will be certain compulsions that are related so if the player reacts to one, 
 	//then it will set teh intensity for the others.
 	
-  construct() { ; 
-  },
+  constructor() { ; 
+  }
   
   /**
   * @description Initializes the instance
@@ -20,4 +20,4 @@ const StageBuilder = Class.extend({
     	return(position);
   }
    
-});
+}

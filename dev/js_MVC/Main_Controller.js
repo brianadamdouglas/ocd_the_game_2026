@@ -1,11 +1,11 @@
-const Main_Controller = Controller.extend({
+class Main_Controller extends Controller {
   /**
   * Constructor
   * This class calls on at present one other Class, animationFrame.js
   *	As I continue to refine the code, I will delegate a subclass that deals strictly with the images
   */
-construct() { 
-		this.SC.construct();
+	constructor() { 
+		super();
 		this._canMoveForward = true;
 		this._stageSpriteArray = [];//Array of all the tiles on the stage
 		this._lastObstacles = []; // obstacles to check for interaction
@@ -46,9 +46,9 @@ construct() {
 		this._potentialThoughtArray = [];
 		this._preTriggeredControls = [];
 		this._mainModel;
-  },
+  }
   
-init(model){
+	init(model){
 		this._gameActive = false;
 		this._gameOver = false;
 		this._mainModel = model;
@@ -61,9 +61,9 @@ init(model){
 		this.addPotentialThoughtArray(this._mainModel.getPotentialThoughtArray());
 		this.populatePretriggeredControls(this._potentialThoughtArray);
 		this.buildStage(this._mainModel.getGameBoard());
-},
+}
 
-init2(){
+	init2(){
 		this.registerPairs();
 		this.registerHingedDoors(); 
 		//this.addMobileButton();//WILL BE INITIATED ON MAIN.js
@@ -77,15 +77,15 @@ init2(){
 		$(document).keydown(this.catchKeyDown.bind(this));
 		$(document).keyup(this.catchKeyUp.bind(this));
 		g_afterAssetsLoad();
-},
+}
 
 
 
-/**
+	/**
 * @description Add Listeners to the Global Event Handler
 * @return null
-*/
-addListners:function(){
+	*/
+	addListners(){
 	g_eventHandler.addAListener("movementProgress", this);
 	g_eventHandler.addAListener("checkForHit", this);
 	g_eventHandler.addAListener("setCanMoveForward", this);
@@ -105,7 +105,7 @@ addListners:function(){
 	
 	
 	
-},
+}
 
 		
 
@@ -114,7 +114,7 @@ addListners:function(){
 	/**
 	* @description Adds the player to the stage
 	*/			
-addPlayer:function (playerInfo){
+	addPlayer(playerInfo){
 		var classAcronym = playerInfo.type;
 		var data = {
 			className:this._mainModel.getGameboardClasses()[classAcronym],
@@ -148,17 +148,17 @@ addPlayer:function (playerInfo){
 		var newHittestViewTorso =  new DispatchingNonGraphic_View();
 		this._player.bindHitTestTorsoView(newHittestViewTorso, hitTestTorsoData); 
 		this._player.hide();
-},
+}
 
-addStartMatrix(matrix){
+	addStartMatrix(matrix){
 	this._startMatrix = matrix;
-},
+}
 
-addPotentialThoughtArray:function(array){
+	addPotentialThoughtArray(array){
 	this._potentialThoughtArray = array;
-},
+}
 
-populatePretriggeredControls:function(array){
+	populatePretriggeredControls(array){
 	this._preTriggeredControls = [];
 	var temp = array.slice(0);
 	for(var i = 0; i<5; i++){
@@ -168,9 +168,9 @@ populatePretriggeredControls:function(array){
 	}
 	//console.log(this._preTriggeredControls)
 	//console.log(this._potentialThoughtArray);
-},
+}
 
-turnOnRandomizedItems:function(){
+	turnOnRandomizedItems(){
 	for(var i = 0; i<this._preTriggeredControls.length; i++){
 		var type = this._startMatrix[this._preTriggeredControls[i]].getObjectType();
 		if(type === "immobile"){
@@ -183,9 +183,9 @@ turnOnRandomizedItems:function(){
 		}
 		//console.log(this._startMatrix[this._preTriggeredControls[i]].getObjectType());
 	}
-},
+}
 
-addAssociatedThought:function(data){
+	addAssociatedThought(data){
 	var relatedThoughts = this._mainModel.getRelatedMatrix()[data.type];
 	if(relatedThoughts.length > 0){
 		var position = this.getRandomInt(0,relatedThoughts.length);
@@ -199,18 +199,18 @@ addAssociatedThought:function(data){
 		}
 	}
 
-},
+}
 
-updateMatrixViewPointer:function(type, view){
+	updateMatrixViewPointer(type, view){
 	this._startMatrix[type] = view;
-},
+}
 	
 
 	
 	/**
 	* @description Builds the stage based on instructions from gameBoard.js
 	*/			
-buildStage:	function (gameboard){
+	buildStage(gameboard){
 		this._tileCount = gameboard.length;
 		this._currentTile = 0;
 		this.addSprite(this._currentTile);
@@ -218,9 +218,9 @@ buildStage:	function (gameboard){
 		for(var i = 0; i<max; i++){
 			this.addSprite(i);
 		} */
-},
+}
 
-addNextSprite:	function (gameboard){
+	addNextSprite(gameboard){
 		this._currentTile++;
 		if(this._currentTile < this._tileCount){
 			this.addSprite(this._currentTile);
@@ -228,12 +228,12 @@ addNextSprite:	function (gameboard){
 			this.init2();
 		}
 		
-},
+}
 	
 	/**
 	* @description Adds a rotater element to the mask(#mask)container
 	*/			
-	addRotater:	function(x,y,w,h){	
+	addRotater(x,y,w,h){	
 		const data = {
 			container:"mask",
 			id:"rotater",
@@ -249,12 +249,12 @@ addNextSprite:	function (gameboard){
 		this._rotater.bindView(newView,data);
 		// Rotator is hidden initially and will be shown when game starts (showGameDisplay)
 		this._rotater.hide();
-	},
+	}
 	
 	/**
 	* @description Adds a stage element to the rotation(#rotator) container
 	*/			
-addStage:function (x,y,w,h){		
+	addStage(x,y,w,h){		
 		var data = {
 			container:"rotater",
 			id:"stage",
@@ -272,24 +272,24 @@ addStage:function (x,y,w,h){
 		/* g_stage.setGameEngineMovementCallback(checkForHit);
 		g_stage.setGameEngineCanMoveCallback(setCanMoveForward);
 		g_stage.setGameEngineMovementProgressCallback(e_movementProgress); */
-},
+}
 	
-/**
+	/**
 * @description Adds a sprite to the stage and a reference to the sprite to the g_stageSpriteArray
 * @param {Number} id 
-*/			
-addSprite: function (id){
+	*/			
+	addSprite(id){
 		this._stageSpriteArray.push(this.createSprite(id));
 				
-},
+}
 			
 			
-/**
+	/**
 * @description Creates a sprite
 * @param {Numner} id 
 * @return {Object} _name:Name of Sprite, _classReference: what type of Tile class it is
-*/			
-createSprite: function (id){
+	*/			
+	createSprite(id){
 		var gamePiece = this._mainModel.getGameBoard()[id];
 		var classAcronym = gamePiece.type;
 		var startFrame = (gamePiece.startFrame === undefined) ? 0 : gamePiece.startFrame
@@ -339,13 +339,13 @@ createSprite: function (id){
 		
 		
 		
-},
+}
 	
 	
 	/**
 	* @description Registers pairs of sprites that listen and control(Doors, plugs, etc.)
 	*/			
-registerPairs(){
+	registerPairs(){
 		var max = this._mainModel.getGameBoard().length;
 		for(var i = 0; i<max; i++){
 			var spriteToCheck = this._stageSpriteArray[i]._classReference;
@@ -361,13 +361,13 @@ registerPairs(){
 				spriteToCheck.setListener(this._stageSpriteArray[j]._classReference);	
 			}
 		}
-},
+}
 	
 	
 	/**
 	* @description Catches keystroke events(Key Down)
 	*/
-catchKeyDown: function (event){
+	catchKeyDown(event){
 	var key = (event.which)
 	if(String.fromCharCode(key) === "W"){
 		this.finishLastMove();
@@ -406,13 +406,13 @@ catchKeyDown: function (event){
 		}
 		
 	}	
-},
+}
 	
 	
 	/**
 	* @description Catches keystroke events(Key Up)
 	*/
-catchKeyUp:	function(event){
+	catchKeyUp(event){
 	var key = (event.which)
 	if(key === 87){
 		//finishLastMove();
@@ -428,12 +428,12 @@ catchKeyUp:	function(event){
 		}	
 	}
 		
-},
+}
 
-/**
+	/**
 			* @description Catches keystroke events(Press)
 			*/
-catchKeyPress(event){
+	catchKeyPress(event){
 	var key = (event.which)
 
 	if(String.fromCharCode(key) === "w"){
@@ -441,9 +441,7 @@ catchKeyPress(event){
 		this._stage.moveStage(this._moveDistance, this._stageRotation, this._canMoveForward);
 	}
 				
-},
-			
-			
+}
 /* ------------------------------   CONTROL STAGE FUNCTIONS ---------------------------------*/
 /*
 	The movment of the game space is, as described above, built around a first person shooter as well as traditional top down game play.
@@ -457,16 +455,16 @@ catchKeyPress(event){
 	to go local to global or global to local. When the <rotater> div is spun, all the <tiles> inside it have entirely new rects. Because of this, we actually
 	rewrite the rect of the character to fit the rect of the rotated stage, rather than rewriting all the elements "current rect spaces".
 	
-*/			
+	*/			
 		
 
 
-/**
+	/**
 * @description Rotate the stage
 * @param {Number} degrees
 * @param {Number} rot Used for determening rotation speed
-*/
-rotateStage(degrees, rot){
+	*/
+	rotateStage(degrees, rot){
 	this._canMoveForward = true;
 	var remainder = (degrees/360)%1;
 	if(remainder < 0){
@@ -485,26 +483,27 @@ rotateStage(degrees, rot){
 	
 
 	$('#rotater').animate(
-							{target: degrees}, 
-								{step(now,fx) {
-											$(this).css('-webkit-transform','rotate('+now+'deg)'); 
-											$(this).css('-moz-transform','rotate('+now+'deg)');
-											$(this).css('transform','rotate('+now+'deg)');
-									   }
-										,duration:_duration,
-										easing:'easeOutCirc',
-										complete:this.checkForHitRotate.bind(this)
-								});
-	
-},
+		{target: degrees},
+		{
+			step(now,fx) {
+				$(this).css('-webkit-transform','rotate('+now+'deg)'); 
+				$(this).css('-moz-transform','rotate('+now+'deg)');
+				$(this).css('transform','rotate('+now+'deg)');
+			},
+			duration:_duration,
+			easing:'easeOutCirc',
+			complete:this.checkForHitRotate.bind(this)
+		}
+	);
+}
 			
 			
 			
-/**
+	/**
 * @description Resets the position of the stage if the character has intersected object
 * @param {Class} hitObstacle
-*/			
-resetPosition(hitObstacle,type,previousMoves){  //function(hitObstacle,previousMoves){//array
+	*/			
+	resetPosition(hitObstacle,type,previousMoves){  //function(hitObstacle,previousMoves){//array
 	var target = hitObstacle[0];//hitObstacle[2];
 	var type = hitObstacle[1];//hitObstacle[3]//getDiv
 	//console.log([target,type]);
@@ -522,50 +521,49 @@ resetPosition(hitObstacle,type,previousMoves){  //function(hitObstacle,previousM
 	this.movementProgress();	
 	//console.log(previousMoves);	
 	return direction	
-},
+}
 
 
 
 
 
-/**
+	/**
 * @description Finishes any existing animations of the stage
-*/			
-finishLastMove(){
+	*/			
+	finishLastMove(){
 	$('#rotater').finish();
 	$('#stage').finish();
-},
+}
 
 
 
-/**
+	/**
 * @description Get the position of the player relative to the stage, used for the OCD functions
 * @return {Object} loc x and y position of player
-*/					
-getPlayerLocation: function (){//transformPlayerToStage
+	*/					
+	getPlayerLocation(){//transformPlayerToStage
 	var playerOnStage = this._player.transformPlayerToStage($('#stage').position(), this._stageRotation, this._mainModel.getStageWidth(), this._mainModel.getStageHeight());
 	var loc = {x:playerOnStage.x, y:playerOnStage.y}
 	return loc;
-},
-
+}
 /* ------------------------------   INTERACTION FUNCTIONS ---------------------------------*/			
 	
-/**
+	/**
 * @description Attaches a sticky object to the PLAYER, appears that the player will pick up an object
 * @param {StickyTile} stickyObject
-*/
-stickyObjectLifted(data){
+	*/
+	stickyObjectLifted(data){
 	this._activeStickyObject = data.controller;
 	this._player.setIsHoldingObject(true);
 	this.movementProgress();
-},	
+}
 
 
-/**
+	/**
 * @description Unattach a sticky object to the PLAYER, appears that the player drops an object
 * @param {StickyTile} stickyObject
-*/
-stickyObjectDropped(data){
+	*/
+	stickyObjectDropped(data){
 	var stickyObject = data.controller;
 	this._activeStickyObject = null; 
 	var rectData = this.getPlayerTransformRect();
@@ -576,22 +574,22 @@ stickyObjectDropped(data){
 		var data = {controller:stickyObject, id:Number(id)}
 		this.registerRect(data); 
 	}
-},	
+}
 
-/**
+	/**
 * @description Some sticky objects are OnOffControllers. This propogates the interaction of that object with it's listener.
-*/
-stickyObjectDoSomething: function (){
+	*/
+	stickyObjectDoSomething(){
 	this._activeStickyObject.actedUpon();
-},
+}
 
 
-/**
+	/**
 * @description The player can drop a Sticky Object on a Drop Target. Each Drop Target has a custom function associated with it. These are 
-* found in the gameEngineExtension.js file
+	* found in the gameEngineExtension.js file
 * @param {StickyTile} stickyObject
-*/
-checkForDropTarget(stickyObject){
+	*/
+	checkForDropTarget(stickyObject){
 	var results = this.checkForInteraction();
 	if(results.length > 0){
 		for(var i = 0; i< results.length; i++){
@@ -605,16 +603,16 @@ checkForDropTarget(stickyObject){
 	}
 	return false;
 	
-},
+}
 
 
-/**
+	/**
 * @description Player picks up a Sticky Object. In the stand alone version this occurs by the user pressing the "K" key when standing in front of an object.
-* In the mobile version this occurs by the user touching the object they want to pick up.
-* The item will lift if they are within the specified distance for interactions.
+	* In the mobile version this occurs by the user touching the object they want to pick up.
+	* The item will lift if they are within the specified distance for interactions.
 * @param {StickyTile} target
-*/
-pickUpItem(target){ //boolean
+	*/
+	pickUpItem(target){ //boolean
 	this._player.stopWalk();
 	
 	if(this._player.getIsHoldingObject()){
@@ -649,19 +647,19 @@ pickUpItem(target){ //boolean
 			
 		}
 	}
-},
+}
 
 
 
 
 
-/**
+	/**
 * @description Player interacts with a stationary object, such as an OnOffTile. The item will activate if they are within the specified distance for interactions.
-* In the mobile version this occurs by the user touching the object they want to activate.
-* The item will lift if they are within the specified distance for interactions.
+	* In the mobile version this occurs by the user touching the object they want to activate.
+	* The item will lift if they are within the specified distance for interactions.
 * @param {Interactive Tile} target // Interactive Tile or its children( OnOff, OnOffController)
-*/
-interactWithStationaryItem(target){ //boolean
+	*/
+	interactWithStationaryItem(target){ //boolean
 	this._player.stopWalk();
 	this._player.startInteract();	
 	
@@ -699,21 +697,21 @@ interactWithStationaryItem(target){ //boolean
 	// OCD start checking to see if it can begin firing a thought.
 		
 	// looking at items in quadrant in relation to the player
-},
+}
 
 
 
 
 
 
-/**
+	/**
 * @description Checks to see if the Object in front of the player can be interacted with. In the mobile version there is a single target that gets
-* passed, the item that the user touches. In the stand alone it checks for through an array of possible items in the quadrants that the 
-* player occupies.
+	* passed, the item that the user touches. In the stand alone it checks for through an array of possible items in the quadrants that the 
+	* player occupies.
 * @param {Interactive Tile} target // Interactive Tile or its children(Sticky, OnOff, OnOffController)
 * @return {Array} results //an array of interacted objects
-*/
-checkForInteraction(target){ //boolean
+	*/
+	checkForInteraction(target){ //boolean
 
 	if(target==undefined){
 		var predictedObjectArray = this._lastObstacles;
@@ -792,31 +790,45 @@ checkForInteraction(target){ //boolean
 	
 	return results;
 		
-},
-
+}
 /* ------------------------------   EVALUATION FUNCTIONS ---------------------------------*/	
 
 
 
 
-/**
+	/**
 * @description Checks for intersection of character and stage elements, primarily implemented to clear animation on mobile when the player completes their turning 
-* it is the callback function of rotateStage
-*/	
-checkForHitRotate(){
+	* it is the callback function of rotateStage
+	*/	
+	checkForHitRotate(){
 	
 	this._player.stopWalk();
 	this.checkForHit();
-},
+}
 			
 
-/**
+	/**
 * @description Checks for intersection of character and stage elements, sets g_canMoveForward global(t/f) 
 * @return {Array} hitObstacle[1] items that the character intersects
-*/			
-checkForHit: function (){
+	*/			
+	checkForHit(){
+	
+	// Don't process hits if game is over
+	if(this._gameOver){
+		return;
+	}
 	
 	this.movementProgress();
+	
+	// Check if player has crossed the finish line
+	var rectToCheck = this.getPlayerTransformRect();
+	// Finish line area: x:924, y:113, w:88, h:15
+	// Check if player is in the finish area (bottom < 150, left > 850, right < 1020)
+	if(rectToCheck.bottom < 150 && rectToCheck.left > 850 && rectToCheck.right < 1020){
+		this.gameOver();
+		return;
+	}
+	
 	var hitObstacle = this.getHits();
 	if(hitObstacle[0]){
 		var hits = hitObstacle[2];
@@ -839,20 +851,26 @@ checkForHit: function (){
 	}
 	this._lastObstacles = hitObstacle[1];
 	
-},			
+}
 
 
-/**
+	/**
 * @description Calculates which items the character has intersected 
 * @return {Array} [{Boolean}, {Array} obstacles]
-*/			
-getHits(){
+	*/			
+	getHits(){
+	// Don't process if game is over
+	if(this._gameOver){
+		return ([false, []]);
+	}
+	
 	var mergedQuadrants = this.returnPossibleTargets();
 			//console.log(mergedQuadrants);
 				
 	var hits = [];
 	for(var i = 0; i<mergedQuadrants.length; i++){
 		var k = '#' + this._stageSpriteArray[mergedQuadrants[i]]._name;
+		var spriteName = this._stageSpriteArray[mergedQuadrants[i]]._name;
 			
 		var hit = false;
 		// for some reason on that one wall segment it does not register the head.
@@ -867,7 +885,11 @@ getHits(){
 			hit = true;
 		}
 		
-			
+		// Check if player collided with finishText
+		if(hit && spriteName === "finishText" && !this._gameOver){
+			this.gameOver();
+			return ([true, mergedQuadrants, [], 'finish']);
+		}
 			
 		if(hit && this._stageSpriteArray[mergedQuadrants[i]]._classReference.getViewVisibility()){// if it hits an item
 			hits.push([this._stageSpriteArray[mergedQuadrants[i]], playerSegment]);
@@ -878,18 +900,18 @@ getHits(){
 	}else{
 		return ([false, mergedQuadrants]);
 	}
-},
+}
 
 
 
 
 
-/**
+	/**
 * @description Gets rotation of the stage
 * @param {jQuery Object} obj 
 * @return {Number} g_angle
-*/
-getRotationDegrees(obj) {
+	*/
+	getRotationDegrees(obj) {
 	var matrix = obj.css("-webkit-transform") ||
     obj.css("-moz-transform")    ||
     obj.css("-ms-transform")     ||
@@ -902,25 +924,25 @@ getRotationDegrees(obj) {
         var angle = Math.round(Math.atan2(b, a) * (180/Math.PI));
     } else { var angle = 0; }
     return angle;
-},
+}
 
 
-returnStageRectAdjustedForOffset(rect){
+	returnStageRectAdjustedForOffset(rect){
 	var newRect = {top:0,right:0,bottom:0,left:0};
 	for(var i in rect){
 		newRect[i] = rect[i];
 	}
 	//console.log(newRect);
 	return (newRect);
-},
+}
 
 
-/**
+	/**
 * @description Determines the quadrants that a tile is displayed in. It is used for both the player as well as every other itme on the stage.
 * @param {Object} rect (top,right,bottom,left) 
 * @return {object} data
-*/
-returnRoundedRectAndDifferences(rect){
+	*/
+	returnRoundedRectAndDifferences(rect){
 	var t = Math.floor(rect.top/this._quadSize);// subtract g_containerOffsetToAlignCharacter to offset the border
 	var r = Math.floor(rect.right/this._quadSize);
 	var b = Math.floor(rect.bottom/this._quadSize);
@@ -936,19 +958,15 @@ returnRoundedRectAndDifferences(rect){
 	}
 	return(data);
 	
-},
+}
 
-/**
-* Sets the global g_canMoveForward variable which determines whether the player needs to turn to move of can proceed.
+	/**
+	* Sets the global g_canMoveForward variable which determines whether the player needs to turn to move of can proceed.
 * @param {bool} Boolean 
-*/
-setCanMoveForward(data){
+	*/
+	setCanMoveForward(data){
 	this._canMoveForward = data.bool;
-},
-
-			
-
-
+}
 /* ------------------------------   HITTEST QUADRANTS FUNCTIONS ---------------------------------*/
 /*
 	In an effort to speed up the gmaeplay, I have divided the entire gamespace up into quadrants, based on the size of the global g_quadSize variable. 
@@ -966,13 +984,13 @@ setCanMoveForward(data){
 	registerPlayer
 	transformPlayerToStage(inside Player.js)
 	getTransformedRect(inside Player.js)
-*/
+	*/
 
 
-/**
+	/**
 * @description Divides the stage up into quadrants to speed up the hitTests
-*/
-createHitTestQuadrants(){
+	*/
+	createHitTestQuadrants(){
 	var quadsColumns = (this._mainModel.getStageWidth()/this._quadSize) + 1;
 	var quadsRows = (this._mainModel.getStageHeight()/this._quadSize) + 1;
 	for(var i = 0; i < quadsRows; i++){
@@ -985,16 +1003,16 @@ createHitTestQuadrants(){
 	
 	
 	
-},
+}
 
 
 
-/**
+	/**
 * @description Registers a tile into all the quadrants in which it's rect overlays
 * @param {Class} tile
 * @param {Object} data // we put the id's that reference the g_stageSpriteArray. I found it was nesting objects otherwise
-*/			
-registerRect: function (data){
+	*/			
+	registerRect(data){
 	var id = data.id;
 	var tile = data.controller;
 	var tileToAdd = tile;
@@ -1018,15 +1036,15 @@ registerRect: function (data){
 		}
 	}
 	
-},
+}
 
 
-/**
+	/**
 * @description Removes a tile from a quadrant, or quadrants. This is used by Sticky Objects and Movable Objects, and is necessary to reset their position
-* for hit test purposes, if it finds a match, it then removes the item from the quadrant's array
+	* for hit test purposes, if it finds a match, it then removes the item from the quadrant's array
 * @param {Array} data // an Array of quadrants that the specific tile is to be removed from
-*/
-removeRect(data){
+	*/
+	removeRect(data){
 	var temp = this._hitTestQuadrants[data.quads[0]][data.quads[1]];
 	for(var i = 0; i<temp.length; i++){
 		if(temp[i] === data.quads[2]){
@@ -1035,14 +1053,19 @@ removeRect(data){
 		}
 	}
 	
-},
+}
 
-/**
+	/**
 * @description Determines the quadrants that the player's rect overlays, a player can overlay at most 4 quadrants
 * @param {Object} point // x,y coordinates of the player on the stage.
 * @return {Array} mergedQuadrants //a list of all the sprites on the stage that exist in the quadrants that the player overlays
-*/			
-registerPlayer(data){		
+	*/			
+	registerPlayer(data){		
+	// Don't process if game is over
+	if(this._gameOver){
+		return [];
+	}
+	
 	var rect = {
 		top:data.y,
 		right:(data.x+data.w),
@@ -1050,42 +1073,55 @@ registerPlayer(data){
 		left:data.x		
 	}
 	var data = this.returnRoundedRectAndDifferences(rect);
+	
+	// Bounds checking to prevent array access errors
+	if(!this._hitTestQuadrants || data.t < 0 || data.l < 0 || 
+	   !this._hitTestQuadrants[data.t] || !this._hitTestQuadrants[data.t][data.l]){
+		return [];
+	}
+	
 	var quadrantsToMerge = [];
 	quadrantsToMerge.push(this._hitTestQuadrants[data.t][data.l]);
-	if(data.hDiff === 1){
+	if(data.hDiff === 1 && this._hitTestQuadrants[data.t] && this._hitTestQuadrants[data.t][data.l + 1]){
 		quadrantsToMerge.push(this._hitTestQuadrants[data.t][data.l + 1]);
 	}
-	if(data.vDiff === 1){
+	if(data.vDiff === 1 && this._hitTestQuadrants[data.t + 1] && this._hitTestQuadrants[data.t + 1][data.l]){
 		quadrantsToMerge.push(this._hitTestQuadrants[data.t + 1][data.l]);
 	}
-	if(data.hDiff === 1 && data.vDiff === 1){
+	if(data.hDiff === 1 && data.vDiff === 1 && 
+	   this._hitTestQuadrants[data.t + 1] && this._hitTestQuadrants[data.t + 1][data.l + 1]){
 		quadrantsToMerge.push(this._hitTestQuadrants[data.t + 1][data.l + 1]);
 	}
 	var mergedQuadrants = this.mergeQuadrants(quadrantsToMerge);
 	return(mergedQuadrants); 
 
-},
+}
 
 
-/**
+	/**
 * @description Returns an Array of g_stageSpriteArray indexes to test for hitTesting
 * @return {Array} possibleTargets //a list of all the sprites on the stage that exist in the quadrants that the player overlays
-*/				
-returnPossibleTargets(){
+	*/				
+	returnPossibleTargets(){
+	// Don't process if game is over
+	if(this._gameOver){
+		return [];
+	}
+	
 	var playerOnStage = this._player.transformPlayerToStage($('#stage').position(), this._stageRotation, this._mainModel.getStageWidth(), this._mainModel.getStageHeight());
 	var point = playerOnStage;
 	var possibleTargets = this.registerPlayer(point);
 	return possibleTargets;
-},
+}
 
 
 
-/**
+	/**
 * @description Merges the targets that the player overlays and removes duplicates
 * @param {Array} a multidimensional array of up to 4 quadrants.
 * @return {Array} cleanedQuadrants //an array of g_stageSpriteArray indexes
-*/				
-mergeQuadrants(a){
+	*/				
+	mergeQuadrants(a){
 	var mergedQuadrants = [];
 	var alreadyExists = false;
 	for(var i = 0; i<a.length; i++){
@@ -1105,54 +1141,52 @@ mergeQuadrants(a){
 	}
 	
 	return cleanedQuadrants;
-},
+}
 
 
-/**
+	/**
 * @description Removes duplicates from an array
 * @param {Object} item //an index from the array that is being cleaned
 * @param {Array} a //the array to be cleaned
 * @return {Boolean} if a duplicate exists return true else false
-*/				
-checkForDuplicates(item, a){
+	*/				
+	checkForDuplicates(item, a){
 	for(var i = 0; i<a.length; i++){
 		if(a[i] === item){
 			return true;
 		}
 	}
 	return false;
-},
-
-
+}
 /* ------------------------------   POSITIONING FUNCTIONS ---------------------------------*/
 
-/**
+	/**
 * @description Gets the rect of the Player as transformed to the rotation of the stage
 * @return {playerRect} object(top,right,bottom,left)
-*/	
-getPlayerTransformRect(){
+	*/	
+	getPlayerTransformRect(){
 	var playerOnStage = this._player.transformPlayerToStage($('#stage').position(), this._stageRotation, this._mainModel.getStageWidth(), this._mainModel.getStageHeight());
 	var playerRect = this._player.getTransformedRect(playerOnStage, this._stageRotation, this._quadSize);	
 	return (playerRect);
-},	
+}
 
 
-getPlayerPositionWhileTurning(){
+	getPlayerPositionWhileTurning(){
 	if(this._player.getIsHoldingObject()){
 		var playerOnStage = this._player.transformPlayerToStage($('#stage').position(), this._lastRotation, this._mainModel.getStageWidth(), this._mainModel.getStageHeight());
 		var playerRect = this._player.getTransformedRect(playerOnStage, this._lastRotation, this._quadSize);	
 		this._activeStickyObject.stickForTurn(playerRect);
 	}
-},
+}
 
 
   /**
 * @description Returns a point(x,y) of the player on the stage
 * @return {Array} point //a loc of the player
-*/			
+	*/			
 
 
-transformObjectToStageRotation(position, stageRotation, objectWidth, objectHeight){
+	transformObjectToStageRotation(position, stageRotation, objectWidth, objectHeight){
   var loc = {x:position.left, y:position.top};
   var objectW = objectWidth;
   var objectH = objectHeight;
@@ -1186,22 +1220,20 @@ transformObjectToStageRotation(position, stageRotation, objectWidth, objectHeigh
   var data = {x:Math.round((x)),y:Math.round((y)),w:w,h:h}		
   return data;
 
-},
+}
 
-/**
+	/**
 * @description Extended function that specifies GAME SPECIFIC interaction response calls for InteractiveTile Class and it's decendents 
 * @param {Class} spriteToCheck //a reference to a class instance, in this case the sprite the player has intereacted with 
-* @param {String} direction //"up", "down", "left" or "right"
-*/	
-interactionResponse(spriteToCheck, direction){
+	* @param {String} direction //"up", "down", "left" or "right"
+	*/	
+	interactionResponse(spriteToCheck, direction){
 	if(spriteToCheck.getViewDivClass("door") && spriteToCheck.getViewVisibility()){
 		spriteToCheck.actedUpon();
-		this.setCanMoveForward({bool:true});	
-		
+		this.setCanMoveForward({bool:true});
 	}else if(spriteToCheck.getViewDivClass("movable")){
 		spriteToCheck.actedUpon(direction);
-		this.setCanMoveForward({bool:true});	
-		
+		this.setCanMoveForward({bool:true});
 	}else if(spriteToCheck.hasListener()){
 		if(!spriteToCheck.getViewDivClass("door") && !spriteToCheck.getViewDivClass("sticky")){
 			spriteToCheck.actedUpon();
@@ -1215,14 +1247,14 @@ interactionResponse(spriteToCheck, direction){
 		}
 		
 	}
-},
+}
 
 
-/**
+	/**
 * @description Extended functionality that specifies GAME SPECIFIC interaction response calls beyond interactions from e_InteractionResponse
 * @param {Class} interactedObject //a reference to a class instance, in this case the sprite the player has intereacted with 
-*/		
-interactionExtendedActions(interactedObject, intensity){
+	*/		
+	interactionExtendedActions(interactedObject, intensity){
 	var thoughtType = interactedObject.getThoughtType();
 	var objectType = interactedObject.getObjectType();
 	if(thoughtType === undefined){
@@ -1240,42 +1272,42 @@ interactionExtendedActions(interactedObject, intensity){
 	//g_MIND.setPlayerStartPosition(getPlayerLocation()); 
 	//g_MIND.canOCDTrigger();
 	
-},
+}
 
 
 
-/**
+	/**
 * @description Extended function that specifies GAME SPECIFIC interaction response calls for the DropTarget Class
 * @param {Class} spriteToCheck //a reference to a class instance, in this case the sprite the player has intereacted with 
-* @param {Class} droppedClassReference // a reference to a class, in this case a Sticky Object
-* @return {Boolean} // returned to checkForDropTarget in main game engine
-*/
-dropTargetActions(spriteToCheck, droppedClassReference ){
+	* @param {Class} droppedClassReference // a reference to a class, in this case a Sticky Object
+	* @return {Boolean} // returned to checkForDropTarget in main game engine
+	*/
+	dropTargetActions(spriteToCheck, droppedClassReference ){
 	if(spriteToCheck.getViewDivClass("dropTarget")){
 		spriteToCheck.actedUpon(droppedClassReference);
 		return true;
 	}
 	return false;
-},
+}
 
-/**
+	/**
 * @description Extended function that is a callback to the Stage Class moveStage method, which is fired during the tween
-* In this case it is used to sync the active Sticky Object(g_activeStickyObject) with the position of the Player's hand
-*/	
-movementProgress(){
+	* In this case it is used to sync the active Sticky Object(g_activeStickyObject) with the position of the Player's hand
+	*/	
+	movementProgress(){
 	if(this._player.getIsHoldingObject()){
 		this._activeStickyObject.stickToPlayer(this.getPlayerTransformRect(),this._stageRotation, this._player);
 	}
-},
+}
 
 
 
 
 
-/**
+	/**
 * @description creating paired listeners for the hinged doors that are open 
-*/	
-registerHingedDoors(){
+	*/	
+	registerHingedDoors(){
 	var max = this._mainModel.getGameBoard().length;
 		for(var i = 0; i<max; i++){
 			var spriteToCheck = this._stageSpriteArray[i]._classReference;
@@ -1297,13 +1329,12 @@ registerHingedDoors(){
 					
 			} 
 		}
-},
-
+}
 /* ------------------------------   EXTENTION FUNCTIONS FOR DROP TARGET ---------------------------------*/		
-/**
+	/**
 * @description Extended function - fires when a player drops an object on a hamper.
-*/			
-dropTargetHamper(data){
+	*/			
+	dropTargetHamper(data){
 	var droppedItemController = data.droppedItemController;
 	var temp = data.target.getViewLoc();
 	var loc = {x:temp.left, y:temp.top}
@@ -1311,13 +1342,13 @@ dropTargetHamper(data){
 	droppedItemController.setViewLoc(((loc.x + 5) +  this.getRandomInt(0,25)) , ((loc.y + 3) +  this.getRandomInt(0,10)));
 	droppedItemController.getViewDIV().css('z-index', String(this._topZIndex));
 	//console.log(droppedClassReference);
-},
+}
 
 
-/**
+	/**
 * @description Extended function - fires when a player drops an object on the bookcase
-*/			
-dropTargetBookcase(data){
+	*/			
+	dropTargetBookcase(data){
 	var droppedItemController = data.droppedItemController;
 	droppedItemController.getViewDIV().hide();
 	for(var i in this._stageSpriteArray){
@@ -1329,16 +1360,16 @@ dropTargetBookcase(data){
 	//$('#'+'bookInBookcase').show();
 	
 	//console.log(droppedClassReference);
-},
+}
 
-getRandomInt(min, max) {
+	getRandomInt(min, max) {
 		 return Math.floor(Math.random() * (max - min)) + min;
-},
+}
 
-/**
+	/**
 * @description Adds the thought bubble to the stage
-*/			
-addThoughtBubble(){
+	*/			
+	addThoughtBubble(){
 	var thoughtInfo = this._mainModel.getThoughtInfo();
 	var classAcronym = thoughtInfo.type;
 		
@@ -1368,12 +1399,12 @@ addThoughtBubble(){
 	
 	this.addThoughtAnimations();
 
-},
+}
 
-/**
+	/**
 * @description Add the thought animation sequences to the thought bubble
-*/				
-addThoughtAnimations(){
+	*/				
+	addThoughtAnimations(){
 	var thoughtAnimations = this._mainModel.getThoughtAnimations();
 	for(var i = 0; i<thoughtAnimations.length; i++){
 		var frames = [];
@@ -1396,12 +1427,12 @@ addThoughtAnimations(){
 		}
 		this._thoughtBubble.addAnimationSequence(data);
 	}
-},
+}
 
-/**
+	/**
 * @description Adds the thought bubble to the stage
-*/			
-addMask(){
+	*/			
+	addMask(){
 	var maskInfo = this._mainModel.getMaskInfo();
 	var classAcronym = maskInfo.type;
 	var data = {
@@ -1420,20 +1451,20 @@ addMask(){
 	this._mask.bindView(newView,data);	
 	this._mask.hide(); 
 
-}, 
+}
 
-addOCD_control(){//NOT PART OF CORE
+	addOCD_control(){//NOT PART OF CORE
 	this._MIND = new MIND();
 	this._MIND.init(this._player,this._thoughtBubble, this);
 	//var d = new Date();
 	//var timeStamp = d.getTime();
 	//OCD_object.addThought("range",timeStamp, 1);
 	//OCD_object.fireLatestThought(); 
-},
+}
 
 
 
-addTimer(){
+	addTimer(){
 	var data = {
 		className:"timer",		
 		id:'timer',
@@ -1451,9 +1482,9 @@ addTimer(){
 
 	
 	
-},
+}
 
-addAudio(){
+	addAudio(){
 	var data = {
 		trackName:"myAudio"
 	}
@@ -1468,9 +1499,9 @@ addAudio(){
 
 	
 	
-},
+}
 
-addVolumeControl(audioInstance){
+	addVolumeControl(audioInstance){
 	var volumeControlInfo = this._mainModel.getVolumeControlInfo();
 	var classAcronym = volumeControlInfo.type;
 	var diffX = (375 - volumeControlInfo.w) - 5;
@@ -1497,9 +1528,9 @@ addVolumeControl(audioInstance){
 
 	
 	
-},
+}
 
-addEndScreen:function(){
+	addEndScreen(){
 	var screenInfo = g_gameboardModel.getGoodEndScreenElements();
 	var data = {
 		className:"endScreenGood",	
@@ -1588,22 +1619,16 @@ addEndScreen:function(){
 	
 	this._endScreenBad.getInterfaceElement("badEndScreenButton").getView().show();
 	
-},
-
-
-
-
-
-
+}
 		/* ------------------------------   POSITIONING AND QUADRANT FUNCTIONS ---------------------------------*/
 	
 			
 		
-/**
+	/**
 * @description Returns a rect(t,r,b,l) of the player on the stage
 * @return {Object} rect 
-*/
-getTransformedPoint: function (data, touchX, touchY, stageRotation){
+	*/
+	getTransformedPoint(data, touchX, touchY, stageRotation){
   	var centerX = data.x +38;
   	var centerY = data.y +45;
 	switch(this._stageRotation){
@@ -1645,52 +1670,51 @@ getTransformedPoint: function (data, touchX, touchY, stageRotation){
 	
 	return 	data;		  
 	
-},
-
+}
 		/* ------------------------------   GETTERS ---------------------------------*/
 		
-getPlayer:function(){
+	getPlayer(){
 	return (this._player);
-},	
+}
 
-getStage:function(){
+	getStage(){
 	return (this._stage);
-},	
+}
 
-getStageRotation:function(){
+	getStageRotation(){
 	return (this._stageRotation);
-},	
+}
 
-getCanMoveForward:function(){
+	getCanMoveForward(){
 	return (this._canMoveForward);
-},
+}
 
-getMoveDistance:function(){
+	getMoveDistance(){
 	return (this._moveDistance);
-},	
+}
 
-getStageSpriteArray:function(){
+	getStageSpriteArray(){
 	return (this._stageSpriteArray);
-},
+}
 
-getHitTestQuadrants(){
+	getHitTestQuadrants(){
 		return this._hitTestQuadrants;
-},
+}
 
-setTouchWalkInterval:function(intervalRef){
+	setTouchWalkInterval(intervalRef){
 	this._touchWalkInterval = intervalRef;
-},
+}
 
-updateThoughtBubbleLoc:function(x,y){
+	updateThoughtBubbleLoc(x,y){
 	this._thoughtBubble.setViewLoc(x,y);
-},
+}
 
-updateMask:function(degrees, point){
+	updateMask(degrees, point){
 	this._mask.setViewRotaion(degrees);
 	this._mask.setViewLoc(point[0],point[1]);
-},
+}
 
-showGameDisplay:function(){
+	showGameDisplay(){
 	this._gameActive = true;
 	this._mask.show();
 	this._rotater.show();
@@ -1700,34 +1724,52 @@ showGameDisplay:function(){
 	this._volumeControl.getView().show();
 	this.turnOnRandomizedItems();
 	g_eventHandler.dispatchAnEvent("changeZIndex",{});
-	
-},
+}
 
-gameOver:function(){
+	gameOver(){
+	console.log("gameOver() called");
 	g_eventHandler.dispatchAnEvent("pauseAudio",{});
 	this._gameOver = true;
+	
+	// Stop all movement immediately
+	this._player.stopWalk();
+	if(this._touchWalkInterval){
+		clearInterval(this._touchWalkInterval);
+	}
+	this.finishLastMove();
+	
 	var rectToCheck = this.getPlayerTransformRect();
 	//console.log(rectToCheck);
-	if(rectToCheck.bottom < 110 && rectToCheck.left > 850 && rectToCheck.right < 1020){
+	// Check if player crossed finish line (same threshold as finish line detection)
+	if(rectToCheck.bottom < 150 && rectToCheck.left > 850 && rectToCheck.right < 1020){
 		var decision = this.getRandomInt(0,10);
+		console.log("Finish line crossed! Decision:", decision);
 		if(decision >= 7){
+			console.log("Showing good end screen");
 			this._endScreenGood.makeActive();
 		}else{
+			console.log("Showing bad end screen");
 			this._endScreenBad.makeActive();
 		}
 		 // make this random for good or bad that way it breeds a lack of trust in one's actions
 	}else{
+		console.log("Timer ran out - showing bad end screen");
 		this._endScreenBad.makeActive();
 	}
+	// Hide game elements
+	this._mask.hide();
+	this._rotater.hide();
+	this._player.hide();
+	this._stage.hide();
 	this._volumeControl.getView().hide();
 	this._timer.hide();
 	this._swipeInterface.hide();
 	g_eventHandler.dispatchAnEvent("kill",{});
 	//freeze all controll
 	//finish screen you made it to work but you think about gas being on or you never make it to work
-},
+}
 
-screenRotatedPortrait(){
+	screenRotatedPortrait(){
 		if(this._gameActive){
 			this._mask.show();
 			this._rotater.show();
@@ -1750,9 +1792,9 @@ screenRotatedPortrait(){
 				
 			}
 		}
-},
+}
 
-screenRotatedLandscape(){
+	screenRotatedLandscape(){
 		if(this._gameActive){
 			this._mask.hide();
 			this._rotater.hide();
@@ -1774,18 +1816,19 @@ screenRotatedLandscape(){
 			this._timer.hide();
 			this._volumeControl.getView().hide();
 		}
-},
+}
 
-checkPositionForFinish:function(data){
+	checkPositionForFinish(data){
 /* 	console.log(data.type);
 	console.log(this.getPlayerTransformRect()); */
 	var rectToCheck = this.getPlayerTransformRect();
-	if(data.type === "frontDoor" && rectToCheck.bottom < 150){
+	// Check if player is in the finish area (bottom < 150, left > 850, right < 1020)
+	if(rectToCheck.bottom < 150 && rectToCheck.left > 850 && rectToCheck.right < 1020){
 		this.gameOver();
 	}
-},
+}
 
-restartGame:function(){
+	restartGame(){
 	$('#rotater').css('-webkit-transform','rotate('+0+'deg)'); 
 	$('#rotater').css('-moz-transform','rotate('+0+'deg)');
 	$('#rotater').css('transform','rotate('+0+'deg)');
@@ -1813,4 +1856,4 @@ restartGame:function(){
 
 
  
-});
+}

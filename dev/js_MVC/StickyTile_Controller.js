@@ -1,52 +1,52 @@
-const StickyTile_Controller = OnOffTileControl_Controller.extend({ // stickTile instances are able to be picked up by the player and placed by the player
-construct() { 
-	this.SC.construct();
+class StickyTile_Controller extends OnOffTileControl_Controller { // stickTile instances are able to be picked up by the player and placed by the player
+	constructor() { 
+	super();
 	this._attached = false;// boolean - whether the insance is being held by the PLayer
 	this._holdingOffset; // object - 4 direction x and y point offest from the main holding position for each frame of the Player's animation
 	this._className = "StickyTile";
-},
+}
 
-/**
+	/**
 * @description Add Listeners to the Global Event Handler
 * @return null
-*/
-addListners:function(){
-	g_eventHandler.addAListener("resetPosition", this);
-},
+	*/
+	addListners(){
+		g_eventHandler.addAListener("resetPosition", this);
+	}
 
 
-/**
+	/**
 * @description Conduit for the mobile "tap", sends a reference to the interactWithStationaryItem function in the main gameEngine
-*/ 
-onPressForInteraction:function(){
-  g_eventHandler.dispatchAnEvent("pickUpItem",{controller:this});
-},
+	*/ 
+	onPressForInteraction(){
+		g_eventHandler.dispatchAnEvent("pickUpItem",{controller:this});
+	}
   
 
 
-/**
+	/**
 * @description Set the this._attached property to true of false
 * @param {Boolean} bool
-*/  
-setAttached(bool){
-this._attached = bool;  
-},
+	*/  
+	setAttached(bool){
+	this._attached = bool;  
+}
 
 
 
-/**
+	/**
 * @description Set the property this._holdingOffset, used for placing the instance in relation to the Player instance
 * @param {Object} offsetObj 
-*/   
-setHoldingOffset:function(offsetObj){
+	*/   
+	setHoldingOffset(offsetObj){
   this._holdingOffset = offsetObj;
-},
+}
 
-/**
+	/**
 * @description Set the rect Object(top,right,bottom,left)for the Tile Selector
 * @param {Object} rect
-*/ 
-setDroppedRect(rect, rotation, player) {
+	*/ 
+	setDroppedRect(rect, rotation, player) {
   var top = 0;
   var right = 0;
   var bottom = 0;
@@ -84,13 +84,13 @@ setDroppedRect(rect, rotation, player) {
   this._rect.left = Math.floor(left);
   
 
-},
+}
 
 
-/**
+	/**
 * @description Attaches or removes the instance from the Player
-*/  
-attachUnattach(){
+	*/  
+	attachUnattach(){
   this._attached = ! this._attached;
   this._frames.unshift(this._frames.pop());
   this._view.getImageController().showFrameNum(this._frames[0]);
@@ -101,26 +101,26 @@ attachUnattach(){
   }else{  
       g_eventHandler.dispatchAnEvent("stickyObjectDropped",{controller:this});
   }
-},
+}
 
-/**
+	/**
 * @description Public function that calls the private function this.interact, if it has a listening object(something that it should turn on or off) then tell that instance to interact
-*/   
-actedUpon(){
+	*/   
+	actedUpon(){
   this.interact();
   if(this.listener.getViewID() !== "sprite_tile0"){
   	this.listener.interact();
   }
   
-},
+}
 
 
 
-/**
+	/**
 * @description Reposition this._div so that it appears to integrate with the Player instance, in particular when moving or interacting
 * @param {Object} rect// the Player's rect that has been transformed to the rotation of the stage
-*/   
-stickToPlayer(rect, rotation, player){
+	*/   
+	stickToPlayer(rect, rotation, player){
 
   var stringRotation = String(rotation);
   switch(rotation){
@@ -153,13 +153,13 @@ stickToPlayer(rect, rotation, player){
 
 
 
-},
+}
 
-/**
+	/**
 * @description Reposition this._div so that it appears to integrate with the Player instance, in particular when turning
 * @param {Object} rect// the Player's rect that has been transformed to the rotation of the stage
-*/ 
-stickForTurn(rect){
+	*/ 
+	stickForTurn(rect){
 	switch(this._mainController.getStageRotation()){
 		case 0:
 			this.setViewCSS({ "top": (rect.top + 30) + "px", "left": (rect.left + 35)+"px" });
@@ -189,9 +189,9 @@ stickForTurn(rect){
 	}
 
 
-},
+}
 
-resetPosition:function(){
+	resetPosition(){
 	this.removeQuads();
 	this.getView().resetPosition();
 	this.createQuads();
@@ -201,4 +201,4 @@ resetPosition:function(){
   
 
   
-});
+}

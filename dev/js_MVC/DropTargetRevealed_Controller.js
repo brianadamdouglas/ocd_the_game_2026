@@ -1,12 +1,12 @@
-const DropTargetRevealed_Controller = InteractiveTile_Controller.extend({ // USES Tile_View
-construct() { 
-	this.SC.construct();
+class DropTargetRevealed_Controller extends InteractiveTile_Controller { // USES Tile_View
+	constructor() { 
+	super();
 	this._className = "DropTargetRevealed";
-},
+}
 
 
-interact(){
+	interact(){
   this.getViewDIV().show();
 }
   
-});
+}

@@ -2,21 +2,21 @@
 * @class ThoughtBubble_View
 * @description The parent View class for all Tiles
 */
-const ThoughtBubble_View = Tile_View.extend({
+class ThoughtBubble_View extends Tile_View {
 
-construct() { 
-	this.SC.construct();
+	constructor() { 
+	super();
 	this._stackedAnimationsController;
 	this._className = "Tile";
-},
+}
 
-/**
+	/**
 * @description Initializes the instance
 * @param {Controller} controller // the controller associated with the view
 * @param {Object} data // package of data that include positioning and size 
 * @return 
-*/
-init(controller,imageControllerData,stackedAnimationControllerData) {
+	*/
+	init(controller,imageControllerData,stackedAnimationControllerData) {
 	
 	this._controller = controller;
 	
@@ -73,32 +73,31 @@ init(controller,imageControllerData,stackedAnimationControllerData) {
 	var newStackedView = new StackedAnimations_View();
 	this._stackedAnimationsController.bindView(newStackedView,stackedAnimationsData); 
 	
-},
+}
 
-/**
+	/**
 * @description 
 * @return null
-*/
-getStackedAnimationController:function(){
-  return this._stackedAnimationsController;
-},
+	*/
+	getStackedAnimationController(){
+		return this._stackedAnimationsController;
+	}
 
-/**
-* Reveal the Thought Bubble
-* 
-*/   
-revealBubble() {
-  this._div.fadeIn( "slow", function() { });
-  
-},
+	/**
+	* Reveal the Thought Bubble
+	* 
+	*/   
+	revealBubble() {
+		this._div.fadeIn( "slow", function() { });
+	}
 
-/**
-* Hide the Thought Bubble Selector
-*
-*/ 
-hideBubble(animation) {
-  var reference = this;
-  this._div.fadeOut( "fast", function() { reference.bubbleHidden(animation);});//animation.resetFrames();
+	/**
+	* Hide the Thought Bubble Selector
+	*
+	*/ 
+	hideBubble(animation) {
+		var reference = this;
+		this._div.fadeOut( "fast", function() { reference.bubbleHidden(animation);});//animation.resetFrames();
   /* var reference = this;
   var options = {
   	duration: 50,
@@ -107,22 +106,22 @@ hideBubble(animation) {
 	};
   this._div.fadeOut(options); // */
   
-},
-
-/**
-* Communicates with the OCD instance once the Thought Bubble Selector has hidden
-* 
-*/    
-bubbleHidden(animation){
-   /* this._OCDReference.respondedOCDTrigger(); */
-   g_eventHandler.dispatchAnEvent("respondedOCDTrigger",{});
-   g_eventHandler.dispatchAnEventOneTarget("resetFrames",{target:animation})
 }
 
+	/**
+	* Communicates with the OCD instance once the Thought Bubble Selector has hidden
+	* 
+	*/    
+	bubbleHidden(animation){
+		/* this._OCDReference.respondedOCDTrigger(); */
+		g_eventHandler.dispatchAnEvent("respondedOCDTrigger",{});
+		g_eventHandler.dispatchAnEventOneTarget("resetFrames",{target:animation});
+	}
+
   
   
 
   
   
   
- }); 
+ }

@@ -2,11 +2,11 @@
 * @class Controller
 * @description The basic Controller class
 */
-const Gameboard_Model = Class.extend({
-/**
-* Constructor
-*/
-construct() { 
+class Gameboard_Model {
+	/**
+	* Constructor
+	*/
+	constructor() { 
 	this._rotaterPosition// = $('#rotater').position();
 	this._rotaterX// = 190;//rotaterPosition.left//300;
 	this._rotaterY// = 300;//rotaterPosition.top;
@@ -41,13 +41,13 @@ construct() {
 	this._relatedMatrix;
 	this._timeLimit;
 	
-},
+}
 
-/**
+	/**
 * @description Initializes the instance
 * @return 
-*/
-init(){
+	*/
+	init(){
 	this._gameboard = [];
 	this._thoughtAnimations = [];
 	this._startScreenElements = [];
@@ -75,90 +75,88 @@ init(){
 	this.generateThoughtMatrix();
 	this.generateRelatedMatrix();
 	this.generatePotentialThoughtArray();
-},
+}
 
-/**
+	/**
 * @description Adds an element to the g_gameboard array which is used to build the stage
 * @param {Object} data 
-*/	
-addStageElement:function(data){
-	this._lastBuildNum = this._stageBuilder.addElement(data, this._gameboard,'tile');
-},
+	*/	
+	addStageElement(data){
+		this._lastBuildNum = this._stageBuilder.addElement(data, this._gameboard,'tile');
+	}
 
 
-/**
+	/**
 * @description Adds an element to the thoughtAnimations array which is used to import thought animations
 * @param {Object} data 
-*/	
-addThoughtElement:function(data){
+	*/	
+	addThoughtElement(data){
 	this._lastBuildNum = this._stageBuilder.addElement(data, this._thoughtAnimations, 'animation');
-},
+}
 
-/**
+	/**
 * @description Adds an element to the thoughtAnimations array which is used to import thought animations
 * @param {Object} data 
-*/	
-addStartScreenElement:function(data){
+	*/	
+	addStartScreenElement(data){
 	this._lastBuildNum = this._stageBuilder.addElement(data, this._startScreenElements, 'startScreen');
-},
+}
 
-/**
+	/**
 * @description Adds an element to the thoughtAnimations array which is used to import thought animations
 * @param {Object} data 
-*/	
-addInstructionsElement:function(data){
+	*/	
+	addInstructionsElement(data){
 	this._lastBuildNum = this._stageBuilder.addElement(data, this._instructionElements, 'instructions');
-},
+}
 
-/**
+	/**
 * @description Adds an element to the thoughtAnimations array which is used to import thought animations
 * @param {Object} data 
-*/	
-addDisclaimerElement:function(data){
+	*/	
+	addDisclaimerElement(data){
 	this._lastBuildNum = this._stageBuilder.addElement(data, this._disclaimerElements, 'disclaimer');
-},
+}
 
-/**
+	/**
 * @description Adds an element to the thoughtAnimations array which is used to import thought animations
 * @param {Object} data 
-*/	
-addGoodEndScreenElement:function(data){
+	*/	
+	addGoodEndScreenElement(data){
 	this._lastBuildNum = this._stageBuilder.addElement(data, this._goodEndScreenElements, 'goodEndScreen');
-},
+}
 
-/**
+	/**
 * @description Adds an element to the thoughtAnimations array which is used to import thought animations
 * @param {Object} data 
-*/	
-addBadEndScreenElement:function(data){
+	*/	
+	addBadEndScreenElement(data){
 	this._lastBuildNum = this._stageBuilder.addElement(data, this._badEndScreenElements, 'badEndScreen');
-},
-
-generateThoughtMatrix:function(){
-	this._thoughtMatrix = {
-		candle:{},
-		lampBR:{},
-		lampOffice:{},
-		bookOffice:{},
-		chairBar:{},
-		chairTable:{},
-		matCorner:{},
-		kitchenSink:{},
-		kitchenRange:{},
-		frontDoor:{},
-		tv:{},
-		lampLR:{},
-		toilet:{},
-		bathtub:{},
-		bathSink:{},
-		sock:{},
-		underwear:{},
-		shirt:{},
-		pant:{}
-	};
-},	
-
-generatePotentialThoughtArray:function(){
+}
+	generateThoughtMatrix(){
+		this._thoughtMatrix = {
+			candle:{},
+			lampBR:{},
+			lampOffice:{},
+			bookOffice:{},
+			chairBar:{},
+			chairTable:{},
+			matCorner:{},
+			kitchenSink:{},
+			kitchenRange:{},
+			frontDoor:{},
+			tv:{},
+			lampLR:{},
+			toilet:{},
+			bathtub:{},
+			bathSink:{},
+			sock:{},
+			underwear:{},
+			shirt:{},
+			pant:{}
+		};
+	}
+	generatePotentialThoughtArray(){
 	this._g_potentialThoughtArray  = [
 		"candle",
 		"lampBR",
@@ -179,9 +177,8 @@ generatePotentialThoughtArray:function(){
 		"shirt",
 		"pant"
 	];
-},
-
-generateRelatedMatrix:function(){
+}
+	generateRelatedMatrix(){
 	this._relatedMatrix = {
 		candle:["kitchenRange", "lampBR"],
 		lampBR:["lampOffice", "lampLR"],
@@ -203,10 +200,8 @@ generateRelatedMatrix:function(){
 		shirt:["matCorner", "pant", "underwear", "sock"],
 		pant:["matCorner", "shirt", "underwear", "sock"]
 	};
-},		
-
-
-generatePlayerInfo:function(){
+}
+	generatePlayerInfo(){
 	var playerW = 76;
 	var playerH = 90;
 	var playerX = this._rotaterX - (playerW/2);//the player's x is always centered on the rotater and then subtracts half width to put div on center
@@ -226,55 +221,44 @@ generatePlayerInfo:function(){
 		hitTestHeadData:{container:"",id:"playerHead",x:18,y:2,width:38,height:27},
 		hitTestTorsoData:{container:"",id:"playerTorso",x:8,y:30,width:58,height:60}
 	};
-},
-
-generateThoughtInfo:function(){
+}
+	generateThoughtInfo(){
 	this._thoughtInfo = {type:'thoughtBubble', x:this._rotaterX - 87, y:this._rotaterY - 190, w:173, h:158, stickyHoldingOffset:{0:[0,0], 90:[0,0], 180:[0,0], 270:[0,0]}};
-},
-
-generateMaskInfo:function(){
+}
+	generateMaskInfo(){
 	this._maskInfo = {type:'featheredMask', x:0, y:0, w:375, h:559};
-},
-
-generateVolumeControlInfo:function(){
+}
+	generateVolumeControlInfo(){
 	this._volumeControlInfo = {type:'volumeControl', x:0, y:0, w:42, h:39, buttonFunction:"toggleAudio"};
-},
-
-generateGoodEndScreenElements:function(){
+}
+	generateGoodEndScreenElements(){
 	this.addGoodEndScreenElement({type:'endScreenGood', x:0, y:0, w:375, h:559, IDOverride:"goodEndScreenBackground"});
 	this.addGoodEndScreenElement({type:'endScreenGoodButton', x:95, y:244, w:187, h:41, IDOverride:"goodEndScreenButton", buttonFunction:"buttonEvent"});
 	/* this._endScreenInfo = {type:'endScreen', x:0, y:0, w:375, h:559}; */
-},
-
-generateBadEndScreenElements:function(){
+}
+	generateBadEndScreenElements(){
 	this.addBadEndScreenElement({type:'endScreenBad', x:0, y:0, w:375, h:559, IDOverride:"badEndScreenBackground"});
 	this.addBadEndScreenElement({type:'endScreenBadButton', x:77, y:250, w:221, h:33, IDOverride:"badEndScreenButton", buttonFunction:"buttonEvent"});
 	/* this._endScreenInfo = {type:'endScreen', x:0, y:0, w:375, h:559}; */
-},
-
-generateRotateScreenInfo:function(){
+}
+	generateRotateScreenInfo(){
 	this._rotateScreenInfo = {type:'rotateScreen', x:0, y:0, w:559, h:375};
-},
-
-
-generateStartScreenElements:function (){
+}
+	generateStartScreenElements(){
 	this.addStartScreenElement({type:'logo', x:27, y:25, w:321, h:301});
 	this.addStartScreenElement({type:'loading', x:120, y:342, w:154, h:23, IDOverride:"loading"});
 	this.addStartScreenElement({type:'startButton', x:139, y:342, w:90, h:23, IDOverride:"start", buttonFunction:"startGame"});
 	this.addStartScreenElement({type:'instructionsButton', x:83, y:391, w:201, h:23, IDOverride:"instructions", buttonFunction:"openInstructions"});
 	this.addStartScreenElement({type:'disclaimerButton', x:96, y:444, w:175, h:23, IDOverride:"disclaimer", buttonFunction:"openDisclaimer"});
 	this.addStartScreenElement({type:'trademark', x:31, y:493, w:306, h:39});
-	
 	this.addInstructionsElement({type:'instructionImages', x:0, y:0, w:319, h:508});
 	this.addInstructionsElement({type:'instructionButtonBack', x:3, y:457, w:58, h:47, IDOverride:"back", buttonFunction:"previousPanel"});
 	this.addInstructionsElement({type:'instructionButtonForward', x:258, y:457, w:58, h:47, IDOverride:"forward", buttonFunction:"nextPanel"});
 	this.addInstructionsElement({type:'menuClose', x:258, y:3, w:58, h:47, IDOverride:"close", buttonFunction:"close"});
-	
 	this.addDisclaimerElement({type:'disclaimerImage', x:0, y:0, w:319, h:508});
 	this.addDisclaimerElement({type:'menuClose', x:258, y:3, w:58, h:47, IDOverride:"close", buttonFunction:"close"});
-},
-
-generateStageElements:function (){
+}
+	generateStageElements(){
 	/* STAGE BACKGROUND */			
 	this.addStageElement({type:'interactButton', x:0, y:0, w:this.getStageWidth(), h:this.getStageHeight(), IDOverride:"stageBackground"});
 	/* STAGE BACKGROUND */					
@@ -285,7 +269,7 @@ generateStageElements:function (){
 	this.addStageElement({type:'grass', x:-1000, y:0, w:1000, h:this.getStageHeight() +1000});
 	this.addStageElement({type:'grass', x:0, y:this.getStageHeight(), w:this.getStageWidth() + 2000, h:1000});
 	this.addStageElement({type:'grass', x:this.getStageWidth() - 52, y:0, w:50, h:950});
-	this.addStageElement({type:'grass', x:this.getStageWidth()- 4, y:0, w:1000, h:this.getStageHeight()}); 
+	this.addStageElement({type:'grass', x:this.getStageWidth()- 4, y:0, w:1000, h:this.getStageHeight()});
 	this.addStageElement({type:'dirt', x:793, y:0, w:70, h:210});
 	this.addStageElement({type:'dirt', x:863, y:0, w:61, h:408});
 	this.addStageElement({type:'dirt', x:1018, y:0, w:182, h:408});
@@ -294,73 +278,57 @@ generateStageElements:function (){
 	this.addStageElement({type:'shrubbery', x:869, y:115, w:45, h:100});
 	this.addStageElement({type:'shrubbery', x:869, y:215, w:45, h:100});
 	this.addStageElement({type:'shrubbery', x:869, y:315, w:45, h:85});
-	
 	this.addStageElement({type:'shrubbery', x:1021, y:15, w:45, h:100});
 	this.addStageElement({type:'shrubbery', x:1021, y:115, w:45, h:100});
 	this.addStageElement({type:'shrubbery', x:1021, y:215, w:45, h:100});
 	this.addStageElement({type:'shrubbery', x:1021, y:315, w:45, h:85});
 	this.addStageElement({type:'shrubbery', x:1066, y:15, w:100, h:45});
 	this.addStageElement({type:'shrubbery', x:1166, y:15, w:23, h:45});
-	
 	this.addStageElement({type:'sidewalk', x:918, y:-290, w:100, h:700});
 	this.addStageElement({type:'finishText', x:924, y:113, w:88, h:15});
 	this.addStageElement({type:'exitGameBlocker', x:918, y:0, w:100, h:10});
-	
-	
-	
 	/* BATHROOM FLOOR TILE */			
 	this.addStageElement({type:'bathroomTile', x:855, y:634, w:65, h:65});
 	this.addStageElement({type:'bathroomTile', x:920, y:634, w:65, h:65});
 	this.addStageElement({type:'bathroomTile', x:985, y:634, w:65, h:65});
-	
 	this.addStageElement({type:'bathroomTile', x:855, y:699, w:65, h:65});
 	this.addStageElement({type:'bathroomTile', x:920, y:699, w:65, h:65});
 	this.addStageElement({type:'bathroomTile', x:985, y:699, w:65, h:65});
-	
 	this.addStageElement({type:'bathroomTile', x:855, y:764, w:65, h:65});
 	this.addStageElement({type:'bathroomTile', x:920, y:764, w:65, h:65});
 	this.addStageElement({type:'bathroomTile', x:985, y:764, w:65, h:65});
-	
 	this.addStageElement({type:'bathroomTile', x:790, y:829, w:65, h:65});
 	this.addStageElement({type:'bathroomTile', x:855, y:829, w:65, h:65});
 	this.addStageElement({type:'bathroomTile', x:920, y:829, w:65, h:65});
 	this.addStageElement({type:'bathroomTile', x:985, y:829, w:65, h:65});
-	
 	this.addStageElement({type:'bathroomTile', x:790, y:894, w:65, h:65});
 	this.addStageElement({type:'bathroomTile', x:855, y:894, w:65, h:65});
 	this.addStageElement({type:'bathroomTile', x:920, y:894, w:65, h:65});
 	this.addStageElement({type:'bathroomTile', x:985, y:894, w:65, h:65});
-	
 	this.addStageElement({type:'bathroomTile', x:790, y:959, w:65, h:65});
 	this.addStageElement({type:'bathroomTile', x:855, y:959, w:65, h:65});
 	this.addStageElement({type:'bathroomTile', x:920, y:959, w:65, h:65});
 	this.addStageElement({type:'bathroomTile', x:985, y:959, w:65, h:65});
-	
 	this.addStageElement({type:'bathroomTile', x:790, y:1024, w:65, h:65});
 	this.addStageElement({type:'bathroomTile', x:855, y:1024, w:65, h:65});
 	this.addStageElement({type:'bathroomTile', x:920, y:1024, w:65, h:65});
 	this.addStageElement({type:'bathroomTile', x:985, y:1024, w:65, h:65});
-	
 	this.addStageElement({type:'bathroomCounterTile', x:1044, y:639, w:40, h:40});
 	this.addStageElement({type:'bathroomCounterTile', x:1084, y:639, w:40, h:40});
 	this.addStageElement({type:'bathroomCounterTile', x:1124, y:639, w:40, h:40});
 	this.addStageElement({type:'bathroomCounterTileHalf', x:1164, y:639, w:23, h:40});
 	this.addStageElement({type:'blueShim', x:1044, y:639, w:2, h:40});
-	
 	this.addStageElement({type:'bathroomCounterTileHalf', x:1164, y:679, w:23, h:40});
 	this.addStageElement({type:'bathroomCounterTileHalf', x:1164, y:719, w:23, h:40});
 	this.addStageElement({type:'bathroomCounterTileHalf', x:1164, y:759, w:23, h:40});
 	this.addStageElement({type:'bathroomCounterTileHalf', x:1164, y:799, w:23, h:40});
 	this.addStageElement({type:'bathroomCounterTileHalf', x:1164, y:839, w:23, h:40});
 	this.addStageElement({type:'bathroomCounterTileHalf', x:1164, y:879, w:23, h:40});
-	
-	
 	this.addStageElement({type:'bathroomCounterTile', x:1044, y:903, w:40, h:40});
 	this.addStageElement({type:'bathroomCounterTile', x:1084, y:903, w:40, h:40});
 	this.addStageElement({type:'bathroomCounterTile', x:1124, y:903, w:40, h:40});
 	this.addStageElement({type:'bathroomCounterTileHalf', x:1164, y:903, w:23, h:40});
 	this.addStageElement({type:'blueShim', x:1044, y:903, w:2, h:40});
-	
 	/* BATHROOM SINK COUNTER */
 	this.addStageElement({type:'bathroomCounterTile', x:822, y:655, w:40, h:40});
 	this.addStageElement({type:'bathroomCounterTile', x:862, y:655, w:40, h:40});
@@ -372,9 +340,6 @@ generateStageElements:function (){
 	this.addStageElement({type:'bathroomCounterTile', x:862, y:775, w:40, h:40});
 	this.addStageElement({type:'bathroomCounterTile', x:822, y:815, w:40, h:40});
 	this.addStageElement({type:'bathroomCounterTile', x:862, y:815, w:40, h:40});
-	
-	
-	
 	/* TOP WALL*/
 	
 	this.addStageElement({type:'outerwallCornerInTL', x:0, y:0, w:20, h:20});
@@ -388,8 +353,7 @@ generateStageElements:function (){
 	this.addStageElement({type:'outerwallTT', x:656, y:0, w:20, h:20});
 	this.addStageElement({type:'innerwallCapDTopWall', x:656, y:20, w:20, h:75});////
 	this.addStageElement({type:'outerwallT', x:676, y:0, w:100, h:20});
-	this.addStageElement({type:'outerwallCornerInTR', x:776, y:0, w:20, h:20}); 
-	
+	this.addStageElement({type:'outerwallCornerInTR', x:776, y:0, w:20, h:20});
 	/* RIGHT WALL*/
 	
 	
@@ -440,8 +404,6 @@ generateStageElements:function (){
 	this.addStageElement({type:'windowR', x:1232, y:1397, w:20, h:100});
 	this.addStageElement({type:'outerwallR', x:1232, y:1497, w:20, h:100});
 	this.addStageElement({type:'outerwallR', x:1232, y:1597, w:20, h:71});
-	
-	
 	/* LEFT WALL*/
 	this.addStageElement({type:'outerwallL', x:0, y:20, w:20, h:80});
 	this.addStageElement({type:'windowL', x:0, y:100, w:20, h:100});
@@ -460,9 +422,6 @@ generateStageElements:function (){
 	this.addStageElement({type:'windowL', x:0, y:1400, w:20, h:100});
 	this.addStageElement({type:'windowL', x:0, y:1500, w:20, h:100});
 	this.addStageElement({type:'outerwallL', x:0, y:1600, w:20, h:68});
-	
-	
-	
 	/* BOTTOM WALL*/
 	this.addStageElement({type:'outerwallCornerInBL', x:0, y:1668, w:20, h:20});
 	this.addStageElement({type:'outerwallB', x:20, y:1668, w:91, h:20});
@@ -479,7 +438,6 @@ generateStageElements:function (){
 	this.addStageElement({type:'windowB', x:1032, y:1668, w:100, h:20});
 	this.addStageElement({type:'outerwallB', x:1132, y:1668, w:100, h:20});
 	this.addStageElement({type:'outerwallCornerInBR', x:1232, y:1668, w:20, h:20});
-	
 	/* INNER WALL KITCHEN TOP */
 	this.addStageElement({type:'innerwallCapRKitchenTop', x:204, y:620, w:28, h:20});
 	this.addStageElement({type:'innerwallKitchenTopLeft', x:232, y:600, w:41, h:40});
@@ -528,7 +486,6 @@ generateStageElements:function (){
 	this.addStageElement({type:'innerwallH', x:795, y:858, w:7, h:20});
 	this.addStageElement({type:'innerwallCapUBathroomBottom2', x:802, y:788, w:20, h:90});
 	this.addStageElement({type:'innerwallCapDBathroomBottom', x:775, y:878, w:20, h:84});
-	
 	/* BATHROOM WALL TOP(TOP) */
 	this.addStageElement({type:'innerwallCapDBathroomTop1', x:755, y:639, w:20, h:65});
 	this.addStageElement({type:'innerwallCapRBathroomTop', x:732, y:619, w:23, h:20});
@@ -538,13 +495,6 @@ generateStageElements:function (){
 	this.addStageElement({type:'innerwallCapDBathroomTop2', x:802, y:654, w:20, h:79});
 	this.addStageElement({type:'innerwallBathroomTopRight2', x:822, y:599, w:60, h:56});
 	this.addStageElement({type:'innerwallCapLBathroomTop', x:880, y:619, w:38, h:20});
-	
-	
-	
-	
-	
-	
-	
 	/* FURNITURE*/
 	
 	/* BEDROOM */
@@ -560,18 +510,11 @@ generateStageElements:function (){
 	this.addStageElement({type:'bedroomDresserRight', x:430, y:528, w:34, h:72});
 	this.addStageElement({type:'garbageCan', x:286, y:548, w:40, h:40});
 	this.addStageElement({type:'hamper', x:678, y:19, w:96, h:74});
-	
-	
-	
-	
 	/* KITCHEN*/
 	
 	this.addStageElement({type:'barStoolHorz', x:160, y:670, w:61, h:53, moveObject:{x:0, y:0, xMax:0, yMax:0, up:false, down:false, left:false, right:false}});
 	this.addStageElement({type:'barStoolHorz', x:160, y:740, w:61, h:53, moveObject:{x:0, y:0, xMax:0, yMax:0, up:false, down:false, left:false, right:false}});
 	this.addStageElement({type:'barStoolHorz', x:160, y:810, w:61, h:53, moveObject:{x:0, y:0, xMax:0, yMax:0, up:false, down:false, left:false, right:false}});
-	
-	
-	
 	this.addStageElement({type:'marbleThinShim', x:222, y:640, w:28, h:20});
 	this.addStageElement({type:'marbleThin', x:222, y:660, w:28, h:50});
 	this.addStageElement({type:'marbleThin', x:222, y:710, w:28, h:50});
@@ -591,18 +534,12 @@ generateStageElements:function (){
 	this.addStageElement({type:'greyShim', x:250, y:910, w:84, h:2});
 	this.addStageElement({type:'kitchenSinkRight', x:260, y:744, w:70, h:58});
 	this.addStageElement({type:'kitchenSinkLeft', x:260, y:802, w:70, h:64});
-	
-	
-	
 	this.addStageElement({type:'kitchenMat1', x:358, y:750, w:49, h:50});
 	this.addStageElement({type:'kitchenMat2', x:407, y:750, w:49, h:50});
 	this.addStageElement({type:'kitchenMat3', x:358, y:800, w:49, h:50});
 	this.addStageElement({type:'kitchenMat4', x:407, y:800, w:25, h:25});
 	this.addStageElement({type:'kitchenMat5', x:432, y:800, w:24, h:25});
 	this.addStageElement({type:'kitchenMat6', x:407, y:825, w:25, h:25});
-	
-	
-	
 	/* BATHROOM FIXTURES */
 	this.addStageElement({type:'bathtub1', x:1050, y:679, w:100, h:100});
 	this.addStageElement({type:'bathtub2', x:1150, y:679, w:24, h:100});
@@ -610,12 +547,8 @@ generateStageElements:function (){
 	this.addStageElement({type:'bathtub4', x:1150, y:779, w:24, h:100});
 	this.addStageElement({type:'bathtub5', x:1050, y:879, w:100, h:24});
 	this.addStageElement({type:'bathtub6', x:1150, y:879, w:24, h:24});
-	
 	this.addStageElement({type:'toiletBack', x:927, y:1056, w:62, h:28});
-	
-	
-	this.addStageElement({type:'garbageCan', x:798, y:885, w:40, h:40}); 
-	
+	this.addStageElement({type:'garbageCan', x:798, y:885, w:40, h:40});
 	/* LIVING ROOM */
 	this.addStageElement({type:'livingroomRug', x:725, y:1235, w:50, h:50});
 	this.addStageElement({type:'livingroomRug', x:775, y:1235, w:50, h:50});
@@ -625,7 +558,6 @@ generateStageElements:function (){
 	this.addStageElement({type:'livingroomRug', x:975, y:1235, w:50, h:50});
 	this.addStageElement({type:'livingroomRug', x:1025, y:1235, w:50, h:50});
 	this.addStageElement({type:'livingroomRug', x:1075, y:1235, w:50, h:50});
-	
 	this.addStageElement({type:'livingroomRug', x:725, y:1285, w:50, h:50});
 	this.addStageElement({type:'livingroomRug', x:775, y:1285, w:50, h:50});
 	this.addStageElement({type:'livingroomRug', x:825, y:1285, w:50, h:50});
@@ -634,7 +566,6 @@ generateStageElements:function (){
 	this.addStageElement({type:'livingroomRug', x:975, y:1285, w:50, h:50});
 	this.addStageElement({type:'livingroomRug', x:1025, y:1285, w:50, h:50});
 	this.addStageElement({type:'livingroomRug', x:1075, y:1285, w:50, h:50});
-	
 	this.addStageElement({type:'livingroomRug', x:725, y:1335, w:50, h:50});
 	this.addStageElement({type:'livingroomRug', x:775, y:1335, w:50, h:50});
 	this.addStageElement({type:'livingroomRug', x:825, y:1335, w:50, h:50});
@@ -643,7 +574,6 @@ generateStageElements:function (){
 	this.addStageElement({type:'livingroomRug', x:975, y:1335, w:50, h:50});
 	this.addStageElement({type:'livingroomRug', x:1025, y:1335, w:50, h:50});
 	this.addStageElement({type:'livingroomRug', x:1075, y:1335, w:50, h:50});
-	
 	this.addStageElement({type:'livingroomRug', x:725, y:1385, w:50, h:50});
 	this.addStageElement({type:'livingroomRug', x:775, y:1385, w:50, h:50});
 	this.addStageElement({type:'livingroomRug', x:825, y:1385, w:50, h:50});
@@ -652,7 +582,6 @@ generateStageElements:function (){
 	this.addStageElement({type:'livingroomRug', x:975, y:1385, w:50, h:50});
 	this.addStageElement({type:'livingroomRug', x:1025, y:1385, w:50, h:50});
 	this.addStageElement({type:'livingroomRug', x:1075, y:1385, w:50, h:50});
-	
 	this.addStageElement({type:'livingroomRug', x:725, y:1435, w:50, h:50});
 	this.addStageElement({type:'livingroomRug', x:775, y:1435, w:50, h:50});
 	this.addStageElement({type:'livingroomRug', x:825, y:1435, w:50, h:50});
@@ -661,7 +590,6 @@ generateStageElements:function (){
 	this.addStageElement({type:'livingroomRug', x:975, y:1435, w:50, h:50});
 	this.addStageElement({type:'livingroomRug', x:1025, y:1435, w:50, h:50});
 	this.addStageElement({type:'livingroomRug', x:1075, y:1435, w:50, h:50});
-	
 	this.addStageElement({type:'livingroomRug', x:725, y:1485, w:50, h:50});
 	this.addStageElement({type:'livingroomRug', x:775, y:1485, w:50, h:50});
 	this.addStageElement({type:'livingroomRug', x:825, y:1485, w:50, h:50});
@@ -670,7 +598,6 @@ generateStageElements:function (){
 	this.addStageElement({type:'livingroomRug', x:975, y:1485, w:50, h:50});
 	this.addStageElement({type:'livingroomRug', x:1025, y:1485, w:50, h:50});
 	this.addStageElement({type:'livingroomRug', x:1075, y:1485, w:50, h:50});
-	
 	this.addStageElement({type:'livingroomRug', x:725, y:1535, w:50, h:50});
 	this.addStageElement({type:'livingroomRug', x:775, y:1535, w:50, h:50});
 	this.addStageElement({type:'livingroomRug', x:825, y:1535, w:50, h:50});
@@ -679,31 +606,22 @@ generateStageElements:function (){
 	this.addStageElement({type:'livingroomRug', x:975, y:1535, w:50, h:50});
 	this.addStageElement({type:'livingroomRug', x:1025, y:1535, w:50, h:50});
 	this.addStageElement({type:'livingroomRug', x:1075, y:1535, w:50, h:50});
-	
-	
 	this.addStageElement({type:'livingroomPlant', x:770, y:1125, w:71, h:75});
 	this.addStageElement({type:'coffeeTableLeft', x:856, y:1340, w:100, h:82});
 	this.addStageElement({type:'coffeeTableRight', x:956, y:1340, w:57, h:82});
-	
 	this.addStageElement({type:'sofa1', x:784, y:1525, w:100, h:100});
 	this.addStageElement({type:'sofa2', x:884, y:1525, w:100, h:100});
 	this.addStageElement({type:'sofa3', x:984, y:1525, w:98, h:100});
 	this.addStageElement({type:'sofa4', x:784, y:1625, w:100, h:35});
 	this.addStageElement({type:'sofa5', x:884, y:1625, w:100, h:35});
 	this.addStageElement({type:'sofa6', x:984, y:1625, w:98, h:35});
-	
 	this.addStageElement({type:'roundChair1', x:645, y:1326, w:55, h:55});
 	this.addStageElement({type:'roundChair2', x:700, y:1326, w:52, h:55});
 	this.addStageElement({type:'roundChair3', x:645, y:1381, w:55, h:55});
 	this.addStageElement({type:'roundChair4', x:700, y:1381, w:52, h:55});
-	
 	this.addStageElement({type:'livingroomPlant', x:617, y:1460, w:71, h:75});
-	
-	
 	this.addStageElement({type:'sofaEndTable1Plug', x:700, y:1635, w:6, h:33});
 	this.addStageElement({type:'sofaEndTable1Plug', x:1139, y:1635, w:6, h:33});
-	
-	
 	/* OFFICE */
 	this.addStageElement({type:'bookcase1', x:544, y:1371, w:76, h:37});
 	this.addStageElement({type:'bookcase2', x:544, y:1408, w:40, h:92});
@@ -712,14 +630,12 @@ generateStageElements:function (){
 	this.addStageElement({type:'bookcase5', x:544, y:1600, w:76, h:68});
 	this.addStageElement({type:'bookcase6', x:379, y:1609, w:94, h:59});
 	this.addStageElement({type:'bookcase7', x:473, y:1609, w:71, h:59});
-	
 	this.addStageElement({type:'tvTableLeft', x:844, y:1124, w:100, h:84});
 	this.addStageElement({type:'tvTableRight', x:944, y:1124, w:84, h:84});
 	this.addStageElement({type:'tvBack', x:889, y:1137, w:94, h:21});
 	this.addStageElement({type:'bookInBookcase', x:542, y:1424, w:10, h:7, IDOverride:"bookInBookcase"});
 	this.addStageElement({type:'dropTarget', x:680, y:40, w:90, h:75, IDOverride:"hamper", dropTargetFunction:"dropTargetHamper"});
 	this.addStageElement({type:'dropTarget', x:520, y:1410, w:47, h:57, IDOverride:"bookcase", dropTargetFunction:"dropTargetBookcase"});
-	
 	this.addStageElement({type:'deskChair1', x:210, y:1531, w:66, h:70});
 	this.addStageElement({type:'deskChair2', x:210, y:1357, w:68, h:67});
 	this.addStageElement({type:'desk1', x:116, y:1428, w:94, h:80});
@@ -728,51 +644,34 @@ generateStageElements:function (){
 	this.addStageElement({type:'desk4', x:210, y:1508, w:85, h:23});
 	this.addStageElement({type:'desk6', x:295, y:1508, w:80, h:24});
 	this.addStageElement({type:'livingroomPlant', x:30, y:1590, w:71, h:75});
-	
-	
-	
 	/* THIS MUST BE IN BETWEEN ALL ITEMS THAT ARE MERELY OBSTACLES AND THOSE THAT CAN BE INTERACTED WITH AS IT WILL CATCH ALL TOUCH INPUT*/
 	//	this.addStageElement({type:'interactButton', x:0, y:0, w:this.getStageWidth(), h:this.getStageHeight(), IDOverride:"swipeInterface"});
-	
-	
-	
-	
-	
-	
 	/* INTERACTIVE ITEMS */
 	/* DOORS */
 	
 	// from hall to bedroom
 	this.addStageElement({type:'door0Deg', x:571, y:464, w:22, h:100, listener:'tile' + (this._lastBuildNum + 2), state:true});
 	this.addStageElement({type:'door90Deg', x:477, y:550, w:100, h:22, listener:'tile' + this._lastBuildNum, state:false});
-	
 	// from hall to bathroom top
 	this.addStageElement({type:'door90Deg', x:918, y:618, w:100, h:22, listener:'tile' + (this._lastBuildNum + 2), state:false});
 	this.addStageElement({type:'door180Deg', x:1001, y:630, w:22, h:100, listener:'tile' + this._lastBuildNum, state:true});
-	
 	// from hall to bathroom bottom
 	this.addStageElement({type:'door0Deg', x:774, y:962, w:22, h:100, listener:'tile' + (this._lastBuildNum + 2), state:true});
 	this.addStageElement({type:'door270Deg', x:788, y:1046, w:100, h:22, listener:'tile' + this._lastBuildNum, state:false});
-	
 	// from hall to outside
 	this.addStageElement({type:'door90Deg', x:918, y:407, w:100, h:22, listener:'tile' + (this._lastBuildNum + 2), state:true, thoughtType:'frontDoor',objectType:"immobile"});
-	this.addStageElement({type:'door0Deg', x:1001, y:312, w:22, h:100, listener:'tile' + this._lastBuildNum, state:false, thoughtType:'frontDoor', objectType:"immobile"});		
-	
+	this.addStageElement({type:'door0Deg', x:1001, y:312, w:22, h:100, listener:'tile' + this._lastBuildNum, state:false, thoughtType:'frontDoor', objectType:"immobile"});
 	// closet in living room
 	this.addStageElement({type:'door90Deg', x:1079, y:1103, w:100, h:22, listener:'tile' + (this._lastBuildNum + 2), state:true});
 	this.addStageElement({type:'door180Deg', x:1162, y:1113, w:22, h:100, listener:'tile' + this._lastBuildNum, state:false});
-	
 	// hinged door top
 	this.addStageElement({type:'hingedDoorOpenTop', x:607, y:96, w:64, h:54, listener1:'tile' + (this._lastBuildNum + 2), listener2:'tile' + (this._lastBuildNum + 3), state:true});
 	this.addStageElement({type:'hingedDoorClosedTop1', x:660, y:95, w:10, h:62, state:false});
 	this.addStageElement({type:'hingedDoorClosedTop2', x:654, y:157, w:22, h:62, listener1:'tile' + (this._lastBuildNum - 1), listener2:'tile' + this._lastBuildNum, state:false});
-	
 	// hinged door bottom
 	this.addStageElement({type:'hingedDoorOpenBottom', x:607, y:289, w:64, h:54, listener1:'tile' + (this._lastBuildNum + 2), listener2:'tile' + (this._lastBuildNum + 3), state:false});
 	this.addStageElement({type:'hingedDoorClosedBottom1', x:660, y:281, w:10, h:62, state:true});
 	this.addStageElement({type:'hingedDoorClosedBottom2', x:654, y:219, w:22, h:62, listener1:'tile' + (this._lastBuildNum - 1), listener2:'tile' + this._lastBuildNum, state:true});
-	
-	
 	/* BEDROOM */
 	this.addStageElement({type:'nightstand', x:190, y:20, w:80, h:60});
 	this.addStageElement({type:'plug', x:150, y:20, w:40, h:10, listener:'tile' + this._lastBuildNum, thoughtType:'lampBR', objectType:"immobile"});
@@ -783,7 +682,6 @@ generateStageElements:function (){
 	this.addStageElement({type:'kitchenMat7', x:432, y:825, w:24, h:25, thoughtType:'matCorner', objectType:"immobile"});
 	this.addStageElement({type:'kitchenSinkWater', x:270, y:810, w:50, h:46, thoughtType:'kitchenSink', objectType:"immobile"});
 	this.addStageElement({type:'barStoolHorz', x:160, y:916, w:61, h:53, moveObject:{x:5, y:5, xMax:0, yMax:0, xMin:0, yMin:-35, up:true, down:false, left:false, right:false},thoughtType:'chairBar', objectType:"mobile"});
-	
 	this.addStageElement({type:'kitchenTableBase', x:222, y:1119, w:102, h:79});
 	this.addStageElement({type:'kitchenChairDown', x:243, y:1065, w:60, h:78});
 	this.addStageElement({type:'kitchenChairUp', x:243, y:1173, w:60, h:78});
@@ -802,8 +700,6 @@ generateStageElements:function (){
 	this.addStageElement({type:'sofaEndTable1Interact', x:1100, y:1537, w:98, h:98, thoughtType:'lampLR', objectType:"immobile"});
 	/* OFFICE */
 	this.addStageElement({type:'desk5', x:295, y:1428, w:80, h:80, thoughtType:'lampOffice', objectType:"immobile"});
-	
-	
 	this.addStageElement({type:'sock', x:520, y:200, w:30, h:30,stickyHoldingOffset:{0:[0,0], 90:[0,0], 180:[0,0], 270:[0,0]},thoughtType:'sock', objectType:"sticky"});//w:19, h:24
 	this.addStageElement({type:'sock', x:560, y:300, w:30, h:30,stickyHoldingOffset:{0:[0,0], 90:[0,0], 180:[0,0], 270:[0,0]},thoughtType:'sock', objectType:"sticky"});//w:19, h:24
 	this.addStageElement({type:'pants', x:510, y:30, w:46, h:37,stickyHoldingOffset:{0:[0,0], 90:[0,0], 180:[0,0], 270:[0,0]},thoughtType:'pant', objectType:"sticky"});//w:19, h:24
@@ -814,19 +710,14 @@ generateStageElements:function (){
 	this.addStageElement({type:'bathWater', x:1065, y:693, w:96, h:200});
 	this.addStageElement({type:'bathWaterTrigger', x:1065, y:703, w:30, h:80,listener:'tile' + this._lastBuildNum, thoughtType:'bathtub', objectType:"immobile"});
 	this.addStageElement({type:'bathroomTubFaucet', x:1098, y:668, w:36, h:28});
-	
 	this.addStageElement({type:'bathroomSink', x:839, y:725, w:39, h:71});
 	this.addStageElement({type:'bathWaterTrigger', x:870, y:743, w:30, h:342,listener:'tile' + this._lastBuildNum, thoughtType:'bathSink', objectType:"immobile"});
-	this.addStageElement({type:'bathroomSinkFixtures', x:802, y:733, w:49, h:55}); 
-	
+	this.addStageElement({type:'bathroomSinkFixtures', x:802, y:733, w:49, h:55});
 	this.addStageElement({type:'toilet', x:928, y:988, w:56, h:68, thoughtType:'toilet', objectType:"immobile"});
-	
 	/* THIS MUST BE IN BETWEEN ALL ITEMS THAT ARE MERELY OBSTACLES AND THOSE THAT CAN BE INTERACTED WITH AS IT WILL CATCH ALL TOUCH INPUT*/
 	this.addStageElement({type:'interactButton', x:0, y:0, w:this.getStageWidth(), h:this.getStageHeight(), IDOverride:"swipeInterface"});
-			
-},
-
-generateThoughtElements:function (){
+}
+	generateThoughtElements(){
 	/* THOUGHT ANIMATIONS*/
 	this.addThoughtElement({name:'candle', x:8, y:8, w:157, h:116, frameCount:3, frameRoot:this._directory + "candleThought/animation", frameType:".gif", className:"animationSequence"}); //complete
 	this.addThoughtElement({name:'lampBR', x:8, y:8, w:157, h:116, frameCount:3, frameRoot:this._directory + "lampBRThought/animation", frameType:".gif", className:"animationSequence"}); //complete
@@ -847,10 +738,9 @@ generateThoughtElements:function (){
 	this.addThoughtElement({name:'underwear', x:8, y:8, w:157, h:116, frameCount:3, frameRoot:this._directory + "underwearThought/animation", frameType:".gif", className:"animationSequence"}); //complete
 	this.addThoughtElement({name:'shirt', x:8, y:8, w:157, h:116, frameCount:3, frameRoot:this._directory + "shirtThought/animation", frameType:".gif", className:"animationSequence"}); //complete
 	this.addThoughtElement({name:'pant', x:8, y:8, w:157, h:116, frameCount:3, frameRoot:this._directory + "pantThought/animation", frameType:".gif", className:"animationSequence"}); //complete
-},
-
-setGameboardClasses:function(){
-//Lookup table for classes associated with parts of the gameBoard
+}
+	setGameboardClasses(){
+	//Lookup table for classes associated with parts of the gameBoard
 	this._gameBoardClasses = {
 		player:"player", 
 		thoughtBubble:"thoughtBubble", 
@@ -1065,9 +955,8 @@ setGameboardClasses:function(){
 		endScreenBadButton:"button"
 								
 	};
-},
-
-setGameboardImageLookup:function(){
+}
+	setGameboardImageLookup(){
 	this._gameBoardImageLookup = {
 		player:[this._directory + "playerStill.png",this._directory + "playerWalk1.png",this._directory + "playerWalk2.png",this._directory + "playerWalk3.png",this._directory + "playerWalk4.png",this._directory + "playerTurn90.png",this._directory + "playerTurn270.png",this._directory + "playerInteract.png"], 
 		thoughtBubble:this._directory + "thoughts.gif",
@@ -1282,150 +1171,111 @@ setGameboardImageLookup:function(){
 		endScreenBadButton:this._directory + "gameOverButton.gif"
 														
 	};
-},
-	
-setInitialLoadBytes:function(num){
+}
+	setInitialLoadBytes(num){
 	this._initialLoadBytes = num;
-},
-
-setTotalLoadBytes:function(num){
+}
+	setTotalLoadBytes(num){
 	this._totalLoadBytes = num;
-},
-
-setJQueryRotaterPosition:function(loc){
+}
+	setJQueryRotaterPosition(loc){
 	this._rotaterPosition = loc;
-},
-
-setRotaterPosition:function(x,y){
+}
+	setRotaterPosition(x,y){
 	this._rotaterX = x;
 	this._rotaterY = y;
-},
-
-setStageDimensions:function(w,h){
+}
+	setStageDimensions(w,h){
 	this._stageWidth = w;
 	this._stageHeight = h;
-},
-
-setStageStartPosition:function(x,y){
+}
+	setStageStartPosition(x,y){
 	this._stageStartX = x;
 	this._stageStartY = y;
-},
-
-setTimeLimit:function(minutes){
+}
+	setTimeLimit(minutes){
 	this._timeLimit = minutes;
-},
-
-getGameboardClasses:function(){
+}
+	getGameboardClasses(){
 	return this._gameBoardClasses;
-},
-
-getGameboardImageLookup:function(){
+}
+	getGameboardImageLookup(){
 	return this._gameBoardImageLookup;
-},
-
-getInitialLoadBytes:function(){
+}
+	getInitialLoadBytes(){
 	return this._initialLoadBytes;
-},
-
-getTotalLoadBytes:function(){
+}
+	getTotalLoadBytes(){
 	return this._totalLoadBytes;
-},
-
-getRotaterX:function(){
+}
+	getRotaterX(){
 	return this._rotaterX;
-},
-
-getRotaterY:function(){
+}
+	getRotaterY(){
 	return this._rotaterY;
-},
-
-getStageWidth:function(){
+}
+	getStageWidth(){
 	return this._stageWidth;
-},
-
-getStageHeight:function(){
+}
+	getStageHeight(){
 	return this._stageHeight;
-},
-
-
-getStageStartX:function(){
+}
+	getStageStartX(){
 	return this._stageStartX;
-},
-
-getStageStartY:function(){
+}
+	getStageStartY(){
 	return this._stageStartY;
-},
-
-getPlayerInfo:function(){
+}
+	getPlayerInfo(){
 	return this._playerInfo;
-},
-getThoughtInfo:function(){
+}
+	getThoughtInfo(){
 	return this._thoughtInfo;
-},
-getMaskInfo:function(){
+}
+	getMaskInfo(){
 	return this._maskInfo;
-},
-getVolumeControlInfo:function(){
+}
+	getVolumeControlInfo(){
 	return this._volumeControlInfo;
-},
-
-getGoodEndScreenElements:function(){
+}
+	getGoodEndScreenElements(){
 	return this._goodEndScreenElements;
-},
-
-getBadEndScreenElements:function(){
+}
+	getBadEndScreenElements(){
 	return this._badEndScreenElements;
-},
-
-getRotateScreenInfo:function(){
+}
+	getRotateScreenInfo(){
 	return this._rotateScreenInfo;
-},
-
-getGameBoard:function(){
+}
+	getGameBoard(){
 	return this._gameboard;
-},
-
-getThoughtAnimations:function(){
+}
+	getThoughtAnimations(){
 	return this._thoughtAnimations;
-},
-
-getStartScreenElements:function(){
+}
+	getStartScreenElements(){
 	return this._startScreenElements;
-},
-
-getInstructionElements:function(){
+}
+	getInstructionElements(){
 	return this._instructionElements;
-},
-
-getDisclaimerElements:function(){
+}
+	getDisclaimerElements(){
 	return this._disclaimerElements;
-},
-
-getThoughtMatrix:function(){
+}
+	getThoughtMatrix(){
 	return this._thoughtMatrix;
-},
-
-getPotentialThoughtArray:function(){
+}
+	getPotentialThoughtArray(){
 	return this._g_potentialThoughtArray;
-},
-
-getRelatedMatrix:function(){
+}
+	getRelatedMatrix(){
 	return this._relatedMatrix;
-},
-
-getTimeLimit:function(){
+}
+	getTimeLimit(){
 	return this._timeLimit;
-},
+}
 
 
 
  
-});
-
-
-			
-			
-			
-			
-			
-			
+}

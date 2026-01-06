@@ -1,12 +1,12 @@
-const Images_View = View.extend({
-  		construct() { 
-		this.SC.construct();
+class Images_View extends View {
+  		constructor() { 
+		super();
 		this.images;
   		this._className = "Images";
-  },
+  }
 
-/**
-* Initializes the instance
+	/**
+	* Initializes the instance
 * @param {Selection} container // the selection on the stage that houses the tile
 * @param {String} id // unique name of the new DIV
 * @param {String} className // space delimited string of CSS classes that are attached to this instance.
@@ -17,8 +17,8 @@ const Images_View = View.extend({
 * @param {Array} imgs // Array of image paths for the animations or various frame states
 * @param {Interger} startFrame // frame that the animation is set on
 * @return 
-*/	
-init(controller, data) {
+	*/	
+	init(controller, data) {
 	
 	this._controller = controller;
 	
@@ -71,51 +71,51 @@ init(controller, data) {
 	
 	/* adding image subclass */
 	
-},
+}
 
-/**
+	/**
 * @description Set the image state of the images DIV -- seems like something to move into it's own class
 * @param {Interger} startFrame // frame to display initially
-*/   
-setImagesState(startFrame) {
+	*/   
+	setImagesState(startFrame) {
   if(startFrame !== null){
  	for(let i = 0; i< this.images.length; i++){
  	    this.hideFrameNum(i);
  	}
  	this.showFrameNum(startFrame);
  }
-},
+}
 
-/**
+	/**
 * @description Display specific "frame" in images
 * @param {Interger} frameNum // frame to display
-*/   
-showFrameNum(frameNum) {
+	*/   
+	showFrameNum(frameNum) {
   if(this.images[frameNum] !== undefined){
     this.images[frameNum].getDiv().show();
   }
-},
+}
 
-/**
+	/**
 * @description Hide specific "frame" in images
 * @param {Interger} frameNum // frame to display
-*/   
-hideFrameNum(frameNum) {
+	*/   
+	hideFrameNum(frameNum) {
   if(this.images[frameNum] !== undefined){
     this.images[frameNum].getDiv().hide();
   }
-},
+}
 
 
-/**
+	/**
 * @description Returns number of images in a given Selector
 * @returns {Interger} images.length // number of "frames"
-*/   
-getImageCount() {
+	*/   
+	getImageCount() {
   return(this.images.length);
 }
 
   
   
   
-});
+}

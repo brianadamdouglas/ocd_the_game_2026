@@ -1,8 +1,8 @@
-const Button_View = Tile_View.extend({
-  construct() { 
-		this.SC.construct();
+class Button_View extends Tile_View {
+  constructor() { 
+		super();
 		
-  },
+  }
   
   /**
   * @description Initializes the instance
@@ -60,4 +60,4 @@ const Button_View = Tile_View.extend({
 		this.hide();
   }
   
-});
+}
