@@ -9,11 +9,13 @@ This is an interactive game that simulates OCD (Obsessive-Compulsive Disorder) e
 ## Features
 
 - **MVC Architecture**: Clean separation of concerns with Model-View-Controller pattern
-- **ES6 Syntax**: Modern JavaScript with const/let, arrow functions, and template literals
+- **ES6 Syntax**: Modern JavaScript with const/let, arrow functions, ES6 classes, and template literals
 - **Mobile Support**: Responsive design with touch controls and orientation handling
 - **Asset Loading System**: Progressive loading with progress tracking
 - **Audio Integration**: Background music with looping support
 - **Thought System**: Dynamic thought animations and triggers
+- **Comprehensive Testing**: Jest-based unit test suite with 87+ tests
+- **Refactored Codebase**: Improved code quality with extracted methods and better separation of concerns
 
 ## Project Structure
 
@@ -69,6 +71,7 @@ OCD_GAME/
 
 - A modern web browser (Chrome, Firefox, Safari, Edge)
 - Python 3 (for local development server)
+- Node.js and npm (for running tests - see `INSTALL_NODE.md` for installation instructions)
 
 ### Running Locally
 
@@ -86,6 +89,27 @@ If you have Node.js installed, you can use `http-server`:
 ```bash
 npx http-server -p 8000
 ```
+
+### Running Tests
+
+The project includes a comprehensive test suite using Jest. See `README_TESTING.md` for detailed instructions.
+
+**Quick start:**
+```bash
+# Install dependencies (first time only)
+npm install
+
+# Run all tests
+npm test
+
+# Run tests with coverage
+npm test -- --coverage
+```
+
+**Test Results:**
+- 87 tests across 9 test suites
+- All tests passing ✅
+- Coverage for all refactored methods
 
 ## Key Files
 
@@ -141,9 +165,29 @@ The game uses a custom event system (`EventHandler.js`) for decoupled communicat
 
 - ES6 syntax throughout
 - `const`/`let` instead of `var`
+- ES6 classes with `extends` and `super()`
 - Arrow functions for callbacks
 - Template literals for strings
 - Strict equality (`===`)
+- No commented-out code
+- Consistent variable declarations
+
+### Code Quality
+
+The codebase has undergone significant refactoring to improve maintainability:
+
+- **Refactored Methods**: 16 methods extracted from long functions in `Main_Controller.js`
+- **Test Coverage**: Comprehensive unit tests for all refactored methods
+- **Documentation**: 
+  - `ASSESSMENT.md`: Comprehensive code audit and improvement areas
+  - `REFACTORING_PLAN.md`: Detailed refactoring plan and progress
+  - `README_TESTING.md`: Testing documentation
+
+**Refactoring Status:**
+- ✅ Phase 1: Low-risk refactorings (4 methods)
+- ✅ Phase 2: Medium-risk refactorings (3 methods)
+- ✅ Phase 3: High-risk refactorings (1 method)
+- **All phases complete!**
 
 ### Adding New Features
 
@@ -156,12 +200,45 @@ The game uses a custom event system (`EventHandler.js`) for decoupled communicat
 3. Register with the event handler if needed
 4. Add script tags to `game.html` in the correct order (vendors → core → views → controllers → models → utils)
 5. Update `core/config.js` if new global instances are needed
+6. **Write tests** for new functionality (see `tests/unit/` for examples)
+
+## Testing
+
+The project includes a comprehensive test suite using Jest. All refactored methods have unit tests with high coverage.
+
+**Test Files:**
+- `tests/unit/controllers/`: Unit tests for `Main_Controller` methods
+- `tests/helpers/`: Mock objects, fixtures, and test utilities
+- `tests/setup.js`: Global test configuration
+
+**Running Tests:**
+```bash
+npm test                    # Run all tests
+npm test -- --watch        # Watch mode
+npm test -- --coverage     # With coverage report
+```
+
+See `README_TESTING.md` for detailed testing documentation.
+
+## Documentation
+
+- **`ASSESSMENT.md`**: Comprehensive code audit detailing what's working, what needs improvement, and step-by-step improvement plans
+- **`REFACTORING_PLAN.md`**: Detailed refactoring plan for long methods, including progress tracking and test plans
+- **`README_TESTING.md`**: Testing setup and usage instructions
+- **`INSTALL_NODE.md`**: Node.js installation instructions for macOS
 
 ## Browser Compatibility
 
 - Modern browsers with ES6 support
 - Mobile browsers (iOS Safari, Chrome Mobile)
 - Touch event support required for mobile controls
+
+## Project Status
+
+✅ **Refactoring Complete**: All three phases of method extraction refactoring are complete
+✅ **Tests Passing**: 87 tests across 9 test suites, all passing
+✅ **Code Quality**: Improved maintainability with extracted methods and comprehensive tests
+✅ **Documentation**: Complete assessment and refactoring documentation
 
 ## License
 
