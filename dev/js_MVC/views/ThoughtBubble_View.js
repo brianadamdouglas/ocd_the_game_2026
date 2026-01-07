@@ -40,7 +40,6 @@ class ThoughtBubble_View extends Tile_View {
 	$('body').append(newDiv);//appends the newly created div into the container. 
 	this._div = $('#'+id);//making the jQuery selection reference
 	this._div.addClass(className);
-	/* adding image subclass which adds the images into the currenly empty div*/
 	
 	
 	var imagesData = {
@@ -97,14 +96,7 @@ class ThoughtBubble_View extends Tile_View {
 	*/ 
 	hideBubble(animation) {
 		var reference = this;
-		this._div.fadeOut( "fast", function() { reference.bubbleHidden(animation);});//animation.resetFrames();
-  /* var reference = this;
-  var options = {
-  	duration: 50,
-  	easing: 'swing',
-  	complete:jQuery.proxy(this.bubbleHidden, this)
-	};
-  this._div.fadeOut(options); // */
+		this._div.fadeOut( "fast", function() { reference.bubbleHidden(animation);});
   
 }
 
@@ -113,7 +105,6 @@ class ThoughtBubble_View extends Tile_View {
 	* 
 	*/    
 	bubbleHidden(animation){
-		/* this._OCDReference.respondedOCDTrigger(); */
 		g_eventHandler.dispatchAnEvent("respondedOCDTrigger",{});
 		g_eventHandler.dispatchAnEventOneTarget("resetFrames",{target:animation});
 	}

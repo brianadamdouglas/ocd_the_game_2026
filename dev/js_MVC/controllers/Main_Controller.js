@@ -670,42 +670,59 @@ class Main_Controller extends Controller {
 
 
 	/**
+	* @description Calculates thought intensity based on the interacted object's thought type
+	* @param {Object} interactedObject The object that was interacted with
+	* @return {Number} The intensity value for the thought
+	*/
+	calculateThoughtIntensity(interactedObject){
+		if(interactedObject.getThoughtType() === "frontDoor"){
+			return 1;
+		} else {
+			return this.getRandomInt(1, 4);
+		}
+	}
+
+	/**
+	* @description Processes interaction results and triggers thoughts if appropriate
+	* @param {Array} results Array of interaction results
+	* @param {Object} target Optional target object
+	*/
+	processInteractionResults(results, target){
+		for(let i = 0; i < results.length; i++){
+			this.interactionResponse(results[i].sprite, results[i].direction);
+			const interactedObject = (target === undefined) ? 
+				results[i].interactedObject._classReference : target;
+			
+			if(this.getRandomInt(0, 4) !== 1){
+				if(interactedObject.getThoughtType() !== undefined){
+					const intensity = this.calculateThoughtIntensity(interactedObject);
+					this.interactionExtendedActions(interactedObject, intensity);
+				}
+			}
+		}
+	}
+
+	/**
 * @description Player interacts with a stationary object, such as an OnOffTile. The item will activate if they are within the specified distance for interactions.
 	* In the mobile version this occurs by the user touching the object they want to activate.
 	* The item will lift if they are within the specified distance for interactions.
 * @param {Interactive Tile} target // Interactive Tile or its children( OnOff, OnOffController)
 	*/
 	interactWithStationaryItem(target){ //boolean
-	this._player.stopWalk();
-	this._player.startInteract();	
-	
-	let results;
-	if(target === undefined){
-		results = this.checkForInteraction();	
-	}else{
-		results = this.checkForInteraction(target);
-	}
-	
-	if(results.length > 0){
+		this._player.stopWalk();
+		this._player.startInteract();
 		
-		for(let i = 0; i< results.length; i++){
-			this.interactionResponse(results[i].sprite,results[i].direction);
-		const interactedObject = (target === undefined)? results[i].interactedObject._classReference : target;
-			if(this.getRandomInt(0,4) !== 1){
-				let intensity;
-				if(interactedObject.getThoughtType() === "frontDoor"){
-					intensity = 1;
-				}else{
-					intensity = this.getRandomInt(1,4);
-				}
-				if(interactedObject.getThoughtType() !== undefined){
-					this.interactionExtendedActions(interactedObject, intensity);
-				}
-				
-			}
+		let results;
+		if(target === undefined){
+			results = this.checkForInteraction();
+		} else {
+			results = this.checkForInteraction(target);
+		}
+		
+		if(results.length > 0){
+			this.processInteractionResults(results, target);
 		}
 	}
-}
 
 
 

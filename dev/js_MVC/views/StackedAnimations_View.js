@@ -58,7 +58,6 @@ class StackedAnimations_View extends NonGraphic_View { // also used for the rota
     var newController = new AnimationSequence_Controller();
 	var newView = new Tile_View();
 	newController.bindView(newView,data);
-	//console.log(newController.getView());
 	return newController;
 
 	

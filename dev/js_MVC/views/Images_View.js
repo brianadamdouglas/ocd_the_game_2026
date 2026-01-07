@@ -35,7 +35,6 @@ class Images_View extends View {
 	O(container).appendChild(newDiv);//appends the newly created div into the container. 
 	this._div = $(`#imagesDiv${id}`);//making the jQuery selection reference		
 	
-	/* adding image subclass which adds the images into the currenly empty div*/
 	this.images = [];
 	if(Array.isArray(imgs)){
 		for(let i = 0; i< imgs.length; i++){
@@ -68,9 +67,6 @@ class Images_View extends View {
 	}
 	
 	this.setImagesState(startFrame);
-	
-	/* adding image subclass */
-	
 }
 
 	/**

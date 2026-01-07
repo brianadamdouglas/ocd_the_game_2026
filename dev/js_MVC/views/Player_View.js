@@ -36,9 +36,7 @@ class Player_View extends View {
 	
 	this._div = $('#'+id);//making the jQuery selection reference
 	this._div.addClass(className);
-	
-	/* adding image subclass which adds the images into the currenly empty div*/
-	
+
 	var imagesData = {
 		id:data.id, 
 		w:data.w, 
@@ -50,7 +48,6 @@ class Player_View extends View {
 	var newView = new Images_View();
 	this._imageController.bindView(newView,imagesData);
 	
-	/* adding image subclass */
 
 	this.setDimensions(width,height);
 	this.setLoc(x,y);

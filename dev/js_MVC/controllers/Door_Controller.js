@@ -2,7 +2,6 @@ class Door_Controller extends OnOffTileControl_Controller {
 	constructor() { 
 	super();
 	this._defaultVisibility;
-	//console.log("New Door");
 	this._className = "Door";
 	
 }
@@ -27,11 +26,9 @@ class Door_Controller extends OnOffTileControl_Controller {
   this._interactState = b;
   if(!this._interactState){
     this._view.getImageController().hideFrameNum(0);
-  	//this.images[0].hide();
   	this._view.setVisibility(false);
   }else{
     this._view.getImageController().showFrameNum(0);
-  	//this.images[0].show();
   	this._view.setVisibility(true);
   }
 }
@@ -44,11 +41,9 @@ class Door_Controller extends OnOffTileControl_Controller {
   this._interactState = ! this._interactState;
   if(!this._interactState){
     this._view.getImageController().hideFrameNum(0);
-  	//this.images[0].hide()
   	this._view.setVisibility(false);
   }else{
     this._view.getImageController().showFrameNum(0);
-  	//this.images[0].show();
   	this._view.setVisibility(true);
   }
 }
@@ -59,7 +54,9 @@ class Door_Controller extends OnOffTileControl_Controller {
 	*/ 
 	actedUpon(){
   this.interact();
-  this.listener.interact();
+  if(this.listener && this.listener.interact && typeof this.listener.interact === 'function'){
+  	this.listener.interact();
+  }
 }
 
 	resetState(){

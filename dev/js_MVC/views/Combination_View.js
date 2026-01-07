@@ -40,7 +40,6 @@ class Combination_View extends View {
 		bottom:0,
 		left:0
 	};
-	//this.setImagesState(startFrame);
 	this.setDimensions(width,height);
 	this.setLoc(x,y);
 	this.interfaceReferences = new Object();

@@ -30,13 +30,6 @@ class Tile_View extends View {
   	const imgs = data.imgs;
   	const startFrame = data.startFrame;
   	
-  	//added 2/24
-  	/* let IDOverride;
-  	if(data.IDOverride !== undefined){
-  		IDOverride = data.IDOverride;
-  		id = IDOverride;
-  	} */
-  	//added 2/24
 
   	
 	this.setID(id);
@@ -45,9 +38,7 @@ class Tile_View extends View {
 	O(container).appendChild(newDiv);//appends the newly created div into the container. 
 	this._div = $(`#${id}`);//making the jQuery selection reference
 	this._div.addClass(className);
-	/* adding image subclass which adds the images into the currenly empty div*/
-	
-	
+
 	const imagesData = {
 		id:data.id, 
 		w:data.w, 
@@ -59,7 +50,6 @@ class Tile_View extends View {
 	const newView = new Images_View();
 	this._imageController.bindView(newView,imagesData);
 	
-	/* adding image subclass */
 
 	this.setDimensions(width,height);
 	this.setDefaultLoc(x,y);

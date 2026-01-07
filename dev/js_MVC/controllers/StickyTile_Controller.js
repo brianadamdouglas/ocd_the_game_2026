@@ -108,8 +108,10 @@ class StickyTile_Controller extends OnOffTileControl_Controller { // stickTile i
 	*/   
 	actedUpon(){
   this.interact();
-  if(this.listener.getViewID() !== "sprite_tile0"){
-  	this.listener.interact();
+  if(this.listener && this.listener.getViewID && this.listener.getViewID() !== "sprite_tile0"){
+  	if(this.listener.interact && typeof this.listener.interact === 'function'){
+  		this.listener.interact();
+  	}
   }
   
 }
@@ -126,7 +128,6 @@ class StickyTile_Controller extends OnOffTileControl_Controller { // stickTile i
   switch(rotation){
 		case 0:
 			this.setViewCSS({ "top": (rect.top + (45 + player.getStickyOffset()) + this._holdingOffset[stringRotation][1]) + "px", "left": (rect.right - (this.getViewWidth()/2)+ this._holdingOffset[stringRotation][0])+"px" });
-			//this._div.animate( {left:"+=0", top:"+="+distance }, duration, 'swing',this.gameEngineMovementCallback);
 			this.setViewCSS({ WebkitTransform: 'rotate(' + 0 + 'deg)'});
 				 // For Mozilla browser: e.g. Firefox
 			this.setViewCSS({ '-moz-transform': 'rotate(' + 0 + 'deg)'});
@@ -163,7 +164,6 @@ class StickyTile_Controller extends OnOffTileControl_Controller { // stickTile i
 	switch(this._mainController.getStageRotation()){
 		case 0:
 			this.setViewCSS({ "top": (rect.top + 30) + "px", "left": (rect.left + 35)+"px" });
-			//this._div.animate( {left:"+=0", top:"+="+distance }, duration, 'swing',this.gameEngineMovementCallback);
 			this.setViewCSS({ WebkitTransform: 'rotate(' + 0 + 'deg)'});
 				 // For Mozilla browser: e.g. Firefox
 			this.setViewCSS({ '-moz-transform': 'rotate(' + 0 + 'deg)'});

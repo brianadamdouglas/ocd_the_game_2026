@@ -17,7 +17,6 @@ class AnimationFrame_View extends View {
 * @return 
 	*/
 	init(controller, data) {
-	/* console.log('new image frame'); */
 	this._controller = controller;
 	
   	const container = data.container; 
@@ -35,10 +34,8 @@ class AnimationFrame_View extends View {
 	O(container).appendChild(newDiv); 
 	const myImage = this.newImage(img,width,height);
 	this._div = $(`#${id}`);
-	this._div.addClass(className);//style the new div
-	this._div.append(myImage);//nesting an image tag inside the new div
-	/* console.log(this._div); */
-	//this._div.append(`<img src="${img}" />`);//nesting an image tag inside the new div
+	this._div.addClass(className);
+	this._div.append(myImage);
 	this._img = $(`#${this._id} img`);// making a jQuery selector that points to the Image Selector inside of the ID Selector
 	this.setDimensions(width,height);
 	this.setDefaultLoc(0,0);
@@ -87,9 +84,6 @@ class AnimationFrame_View extends View {
 	newImage(src, w, h){
  	const myImage = new Image(w, h);
  	myImage.load(src);
-	//myImage.src = src;
-	//console.log(src);
-	//console.log(myImage);
 	return (myImage);
 }
 

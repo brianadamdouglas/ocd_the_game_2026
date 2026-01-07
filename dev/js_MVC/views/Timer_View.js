@@ -40,15 +40,10 @@ class Timer_View extends Tile_View {
 	$('body').append(newDiv);//appends the newly created div into the container. 
 	this._div = $('#'+id);//making the jQuery selection reference
 	this._div.addClass(className);
-	/* adding image subclass which adds the images into the currenly empty div*/
-	
-	
-	/* adding image subclass */
 
 	this.setDimensions(width,height);
 	this.setLoc(x,y);
 	this._visible = true;
-	//console.log(this.getLoc());
 }
 
   

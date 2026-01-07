@@ -40,15 +40,12 @@ class MultiPaneMenu_View extends View {
 		bottom:0,
 		left:0
 	};
-	//this.setImagesState(startFrame);
 	this.setDimensions(width,height);
 	this.setDefaultLoc(x,y);
 	this.setLoc(x,y);
 	this.interfaceReferences = {};
 	this.currentPage = 0;
 	this._visible = false;
-	// Don't hide here - let the controller decide when to show/hide
-	// this.hide();
 }
 
   
