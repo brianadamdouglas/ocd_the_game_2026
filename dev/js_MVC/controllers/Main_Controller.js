@@ -1834,7 +1834,9 @@ class Main_Controller extends Controller {
 }
 
 	updateThoughtBubbleLoc(x,y){
-	this._thoughtBubble.setViewLoc(x,y);
+	if(this._thoughtBubble){
+		this._thoughtBubble.setViewLoc(x,y);
+	}
 }
 
 	updateMask(degrees, point){
