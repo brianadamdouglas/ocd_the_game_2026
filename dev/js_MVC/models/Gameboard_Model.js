@@ -248,15 +248,15 @@ class Gameboard_Model {
 	this.addStartScreenElement({type:'logo', x:27, y:25, w:321, h:301});
 	this.addStartScreenElement({type:'loading', x:120, y:342, w:154, h:23, IDOverride:"loading"});
 	this.addStartScreenElement({type:'instructionsButton', x:83, y:391, w:201, h:23, IDOverride:"instructions", buttonFunction:"openInstructions"});
-	this.addStartScreenElement({type:'disclaimerButton', x:96, y:444, w:175, h:23, IDOverride:"disclaimer", buttonFunction:"openDisclaimer"});
+	//this.addStartScreenElement({type:'disclaimerButton', x:96, y:444, w:175, h:23, IDOverride:"disclaimer", buttonFunction:"openDisclaimer"});
 	this.addStartScreenElement({type:'startButton', x:139, y:342, w:90, h:23, IDOverride:"start", buttonFunction:"startGame"});
 	this.addStartScreenElement({type:'trademark', x:31, y:493, w:306, h:39});
 	this.addInstructionsElement({type:'instructionImages', x:0, y:0, w:319, h:508});
 	this.addInstructionsElement({type:'instructionButtonBack', x:3, y:457, w:58, h:47, IDOverride:"back", buttonFunction:"previousPanel"});
 	this.addInstructionsElement({type:'instructionButtonForward', x:258, y:457, w:58, h:47, IDOverride:"forward", buttonFunction:"nextPanel"});
 	this.addInstructionsElement({type:'menuClose', x:258, y:3, w:58, h:47, IDOverride:"close", buttonFunction:"close"});
-	this.addDisclaimerElement({type:'disclaimerImage', x:0, y:0, w:319, h:508});
-	this.addDisclaimerElement({type:'menuClose', x:258, y:3, w:58, h:47, IDOverride:"close", buttonFunction:"close"});
+	//this.addDisclaimerElement({type:'disclaimerImage', x:0, y:0, w:319, h:508});
+	//this.addDisclaimerElement({type:'menuClose', x:258, y:3, w:58, h:47, IDOverride:"close", buttonFunction:"close"});
 }
 	generateStageElements(){
 	/* STAGE BACKGROUND */			
@@ -934,13 +934,13 @@ class Gameboard_Model {
 		logo:"tile",
 		startButton:"button",
 		instructionsButton:"button",
-		disclaimerButton:"button",
+		//disclaimerButton:"button",
 		trademark:"tile",
 		instructionImages:"tile",
 		instructionButtonBack:"button",
 		instructionButtonForward:"button",
 		menuClose:"button",
-		disclaimerImage:"tile",
+		//disclaimerImage:"tile",
 		volumeControl:"button",
 		sidewalk:"sidewalk",
 		exitGameBlocker:"obstacle",
@@ -1150,13 +1150,13 @@ class Gameboard_Model {
 		logo:this._directory + "logo.gif",
 		startButton:this._directory + "startButton.gif",
 		instructionsButton:this._directory + "instructionsButton.gif",
-		disclaimerButton:this._directory + "disclaimerButton.gif",
+		//disclaimerButton:this._directory + "disclaimerButton.gif",
 		trademark:this._directory + "trademark.gif",
 		instructionImages:[this._directory + "instructions1.png",this._directory + "instructions2.png",this._directory + "instructions3.png"],
 		instructionButtonBack:this._directory + "instructionButtonBack.gif",
 		instructionButtonForward:this._directory + "instructionButtonForward.gif",
 		menuClose:this._directory + "instructionButtonClose.gif",
-		disclaimerImage:this._directory + "disclaimer.gif",
+		//disclaimerImage:this._directory + "disclaimer.gif",
 		volumeControl:[this._directory + "volumeOn.gif",this._directory + "volumeOff.gif"],
 		sidewalk:this._directory + "emptyShim.gif",
 		exitGameBlocker:this._directory + "emptyShim.gif",

@@ -74,7 +74,11 @@ class StartMenu_Controller extends MultiPaneMenu_Controller {
 }
 
 	openDisclaimer(){
-  g_eventHandler.dispatchAnEventOneTarget("open",{target:this.externalControlls["disclaimerSlideshow"]});
+  if (this.externalControlls && this.externalControlls["disclaimerSlideshow"]) {
+    g_eventHandler.dispatchAnEventOneTarget("open",{target:this.externalControlls["disclaimerSlideshow"]});
+  } else {
+    console.warn("StartMenu_Controller: disclaimerSlideshow not found in externalControlls");
+  }
 }
 
 

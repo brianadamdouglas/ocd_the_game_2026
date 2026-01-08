@@ -87,15 +87,28 @@ class StartScreen_Controller extends Controller {
 		}
 		
 	}
-	this._startScreen.getInterfaceElement("instructions").getView().show();
-	this._startScreen.getInterfaceElement("disclaimer").getView().show();
+	// Show instructions button if it exists
+	const instructionsButton = this._startScreen.getInterfaceElement("instructions");
+	if (instructionsButton && instructionsButton.getView()) {
+		instructionsButton.getView().show();
+	}
+	
+	// Show disclaimer button if it exists (may be commented out)
+	const disclaimerButton = this._startScreen.getInterfaceElement("disclaimer");
+	if (disclaimerButton && disclaimerButton.getView()) {
+		disclaimerButton.getView().show();
+	}
 	
 	this.initializeInformationDisplay(this._mainModel.getInstructionElements());
 	this._startScreen.setExternalControlls("informationSlideshow", this._informationScreen);
 	
 	
-	this.initializeDisclaimerDisplay(this._mainModel.getDisclaimerElements());
-	this._startScreen.setExternalControlls("disclaimerSlideshow", this._disclaimerScreen);
+	// Only initialize disclaimer display if there are disclaimer elements
+	const disclaimerElements = this._mainModel.getDisclaimerElements();
+	if (disclaimerElements && disclaimerElements.length > 0) {
+		this.initializeDisclaimerDisplay(disclaimerElements);
+		this._startScreen.setExternalControlls("disclaimerSlideshow", this._disclaimerScreen);
+	}
 	
 	
 	// Start screen should be hidden initially and shown when initial load completes
