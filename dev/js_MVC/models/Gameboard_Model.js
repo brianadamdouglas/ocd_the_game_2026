@@ -247,9 +247,9 @@ class Gameboard_Model {
 	generateStartScreenElements(){
 	this.addStartScreenElement({type:'logo', x:27, y:25, w:321, h:301});
 	this.addStartScreenElement({type:'loading', x:120, y:342, w:154, h:23, IDOverride:"loading"});
-	this.addStartScreenElement({type:'startButton', x:139, y:342, w:90, h:23, IDOverride:"start", buttonFunction:"startGame"});
 	this.addStartScreenElement({type:'instructionsButton', x:83, y:391, w:201, h:23, IDOverride:"instructions", buttonFunction:"openInstructions"});
 	this.addStartScreenElement({type:'disclaimerButton', x:96, y:444, w:175, h:23, IDOverride:"disclaimer", buttonFunction:"openDisclaimer"});
+	this.addStartScreenElement({type:'startButton', x:139, y:342, w:90, h:23, IDOverride:"start", buttonFunction:"startGame"});
 	this.addStartScreenElement({type:'trademark', x:31, y:493, w:306, h:39});
 	this.addInstructionsElement({type:'instructionImages', x:0, y:0, w:319, h:508});
 	this.addInstructionsElement({type:'instructionButtonBack', x:3, y:457, w:58, h:47, IDOverride:"back", buttonFunction:"previousPanel"});
