@@ -3,76 +3,53 @@ function mobile_orientationChange(event) {
 		
 		if(event.orientation === "portrait"){
 			
-			// Original mask dimensions (375x559) - maintain aspect ratio
-			const originalMaskWidth = 375;
-			const originalMaskHeight = 559;
-			const maskAspectRatio = originalMaskWidth / originalMaskHeight; // ~0.67
-			
-			// Calculate responsive mask dimensions to fill entire viewport
-			// Fill viewport completely while maintaining aspect ratio
-			const viewportWidth = screen.width;
-			const viewportHeight = screen.height;
-			const viewportAspectRatio = viewportWidth / viewportHeight;
-			
-			// Calculate dimensions to fill viewport while maintaining game aspect ratio
-			let maskWidth, maskHeight;
-			if (viewportAspectRatio > maskAspectRatio) {
-				// Viewport is wider - fill height completely
-				maskHeight = viewportHeight;
-				maskWidth = Math.floor(maskHeight * maskAspectRatio);
-			} else {
-				// Viewport is taller - fill width completely
-				maskWidth = viewportWidth;
-				maskHeight = Math.floor(maskWidth / maskAspectRatio);
-			}
-			
-			const centerX = Math.floor(screen.width/2);
-			const centerY = Math.floor(maskHeight/2); // Center within mask height
+			const centerX = Math.floor(screen.width/2);//190//
+			const centerY = 300// this should be a global called centerY I will either need a lookup table or figure out it's ratio to the screen
 			const rotY = centerY;
-			const diffX = Math.ceil((screen.width - maskWidth)/2);
-			const diffY = Math.ceil((screen.height - maskHeight)/2);
+			const diffX = Math.ceil((screen.width - 375)/2); // this should be a global called maskWidth
+			const diffY = Math.ceil((screen.height - 559)/2); // this should be a global called maskHeight
 			const orientation = "portrait";
 
 			// Only update mask if it exists
 			if (g_mainGameController && g_mainGameController._mask) {
-				g_mainGameController.updateMask(0,[diffX,diffY]);
+				g_mainGameController.updateMask(0,[diffX,0]);
 			}
 			const maskElement = document.getElementById('mask');
 			if (maskElement) {
 				// Use DOMUtils if available, otherwise fall back to jQuery
 				if (typeof DOMUtils !== 'undefined') {
-					DOMUtils.css(maskElement, 'clip', `rect(${diffY}px, ${screen.width - diffX}px, ${screen.height - diffY}px, ${diffX}px)`);
+					DOMUtils.css(maskElement, 'clip', `rect(${0}px, ${screen.width - diffX}px, ${559}px, ${diffX}px)`);
 				} else if (typeof $ !== 'undefined') {
-					$("#mask").css('clip', `rect(${diffY}px, ${screen.width - diffX}px, ${screen.height - diffY}px, ${diffX}px)`);
+					$("#mask").css('clip', `rect(${0}px, ${screen.width - diffX}px, ${559}px, ${diffX}px)`);
 				}
 			}
 			
 			const screenWidth = screen.width;
-			const screenHeight = maskHeight; // Use calculated mask height
-			
-		    //place player
-		    const playerW = g_mainGameController._player.getViewWidth();
-		    //console.log(playerW);
-			const playerH = g_mainGameController._player.getViewHeight();
-			const playerX = centerX - (playerW/2);
-			const playerY = centerY - (playerH/2);
-			
-			const timerW = g_mainGameController._timer.getViewWidth();
-			const timerX = centerX - (timerW/2);
-			
-			const volumeWidth = g_mainGameController._volumeControl.getViewWidth();
-			const volumeHeight = g_mainGameController._volumeControl.getViewHeight();
+			const screenHeight = 559; // this should be a global called mask height;
 			
 			// Only update game elements if they exist
 			if (g_mainGameController) {
-				const volumePositionX =  screenWidth - volumeWidth - 5; // 5px padding
-				const volumePositionY =  (diffY + screenHeight) - volumeHeight - 5; // Position relative to mask bottom
+			    //place player
+			    const playerW = g_mainGameController._player ? g_mainGameController._player.getViewWidth() : 0;
+			    //console.log(playerW);
+				const playerH = g_mainGameController._player ? g_mainGameController._player.getViewHeight() : 0;
+				const playerX = centerX - (playerW/2);
+				const playerY = centerY - (playerH/2);
+				
+				const timerW = g_mainGameController._timer ? g_mainGameController._timer.getViewWidth() : 0;
+				const timerX = centerX - (timerW/2);
+				
+				const volumeWidth = g_mainGameController._volumeControl ? g_mainGameController._volumeControl.getViewWidth() : 0;
+				const volumeHeight = g_mainGameController._volumeControl ? g_mainGameController._volumeControl.getViewHeight() : 0;
+				
+				const volumePositionX =  screenWidth - volumeWidth;
+				const volumePositionY =  screenHeight - volumeHeight;
 				
 				if (g_mainGameController._player) {
 					g_mainGameController._player.setViewLoc(playerX,playerY);
 				}
 				if (g_mainGameController._timer) {
-					g_mainGameController._timer.setViewLoc(timerX,diffY); // Position relative to mask top
+					g_mainGameController._timer.setViewLoc(timerX,0);
 				}
 				if (g_mainGameController._volumeControl) {
 					g_mainGameController._volumeControl.setViewLoc(volumePositionX, volumePositionY);
