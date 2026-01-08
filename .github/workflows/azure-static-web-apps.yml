@@ -29,8 +29,9 @@ jobs:
           action: "upload"
           app_location: "/" # App source code path
           api_location: "" # Api source code path - leave empty if no API
-          output_location: "/" # Output location - same as source for static site
-          app_artifact_location: "/" # Artifact location - files are in root directory
+          output_location: "." # Output location - same folder as app (recommended)
+          app_artifact_location: "." # Artifact location - same folder as app
+          skip_app_build: true # Skip build step - this is a static HTML/JS site with no build process
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
