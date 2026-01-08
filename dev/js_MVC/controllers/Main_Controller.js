@@ -1741,36 +1741,49 @@ class Main_Controller extends Controller {
 	/**
 * @description Returns a rect(t,r,b,l) of the player on the stage
 * @return {Object} rect 
-	*/
+*/
 	getTransformedPoint(data, touchX, touchY, stageRotation){
+		// Account for game-container offset if it exists
+		// pageX/pageY are document-relative, but stage position might be container-relative
+		let adjustedTouchX = touchX;
+		let adjustedTouchY = touchY;
+		
+		const gameContainer = document.getElementById('game-container');
+		if (gameContainer) {
+			const containerRect = gameContainer.getBoundingClientRect();
+			// Adjust touch coordinates to be relative to the container
+			adjustedTouchX = touchX - (containerRect.left + window.pageXOffset);
+			adjustedTouchY = touchY - (containerRect.top + window.pageYOffset);
+		}
+		
 		const centerX = data.x +38;
 		const centerY = data.y +45;
 		let targetX, targetY, x, y;
 	switch(this._stageRotation){
 				  case 0:
-		targetX = touchX - this._mainModel.getRotaterX();
-		targetY = touchY - this._mainModel.getRotaterY();
+		targetX = adjustedTouchX - this._mainModel.getRotaterX();
+		targetY = adjustedTouchY - this._mainModel.getRotaterY();
 		x = centerX + targetX;
 		y = centerY + targetY;
 					  
 					  break;
 				  case 90:
-		targetX = touchX - this._mainModel.getRotaterX();
-		targetY = touchY - this._mainModel.getRotaterY();
+		targetX = adjustedTouchX - this._mainModel.getRotaterX();
+		targetY = adjustedTouchY - this._mainModel.getRotaterY();
 		x = centerX + targetY;
 		y = centerY - targetX;
 					  
 					  break;
 				  case 180:
-		targetX = touchX - this._mainModel.getRotaterX();
-		targetY = touchY - this._mainModel.getRotaterY();
+		targetX = adjustedTouchX - this._mainModel.getRotaterX();
+		targetY = adjustedTouchY - this._mainModel.getRotaterY();
 		x = centerX - targetX;
 		y = centerY - targetY;	
 					  			
 					  break;
 				  case 270:
-		targetX = touchX - this._mainModel.getRotaterX();
-		targetY = touchY - this._mainModel.getRotaterY();
+		targetX = adjustedTouchX - this._mainModel.getRotaterX();
+		targetY = adjustedTouchY - this._mainModel.getRotaterY();
 		x = centerX - targetY;
 		y = centerY + targetX;			  
 					  break;
