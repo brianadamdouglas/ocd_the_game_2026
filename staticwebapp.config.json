@@ -1,14 +1,8 @@
 {
   "navigationFallback": {
-    "rewrite": "/game.html",
+    "rewrite": "/index.html",
     "exclude": ["/images/*", "/css/*", "/dev/*"]
   },
-  "routes": [
-    {
-      "route": "/",
-      "rewrite": "/game.html"
-    }
-  ],
   "defaultHeaders": {
     "content-security-policy": "default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob:;"
   }
