@@ -8,25 +8,26 @@ function mobile_orientationChange(event) {
 			const originalMaskHeight = 559;
 			const maskAspectRatio = originalMaskWidth / originalMaskHeight; // ~0.67
 			
-			// Calculate responsive mask dimensions
-			// Use 90% of screen width, or maintain aspect ratio based on height
-			const maxMaskWidth = Math.floor(screen.width * 0.9);
-			const maxMaskHeight = Math.floor(screen.height * 0.9);
+			// Calculate responsive mask dimensions to fill entire viewport
+			// Fill viewport completely while maintaining aspect ratio
+			const viewportWidth = screen.width;
+			const viewportHeight = screen.height;
+			const viewportAspectRatio = viewportWidth / viewportHeight;
 			
-			// Calculate dimensions maintaining aspect ratio
+			// Calculate dimensions to fill viewport while maintaining game aspect ratio
 			let maskWidth, maskHeight;
-			if (maxMaskWidth / maskAspectRatio <= maxMaskHeight) {
-				// Width is the limiting factor
-				maskWidth = maxMaskWidth;
-				maskHeight = Math.floor(maskWidth / maskAspectRatio);
-			} else {
-				// Height is the limiting factor
-				maskHeight = maxMaskHeight;
+			if (viewportAspectRatio > maskAspectRatio) {
+				// Viewport is wider - fill height completely
+				maskHeight = viewportHeight;
 				maskWidth = Math.floor(maskHeight * maskAspectRatio);
+			} else {
+				// Viewport is taller - fill width completely
+				maskWidth = viewportWidth;
+				maskHeight = Math.floor(maskWidth / maskAspectRatio);
 			}
 			
 			const centerX = Math.floor(screen.width/2);
-			const centerY = Math.floor(screen.height/2); // Center vertically
+			const centerY = Math.floor(maskHeight/2); // Center within mask height
 			const rotY = centerY;
 			const diffX = Math.ceil((screen.width - maskWidth)/2);
 			const diffY = Math.ceil((screen.height - maskHeight)/2);
