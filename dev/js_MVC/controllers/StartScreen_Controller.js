@@ -88,15 +88,24 @@ class StartScreen_Controller extends Controller {
 		
 	}
 	// Show instructions button if it exists
-	const instructionsButton = this._startScreen.getInterfaceElement("instructions");
-	if (instructionsButton && instructionsButton.getView()) {
-		instructionsButton.getView().show();
+	try {
+		const instructionsButton = this._startScreen.getInterfaceElement("instructions");
+		if (instructionsButton && instructionsButton.getView) {
+			instructionsButton.getView().show();
+		}
+	} catch (e) {
+		console.warn("Instructions button not found:", e);
 	}
 	
 	// Show disclaimer button if it exists (may be commented out)
-	const disclaimerButton = this._startScreen.getInterfaceElement("disclaimer");
-	if (disclaimerButton && disclaimerButton.getView()) {
-		disclaimerButton.getView().show();
+	try {
+		const disclaimerButton = this._startScreen.getInterfaceElement("disclaimer");
+		if (disclaimerButton && disclaimerButton.getView) {
+			disclaimerButton.getView().show();
+		}
+	} catch (e) {
+		// Disclaimer button is commented out, so this is expected
+		console.log("Disclaimer button not found (expected if commented out)");
 	}
 	
 	this.initializeInformationDisplay(this._mainModel.getInstructionElements());
