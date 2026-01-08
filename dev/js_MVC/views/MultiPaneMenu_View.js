@@ -25,9 +25,10 @@ class MultiPaneMenu_View extends View {
 	const newDiv = document.createElement('div');
 	newDiv.id = id;
 	this._classContainer = classContainer;
-	// Handle container - if it's "body", use document.body, otherwise use O()
+	// Handle container - if it's "body", use game-container, otherwise use O()
 	if(container === "body") {
-		document.body.appendChild(newDiv);
+		var gameContainer = document.getElementById('game-container') || document.body;
+		gameContainer.appendChild(newDiv);
 	} else {
 		O(container).appendChild(newDiv);
 	}

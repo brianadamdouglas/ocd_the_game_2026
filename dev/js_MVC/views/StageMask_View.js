@@ -36,7 +36,8 @@ class StageMask_View extends Tile_View {
 	this.setID(id);
 	var newDiv = document.createElement('div');
 	newDiv.id = id;
-	$('body').append(newDiv);//appends the newly created div into the container. 
+	var container = document.getElementById('game-container') || document.body;
+	container.appendChild(newDiv);//appends the newly created div into the container. 
 	this._div = $('#'+id);//making the jQuery selection reference
 	this._div.addClass(className);
 

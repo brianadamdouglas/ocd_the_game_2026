@@ -32,6 +32,14 @@
 				align-items: center;
 				overflow: hidden;
 				touch-action: none;
+			}
+			
+			#game-container{
+				position: relative;
+				width: 375px; /* Original game width */
+				height: 559px; /* Original game height */
+				margin: 0 auto;
+				overflow: hidden;
 			}	
 			
 			.tile{

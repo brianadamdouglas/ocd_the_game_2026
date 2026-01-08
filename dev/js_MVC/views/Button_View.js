@@ -38,7 +38,8 @@ class Button_View extends Tile_View {
 		if(container !== "body"){
 			O(container).appendChild(newDiv);//appends the newly created div into the container. 
 		} else{
-			$('body').append(newDiv);;//appends the newly created div into the container.
+			var gameContainer = document.getElementById('game-container') || document.body;
+			gameContainer.appendChild(newDiv);//appends the newly created div into the container.
 		}
 		this._div = $('#'+myID);//making the jQuery selection reference
 		this._div.addClass(className);

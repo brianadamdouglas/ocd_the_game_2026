@@ -26,7 +26,8 @@ class Combination_View extends View {
 	newDiv.id = id;
 	this._classContainer = classContainer;
 	if(container === "body"){
-		$('body').append(newDiv); //appends the newly created div into the container. 
+		var gameContainer = document.getElementById('game-container') || document.body;
+		gameContainer.appendChild(newDiv); //appends the newly created div into the container. 
 	}else{
 		O(container).appendChild(newDiv);//appends the newly created div into the container. 
 	}
