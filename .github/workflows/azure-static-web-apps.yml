@@ -29,8 +29,8 @@ jobs:
           action: "upload"
           app_location: "/" # App source code path
           api_location: "" # Api source code path - leave empty if no API
-          output_location: "" # Let Azure auto-detect output location
-          app_artifact_location: "" # Let Azure auto-detect artifact location
+          output_location: "/" # Output location - same as source for static site
+          app_artifact_location: "/" # Artifact location - files are in root directory
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
