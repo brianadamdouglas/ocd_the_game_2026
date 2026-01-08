@@ -29,7 +29,7 @@ jobs:
           action: "upload"
           app_location: "/" # App source code path
           api_location: "" # Api source code path - leave empty if no API
-          output_location: "." # Output location - Oryx will copy files here
+          output_location: "." # Built app content directory - optional
           app_artifact_location: "." # Artifact location - where Oryx places the files
 
   close_pull_request_job:
