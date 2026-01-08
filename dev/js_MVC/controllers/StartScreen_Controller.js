@@ -62,15 +62,24 @@ class StartScreen_Controller extends Controller {
 	
 	for(let i = 0; i< screenInfo.length; i++){
 		const classAcronym = screenInfo[i].type;
+		const className = this._mainModel.getGameboardClasses()[classAcronym];
+		const imgs = this._mainModel.getGameboardImageLookup()[classAcronym];
+		
+		// Skip if class or image lookup is missing (e.g., commented out elements)
+		if (!className || !imgs) {
+			console.warn(`Skipping element ${classAcronym}: class or image lookup missing`);
+			continue;
+		}
+		
 		const dataNested = {
 			container:"startScreen", 
 			id:'screen_tile'+i, 
-			className:this._mainModel.getGameboardClasses()[classAcronym], 
+			className:className, 
 			x:screenInfo[i].x, 
 			y:screenInfo[i].y, 
 			w:screenInfo[i].w, 
 			h:screenInfo[i].h, 
-			imgs:this._mainModel.getGameboardImageLookup()[classAcronym], 
+			imgs:imgs, 
 			buttonFunction:screenInfo[i].buttonFunction, 
 			IDOverride:screenInfo[i].IDOverride,
 			startFrame:0  // Always show the first frame (index 0) for start screen images
@@ -249,10 +258,17 @@ class StartScreen_Controller extends Controller {
 	displayProgress(data){
 	this._loadedTotal += data.bytes;
 	
+	// Debug logging
+	if (!this.startScreenLoaded) {
+		const progress = (this._loadedTotal/this.initialLoadTotal) * 100;
+		console.log(`Loading progress: ${this._loadedTotal}/${this.initialLoadTotal} (${progress.toFixed(1)}%)`);
+	}
+	
 	if(this.startScreenLoaded){
 		g_eventHandler.dispatchAnEvent("addNextSprite",{});
 	}
 	if(!this.startScreenLoaded && (this._loadedTotal/this.initialLoadTotal) >= 1){
+		console.log("Initial load complete! Showing start screen.");
 		this.startScreenLoaded = true;
 		// Show the start screen now that initial assets are loaded
 		if(this._startScreen && this._startScreen.getView()) {
@@ -263,6 +279,21 @@ class StartScreen_Controller extends Controller {
 	
 	// Fallback: if we've loaded way past initial and start screen still isn't shown, show it anyway
 	if(!this.startScreenLoaded && (this._loadedTotal/this.initialLoadTotal) >= 1.5){
+		console.log("Fallback: Showing start screen after 150% of initial load.");
+		this.startScreenLoaded = true;
+		if(this._startScreen && this._startScreen.getView()) {
+			this._startScreen.getView().show();
+		}
+		if(!this._startScreenRefreshCalled) {
+			this._startScreenRefreshCalled = true;
+			g_startScreenRefresh();
+		}
+	}
+	
+	// Additional fallback: Show start screen after a reasonable amount of progress (e.g., 80%)
+	// This handles cases where initial load bytes might be set too high after removing elements
+	if(!this.startScreenLoaded && (this._loadedTotal/this.initialLoadTotal) >= 0.8 && this._loadedTotal > 100000){
+		console.log("Fallback: Showing start screen at 80% progress.");
 		this.startScreenLoaded = true;
 		if(this._startScreen && this._startScreen.getView()) {
 			this._startScreen.getView().show();
