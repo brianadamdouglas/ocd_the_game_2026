@@ -33,10 +33,18 @@ function mobile_orientationChange(event) {
 			const diffY = Math.ceil((screen.height - maskHeight)/2);
 			const orientation = "portrait";
 
-			g_mainGameController.updateMask(0,[diffX,diffY]);
+			// Only update mask if it exists
+			if (g_mainGameController && g_mainGameController._mask) {
+				g_mainGameController.updateMask(0,[diffX,diffY]);
+			}
 			const maskElement = document.getElementById('mask');
 			if (maskElement) {
-				DOMUtils.css(maskElement, 'clip', `rect(${diffY}px, ${screen.width - diffX}px, ${screen.height - diffY}px, ${diffX}px)`);
+				// Use DOMUtils if available, otherwise fall back to jQuery
+				if (typeof DOMUtils !== 'undefined') {
+					DOMUtils.css(maskElement, 'clip', `rect(${diffY}px, ${screen.width - diffX}px, ${screen.height - diffY}px, ${diffX}px)`);
+				} else if (typeof $ !== 'undefined') {
+					$("#mask").css('clip', `rect(${diffY}px, ${screen.width - diffX}px, ${screen.height - diffY}px, ${diffX}px)`);
+				}
 			}
 			
 			const screenWidth = screen.width;
@@ -55,19 +63,34 @@ function mobile_orientationChange(event) {
 			const volumeWidth = g_mainGameController._volumeControl.getViewWidth();
 			const volumeHeight = g_mainGameController._volumeControl.getViewHeight();
 			
-			const volumePositionX =  screenWidth - volumeWidth - 5; // 5px padding
-			const volumePositionY =  (diffY + screenHeight) - volumeHeight - 5; // Position relative to mask bottom
+			// Only update game elements if they exist
+			if (g_mainGameController) {
+				const volumePositionX =  screenWidth - volumeWidth - 5; // 5px padding
+				const volumePositionY =  (diffY + screenHeight) - volumeHeight - 5; // Position relative to mask bottom
+				
+				if (g_mainGameController._player) {
+					g_mainGameController._player.setViewLoc(playerX,playerY);
+				}
+				if (g_mainGameController._timer) {
+					g_mainGameController._timer.setViewLoc(timerX,diffY); // Position relative to mask top
+				}
+				if (g_mainGameController._volumeControl) {
+					g_mainGameController._volumeControl.setViewLoc(volumePositionX, volumePositionY);
+				}
+				if (g_mainGameController._rotater) {
+					g_mainGameController._rotater.setViewLoc(centerX,rotY);
+				}
+				if (g_gameboardModel) {
+					g_gameboardModel.setRotaterPosition(centerX,rotY);
+					if (g_mainGameController.updateThoughtBubbleLoc) {
+						g_mainGameController.updateThoughtBubbleLoc(g_gameboardModel.getRotaterX()  - 87, g_gameboardModel.getRotaterY()  - 190);
+					}
+				}
+			}
 			
-		    g_mainGameController._player.setViewLoc(playerX,playerY);
-		    g_mainGameController._timer.setViewLoc(timerX,diffY); // Position relative to mask top
-		    g_mainGameController._volumeControl.setViewLoc(volumePositionX, volumePositionY); 
-			g_mainGameController._rotater.setViewLoc(centerX,rotY);
-			g_gameboardModel.setRotaterPosition(centerX,rotY);
-			/* g_rotaterX = centerX;
-			g_rotaterY = rotY; */
-			g_mainGameController.updateThoughtBubbleLoc(g_gameboardModel.getRotaterX()  - 87, g_gameboardModel.getRotaterY()  - 190);	g_gameboardModel.getRotaterX() 	
-			
-			g_eventHandler.dispatchAnEvent("screenRotatedPortrait",{});
+			if (typeof g_eventHandler !== 'undefined') {
+				g_eventHandler.dispatchAnEvent("screenRotatedPortrait",{});
+			}
 	    }else if(event.orientation === "landscape"){
 	        // For landscape, show rotate screen message
 	        const leftX = Math.floor((screen.height - 559)/2); // Keep original for landscape message
@@ -99,13 +122,15 @@ if (typeof TouchUtils !== 'undefined') {
 
 // Call on initial load once game is ready
 window.addEventListener('load', () => {
-	// Wait a bit for game to initialize
+	// Wait for game to fully initialize (mask is created in init2)
 	setTimeout(() => {
-		if (typeof g_mainGameController !== 'undefined' && typeof screen !== 'undefined') {
+		if (typeof g_mainGameController !== 'undefined' && 
+		    g_mainGameController._mask && 
+		    typeof screen !== 'undefined') {
 			const initialOrientation = window.innerWidth > window.innerHeight ? 'landscape' : 'portrait';
 			mobile_orientationChange({ orientation: initialOrientation });
 		}
-	}, 100);
+	}, 500); // Increased delay to ensure mask is created
 });
 
 

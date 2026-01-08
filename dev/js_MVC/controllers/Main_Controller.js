@@ -1825,8 +1825,10 @@ class Main_Controller extends Controller {
 }
 
 	updateMask(degrees, point){
-	this._mask.setViewRotaion(degrees);
-	this._mask.setViewLoc(point[0],point[1]);
+	if(this._mask){
+		this._mask.setViewRotaion(degrees);
+		this._mask.setViewLoc(point[0],point[1]);
+	}
 }
 
 	showGameDisplay(){
