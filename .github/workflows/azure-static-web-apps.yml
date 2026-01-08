@@ -30,6 +30,7 @@ jobs:
           app_location: "/" # App source code path
           api_location: "" # Api source code path - leave empty if no API
           output_location: "/" # Output location same as app location for static site
+          app_artifact_location: "/" # Artifact location - files are in root directory
           app_build_command: "" # Empty build command - no build step needed
           skip_app_build: true # Skip build step - this is a static HTML/JS site with no build process
 
