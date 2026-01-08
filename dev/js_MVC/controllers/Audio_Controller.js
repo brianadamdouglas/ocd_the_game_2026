@@ -39,27 +39,35 @@ class Audio_Controller extends Tile_Controller {
 }
 
 	pauseAudio(){
-	this._view.getTrack().pause();
-	clearInterval(this._checkPlayheadPositionInterval);
-}
+		this._activeAudioClip = false;
+		this._view.getTrack().pause();
+		clearInterval(this._checkPlayheadPositionInterval);
+		this._checkPlayheadPositionInterval = null;
+	}
 
 	resumeAudio(){
-	if(this._activeAudioClip){
-		this._view.getTrack().play();
-		this.startCheckingPlayhead();
-	}
+		if(this._activeAudioClip){
+			const playPromise = this._view.getTrack().play();
+			// Handle promise rejection (e.g., autoplay policy)
+			if (playPromise !== undefined) {
+				playPromise.catch(error => {
+					console.warn('Audio play failed:', error);
+					this._activeAudioClip = false;
+				});
+			}
+			this.startCheckingPlayhead();
+		}
 	
-}
+	}
 
 	toggleAudio(){
-	if(this._view.getTrack().paused){
-		this._activeAudioClip = true;
-		this.resumeAudio();
-	}else{
-		this._activeAudioClip = false;
-		this.pauseAudio();
+		if(this._view.getTrack().paused){
+			this._activeAudioClip = true;
+			this.resumeAudio();
+		}else{
+			this.pauseAudio();
+		}
 	}
-}
 
 	seekAudio(position){
 	
