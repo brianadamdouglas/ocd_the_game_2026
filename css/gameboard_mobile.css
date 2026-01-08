@@ -207,11 +207,11 @@
 			
 			#mask{		  
 				position:absolute;
-				width:500px;
-				height:800px;
+				width:100vw; /* Make mask large enough to cover any screen */
+				height:100vh;
 				left:0px;
 				top:0px;
-          		clip: rect(0px,375px,559px,0px);
+          		clip: rect(0px,375px,559px,0px); /* Initial clip, will be updated by mobileResize.js */
 			}
 			
 			#swipeInterface{
